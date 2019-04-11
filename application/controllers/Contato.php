@@ -6,17 +6,12 @@ class Contato extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model('categorias_model','modelcategorias'); // Faz a chamada do model de categorias
-		$this->categorias = $this->modelcategorias->listar_categorias(); 
-						// variavel categorias que recebe o que foi resgatado pela função
 	}
 
 	public function index($enviado=null)
 	{
 		$this->load->helper('funcoes');
-		$dados['categorias'] = $this->categorias;
-		$this->load->model('publicacoes_model','modelpublicacoes');
-		$dados['postagem'] = $this->modelpublicacoes->destaques_home();
+		
 		// Insere os dados da postagem no array dados
 
 

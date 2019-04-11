@@ -16,20 +16,20 @@
                 <div class="col-md-12 row">
 
                     <?php
-                    foreach($autores as $autor) {
+                    foreach($usuarios as $usuario) {
                     ?>
                     <div class="col-md-4 col-xs-6">
                         <?php 
                             // Verifica se o usuário tem ou não imagem
-                            if($autor->img == 1) { 
-                                $mostraImg= "assets/frontend/img/usuarios/".md5($autor->id).".jpg"; 
+                            if($usuario->foto == 1) { 
+                                $mostraFoto= "assets/frontend/img/usuarios/".md5($usuario->id).".jpg"; 
                             } else {
-                                $mostraImg= "assets/frontend/img/semFoto.png"; 
+                                $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
                         ?>
-                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraImg) ?>" alt="">
+                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
                          <h4 class="text-center">
-                            <a href="<?php echo base_url('usuario/'.$autor->id.'/'.limpar($autor->nome)) ?>"><?php echo $autor->nome ?></a>
+                            <a href="<?php echo base_url('usuario/'.$usuario->id.'/'.limpar($usuario->nome)) ?>"><?php echo $usuario->nome ?></a>
                         </h4> 
                     </div>
 

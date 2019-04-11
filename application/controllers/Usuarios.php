@@ -6,23 +6,17 @@ class Usuarios extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model('categorias_model','modelcategorias'); 
-						// Faz a chamada do model dentro do costrutor para chamar ainda que hajam outras funções
-						// 'modelcategorias' é um alias, m apelido para o model
-		$this->categorias = $this->modelcategorias->listar_categorias(); 
-						// variavel categorias que recebe o que foi resgatado pela função
-		$this->load->model('usuarios_model', 'modelusuarios'); 
 	}
 	
 	public function index() {
 		$this->load->helper('funcoes');
-		$dados['categorias'] = $this->categorias;
-		// Cria uma variável array chamada dados para receber as categorias
-		// Poderia ter sido chamado direto porém é criada a variável por organização de código
 
+		$this->load->library('table'); // Chama a biblioteca de tabelas
 
-		$dados['autores'] = $this->modelusuarios->listar_autores();
+		// Carrega o Model de usuários
+		$this->load->model('usuarios_model', 'modelusuarios'); 
 		// Insere os dados da postagem no array dados
+		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
 
 
 		$dados['titulo'] = 'Usuários do sistema';
@@ -39,7 +33,7 @@ class Usuarios extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function usuario($id, $slug=null) {
+	/*public function usuario($id, $slug=null) {
 		$this->load->helper('funcoes');
 		$dados['categorias'] = $this->categorias;
 
@@ -58,5 +52,5 @@ class Usuarios extends CI_Controller {
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}
-
+*/
 }
