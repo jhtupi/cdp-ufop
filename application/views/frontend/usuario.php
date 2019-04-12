@@ -11,26 +11,30 @@
                 </h1>
 
                 <?php
-                    foreach($autores as $autor) {
+                    foreach($usuarios as $usuario) {
                 ?>
                      
                     <div class="col-md-4">
                         <?php 
                             // Verifica se o usuário tem ou não imagem
-                            if($autor->img == 1) { 
-                                $mostraImg= "assets/frontend/img/usuarios/".md5($autor->id).".jpg"; 
+                            if($usuario->foto == 1) { 
+                                $mostraFoto= "assets/frontend/img/usuarios/".md5($usuario->id).".jpg"; 
                             } else {
-                                $mostraImg= "assets/frontend/img/semFoto.png"; 
+                                $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
                         ?>
-                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraImg) ?>" alt="">
+                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
                     </div>
                 <div class="col-md-8 ">
                     <h2>
-                       <?php echo $autor->nome ?>
-                    </h2> 
+                       <?php echo $usuario->nome ?>
+                    </h2>
+                    <h3>
+                       DEPARTAMENTO
+                    </h3>  
                     <hr>
-                    <p><?php echo $autor->historico ?></p>
+                    <p><b>E-mail: </b><?php echo $usuario->email ?></p>
+                    <p><b>Telefone: </b>A CONFIGURAR</p>
 
                     <hr>
                 </div>

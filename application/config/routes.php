@@ -53,11 +53,7 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['categoria/(:num)/(:any)'] = 'categorias/index/$1/$2';
-// Base URL / algum numero / alguma palavra fazem referencia ao controlador 'categorias'/index/ variavel 1 (id) / variavel 2 (slug)
 
-$route['postagem/(:num)/(:any)'] = 'postagens/index/$1/$2';
-// Na URL, 'postagem' está como singular mas no Model definido está no plural
 
 $route['autor/(:num)/(:any)'] = 'sobrenos/autores/$1/$2';
 								// Controlador sobrenos no método autores

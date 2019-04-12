@@ -36,7 +36,8 @@ class Usuarios extends CI_Controller {
 	public function usuario($id, $slug=null) {
 		$this->load->helper('funcoes');
 
-		$dados['usuario'] = $this->modelusuarios->listar_usuario($id);
+		$this->load->model('usuarios_model', 'modelusuarios');
+		$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
 
 		$dados['titulo'] = 'Visualizar usuário';
 		$dados['subtitulo'] = '';
