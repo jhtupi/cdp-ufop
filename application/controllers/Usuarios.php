@@ -33,11 +33,10 @@ class Usuarios extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	/*public function usuario($id, $slug=null) {
+	public function usuario($id, $slug=null) {
 		$this->load->helper('funcoes');
-		$dados['categorias'] = $this->categorias;
 
-		$dados['autores'] = $this->modelusuarios->listar_autor($id);
+		$dados['usuario'] = $this->modelusuarios->listar_usuario($id);
 
 		$dados['titulo'] = 'Visualizar usuário';
 		$dados['subtitulo'] = '';
@@ -52,5 +51,5 @@ class Usuarios extends CI_Controller {
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}
-*/
+
 }
