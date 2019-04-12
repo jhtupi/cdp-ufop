@@ -11,7 +11,7 @@
 
                         <?php 
                             echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
-                            echo form_open('admin/usuarios/login'); // Abre o formulário apontando pro método de inserção no controlador
+                            echo form_open('usuarios/login'); // Abre o formulário apontando pro método de inserção no controlador
                         ?>
 
                             <fieldset>
@@ -33,12 +33,12 @@
                         <nav class ="navbar" style="margin: 0; border: 0; padding: 0;">
                             <ul class="nav navbar-nav">
                                 <li class=" nav">
-                                    <a href="<?php echo base_url('admin'); ?>">Esqueci minha senha</a> 
+                                    <a href="<?php echo base_url('esqueci_senha'); ?>">Esqueci minha senha</a> 
                                 </li>
                             </ul>     
                             <ul style="float: right;" class="nav navbar-nav">
                                 <li class=" nav">
-                                    <a href="<?php echo base_url('admin'); ?>">Criar usuário</a> 
+                                    <a href="<?php echo base_url('criar_usuario'); ?>">Criar usuário</a> 
                                 </li>
                             </ul>     
                         </nav>

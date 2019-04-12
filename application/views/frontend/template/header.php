@@ -44,7 +44,7 @@
                         <li><a href="<?php echo base_url('home') ?>">Minhas Comunidades</a></li>
                         <li><a href="<?php echo base_url('home') ?>">Próximas Reuniões</a></li>
                         <li><a href="<?php echo base_url('home') ?>">Reuniões Passadas</a></li>
-                        <li><a href="<?php echo base_url('home') ?>">Logout</a></li>
+                        <li><a href="<?php echo base_url('usuarios/logout') ?>">Logout</a></li>
                       </ul>
                     </li>
                 </ul>

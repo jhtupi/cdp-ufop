@@ -9,7 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo $titulo.' - '.$subtitulo ?></title>
+    <title><?php echo $titulo?>
+    <?php 
+    if($subtitulo != '') {      // Cria a condicional para puxar ou não o subtitulo do banco de dados
+        echo ' - '.$subtitulo;
+    }
+    ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url('assets/backend/css/bootstrap.min.css')?>" rel="stylesheet">

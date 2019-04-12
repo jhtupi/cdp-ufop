@@ -33,6 +33,15 @@
                         <?php 
                             echo form_close(); // Fecha o formulário
                         ?>
+                        <br>
+                        <nav class ="navbar" style="margin: 0; border: 0; padding: 0;float: ;">
+                            <ul class="nav navbar-nav">
+                                <li class=" nav">
+                                    <a href="<?php echo base_url('login'); ?>">Voltar ao login</a> 
+                                </li>
+                            </ul>     
+                              
+                        </nav>
 
                        
                     </div>

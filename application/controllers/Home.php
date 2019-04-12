@@ -5,6 +5,9 @@ class Home extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url('login'));
+		}
 	}
 	
 	public function index()
