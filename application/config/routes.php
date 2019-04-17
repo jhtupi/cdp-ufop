@@ -69,7 +69,7 @@ $route['criar_usuario'] = 'usuarios/criar_usuario'; // Rota para criar usuário
 $route['criar_reuniao'] = 'reunioes/criar_reuniao'; // Rota para criar usuário
 
 // Comunidades
-$route['criar_comunidade'] = 'reunioes/criar_comunidade'; // Rota para criar usuário
+$route['criar_comunidade'] = 'comunidades/criar_comunidade'; // Rota para criar usuário
 
 // Extras
 $route['contato/(:num)'] = 'contato/index/$1'; // Rota para o envio de formulário de contato
