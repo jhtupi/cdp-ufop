@@ -58,10 +58,18 @@ $route['translate_uri_dashes'] = FALSE;
 $route['autor/(:num)/(:any)'] = 'sobrenos/autores/$1/$2';
 								// Controlador sobrenos no método autores
 $route['usuario/(:num)/(:any)'] = 'usuarios/usuario/$1/$2';
-								// Controlador sobrenos no método autores
-								
+								// Controlador usuarios no método usuario
+
+// Login								
 $route['login'] = 'usuarios/pag_login'; // Rota para login
 $route['esqueci_senha'] = 'usuarios/esqueci_senha'; // Rota para esqueci minha senha
 $route['criar_usuario'] = 'usuarios/criar_usuario'; // Rota para criar usuário
 
+// Reuniões
+$route['criar_reuniao'] = 'reunioes/criar_reuniao'; // Rota para criar usuário
+
+// Comunidades
+$route['criar_comunidade'] = 'reunioes/criar_comunidade'; // Rota para criar usuário
+
+// Extras
 $route['contato/(:num)'] = 'contato/index/$1'; // Rota para o envio de formulário de contato

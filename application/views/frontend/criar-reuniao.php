@@ -17,9 +17,9 @@
                    <?php 
 
                         if ($enviado == 1) { // Caso o e-mail foi enviado, exibe a mensagem de confirmação
-                            echo '<div class="alert alert-success"> E-mail enviado! </div>';
+                            echo '<div class="alert alert-success"> Reunião criada! </div>';
                         } else if ($enviado == 2) {
-                            echo '<div class="alert alert-warning"> E-mail não enviado! </div>';
+                            echo '<div class="alert alert-warning"> Reunião não criada! </div>';
                         }
 
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação 

@@ -18,7 +18,7 @@ class Usuarios extends CI_Controller {
 
 		// Carrega o Model de usuários
 		$this->load->model('usuarios_model', 'modelusuarios'); 
-		$dados['usuarios'] = $this->modelusuarios->listar_autores();
+		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
 		
 		$dados['titulo'] = 'Painel de Controle';
 		$dados['subtitulo'] = 'Usuários';

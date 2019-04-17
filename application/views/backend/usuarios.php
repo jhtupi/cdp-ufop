@@ -99,22 +99,22 @@
                                         }
                                     </style>
                                     <?php 
-                                        $this->table->set_heading("Foto","Nome do Usuário","Alterar","Excluir"); 
+                                        $this->table->set_heading("Foto","Nome do Usuário", "E-mail","Alterar","Excluir"); 
                                         // Define as colunas da tabela
                                         foreach ($usuarios as $usuario) {
                                             $nomeuser= $usuario->nome;
                                             // Verifica se o usuário tem ou não imagem
-                                            if($usuario->img == 1) { 
+                                            if($usuario->foto == 1) { 
                                                 $fotouser= img("assets/frontend/img/usuarios/".md5($usuario->id).".jpg"); 
                                             } else {
                                                 $fotouser= img("assets/frontend/img/semFoto.png"); 
                                             }
-                                    
+                                            $emailuser = $usuario->email;
                                             $alterar= anchor(base_url('admin/usuarios/alterar/'.md5($usuario->id)), '<i class="fa fa-refresh fa-fw"></i> Alterar'); // Anchor serve para usar o helper
                                             $excluir= anchor(base_url('admin/usuarios/excluir/'.md5($usuario->id)), '<i class="fa fa-remove fa-fw"></i> Excluir'); // A vírgula serve de 'alias' 
                                                 // A função md5() criptografa o id da categoria
 
-                                            $this->table->add_row($fotouser,$nomeuser,$alterar,$excluir); // Define cada uma das linhas
+                                            $this->table->add_row($fotouser,$nomeuser,$emailuser,$alterar,$excluir); // Define cada uma das linhas
                                         }
 
                                         // Como vai ser exibida, a formatação da tabela
