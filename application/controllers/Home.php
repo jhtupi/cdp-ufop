@@ -14,6 +14,15 @@ class Home extends CI_Controller {
 	{
 		$this->load->helper('funcoes');
 
+		$this->load->model('reunioes_model', 'modelreunioes');
+		// O modelo de destaques é carregado aqui na função index pois não será requerido em toda pasta como as categorias que ficam no header e aside
+		$dados['reunioes'] = $this->modelreunioes->listar_reunioes_recentes();
+		// Insere os dados da postagem no array dados
+	
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+		
+
 	
 
 		$dados['titulo'] = 'Página Inicial';

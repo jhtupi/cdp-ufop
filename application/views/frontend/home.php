@@ -15,6 +15,37 @@
 
 
                 
-                <h1>Local de listagem das reuniões mais recentes</h1>
+                <?php
+                    foreach($reunioes as $reuniao) {
+                ?>
+                     <!-- Carrega a imagem caso houver-->
+                    <h2>
+                        <a href=""> <?php echo $reuniao->titulo ?></a>
+                    </h2>
+                    <p class="lead">
+                        Data: <a href=""> <?php echo $reuniao->data ?></a>
+                        Horário: <a href=""> <?php echo $reuniao->horario ?></a>
+                        <br>
+                        Comunidade: <a href=""><?php echo 'CONFIGURAR' ?></a>
+                    </p>
+                    <hr>
+                    <?php 
+                        if($reuniao->imagem == 1) { // Se houver imagem
+                            $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
+                    ?>
+                        <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
+                        <hr>    
+                    <?php 
+                    }
+                    ?>
+                
+                    <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                    <hr>
+
+
+                <?php
+                    }
+                ?>
 
             </div>

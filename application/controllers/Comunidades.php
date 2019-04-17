@@ -13,7 +13,7 @@ class Comunidades extends CI_Controller {
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
 
-		// Carrega o Model de usuários
+		// Carrega o Model de comunidades
 		$this->load->model('comunidades_model', 'modelcomunidades'); 
 		// Insere os dados da postagem no array dados
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();

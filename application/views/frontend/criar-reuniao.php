@@ -42,6 +42,14 @@
                         form_input($atribData).
                         (" </div>");
 
+                        $atribHorario= array('name'=>'txtHorario','id'=>'txtHorario','type' => 'time','class'=>'form-control','placeholder'=>'Horário', 
+                            'value' => set_value('txtHorario'));
+                        echo("<div class='form-group'>").
+                        form_label("Horario",'txtHorario').
+                        form_input($atribHorario).
+                        (" </div>");
+
+
 
                         $atribResumo= array('name'=>'txtResumo','id'=>'txtResumo','class'=>'form-control','placeholder'=>'Digite o resumo da sua reunião',
                             'value' => set_value('txtResumo'));
