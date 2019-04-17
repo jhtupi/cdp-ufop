@@ -14,12 +14,12 @@ class Comunidades extends CI_Controller {
 		$this->load->library('table'); // Chama a biblioteca de tabelas
 
 		// Carrega o Model de usuários
-		$this->load->model('usuarios_model', 'modelusuarios'); 
+		$this->load->model('comunidades_model', 'modelcomunidades'); 
 		// Insere os dados da postagem no array dados
-		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
 
 
-		$dados['titulo'] = 'Usuários do sistema';
+		$dados['titulo'] = 'Comunidades existentes';
 		$dados['subtitulo'] = '';
 
 		// Dados a serem enviados para o Cabeçalho
@@ -27,7 +27,7 @@ class Comunidades extends CI_Controller {
 		// Faz as chamadas dos templates dos views de header, footer, aside
 		$this->load->view('frontend/template/html-header', $dados); // Aqui a variável $dados é carregada na view
 		$this->load->view('frontend/template/header');
-		$this->load->view('frontend/usuarios');	// Chamada do conteúdo da página em si
+		$this->load->view('frontend/comunidades');	// Chamada do conteúdo da página em si
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
