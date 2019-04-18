@@ -76,7 +76,7 @@ class Usuarios extends CI_Controller {
 		$this->load->model('usuarios_model', 'modelusuarios');
 		//$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
 
-		$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
+		$dados['usuarios'] = $this->modelusuarios->meu_perfil($id);
 		$dados['titulo'] = 'Meu Perfil';
 		$dados['subtitulo'] = '';
 		// Dados a serem enviados para o Cabeçalho

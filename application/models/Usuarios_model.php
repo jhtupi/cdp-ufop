@@ -33,5 +33,12 @@ class Usuarios_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function meu_perfil($id) {
+		$this->db->select('id,nome,user,email,foto,telefone,cpf,senha');
+		$this->db->from('usuario'); // seleciona a tabela
+		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
+		return $this->db->get()->result();
+	}
+
 
 }
