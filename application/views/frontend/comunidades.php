@@ -20,7 +20,7 @@
                 ?>
                      
                     <h2>
-                        <a href="<?php echo base_url('comunidades')?>"> <?php echo $comunidade->tema ?></a>
+                        <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>"> <?php echo $comunidade->tema ?></a>
                     </h2>
                     <p class="lead">
                         criada por <a href=""><?php echo 'CONFIGURAR' ?></a>

@@ -36,10 +36,10 @@ class Comunidades extends CI_Controller {
 	public function comunidade($id) {
 		$this->load->helper('funcoes');
 
-		$this->load->model('reunioes_model', 'modelreunioes');
-		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
 
-		$dados['titulo'] = 'Visualizar reunião';
+		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';
 		// Dados a serem enviados para o Cabeçalho
 
@@ -47,7 +47,7 @@ class Comunidades extends CI_Controller {
 		// Faz as chamadas dos templates dos views de header, footer, aside
 		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
-		$this->load->view('frontend/reuniao');	
+		$this->load->view('frontend/comunidade');	
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
