@@ -21,8 +21,6 @@ class Home extends CI_Controller {
 	
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
-		
-
 	
 
 		$dados['titulo'] = 'Página Inicial';

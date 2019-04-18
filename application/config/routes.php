@@ -54,11 +54,10 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-
-$route['autor/(:num)/(:any)'] = 'sobrenos/autores/$1/$2';
-								// Controlador sobrenos no método autores
-$route['usuario/(:num)/(:any)'] = 'usuarios/usuario/$1/$2';
-								// Controlador usuarios no método usuario
+// Usuários
+$route['usuario/(:num)/(:any)'] = 'usuarios/usuario/$1/$2'; // Controlador usuarios no método usuario
+$route['meu_perfil/(:num)'] = 'usuarios/meu_perfil/$1'; // Rota para meu perfil
+								
 
 // Login								
 $route['login'] = 'usuarios/pag_login'; // Rota para login

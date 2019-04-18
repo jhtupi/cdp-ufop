@@ -70,6 +70,27 @@ class Usuarios extends CI_Controller {
 		$this->load->view('backend/template/html-footer');
 	}
 
+	public function meu_perfil($id) {
+		$this->load->helper('funcoes');
+
+		$this->load->model('usuarios_model', 'modelusuarios');
+		//$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
+
+		$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
+		$dados['titulo'] = 'Meu Perfil';
+		$dados['subtitulo'] = '';
+		// Dados a serem enviados para o Cabeçalho
+
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('frontend/template/html-header', $dados); 
+		$this->load->view('frontend/template/header');
+		$this->load->view('frontend/meu-perfil');	
+		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/footer');
+		$this->load->view('frontend/template/html-footer');
+	}
+
 
 
 
