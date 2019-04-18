@@ -20,11 +20,11 @@
                 ?>
                      <!-- Carrega a imagem caso houver-->
                     <h2>
-                        <a href=""> <?php echo $reuniao->titulo ?></a>
+                        <a href="<?php echo base_url('reuniao/'.$reuniao->id)?>"> <?php echo $reuniao->titulo ?></a>
                     </h2>
                     <p class="lead">
-                        Data: <a href=""> <?php echo $reuniao->data ?></a>
-                        Horário: <a href=""> <?php echo $reuniao->horario ?></a>
+                        Data: <a> <?php echo $reuniao->data ?></a>
+                        Horário: <a> <?php echo $reuniao->horario ?></a>
                         <br>
                         Comunidade: <a href=""><?php echo 'CONFIGURAR' ?></a>
                     </p>

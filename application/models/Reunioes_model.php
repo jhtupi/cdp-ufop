@@ -16,7 +16,7 @@ class Reunioes_model extends CI_Model {
 		parent::__construct();
 	}
 
-
+	
 	public function listar_reuniao($id) {
 		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade');
 		$this->db->from('reuniao'); // seleciona a tabela

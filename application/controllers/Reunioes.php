@@ -8,26 +8,22 @@ class Reunioes extends CI_Controller {
 
 	}
 	
-	public function index() {
+	
+	public function reuniao($id) {
 		$this->load->helper('funcoes');
 
-		$this->load->library('table'); // Chama a biblioteca de tabelas
+		$this->load->model('reunioes_model', 'modelreunioes');
+		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
 
-		// Carrega o Model de usuários
-		$this->load->model('usuarios_model', 'modelusuarios'); 
-		// Insere os dados da postagem no array dados
-		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
-
-
-		$dados['titulo'] = 'Usuários do sistema';
+		$dados['titulo'] = 'Visualizar reunião';
 		$dados['subtitulo'] = '';
-
 		// Dados a serem enviados para o Cabeçalho
 
+
 		// Faz as chamadas dos templates dos views de header, footer, aside
-		$this->load->view('frontend/template/html-header', $dados); // Aqui a variável $dados é carregada na view
+		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
-		$this->load->view('frontend/usuarios');	// Chamada do conteúdo da página em si
+		$this->load->view('frontend/reuniao');	
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
