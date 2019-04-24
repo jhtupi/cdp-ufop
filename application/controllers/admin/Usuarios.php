@@ -5,14 +5,22 @@ class Usuarios extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+
+		// Adiciona a proteção da página
+
+		// Se a variável de sessão não existir, redirecionar para o login
+		if(!$this->session->userdata('logado')) { 
+			redirect(base_url());
+		}
+
+		// Se o usuário não for administrador
+		if(!$this->session->userdata('userlogado')->adm == 1) {
+			redirect(base_url());	
+		}
 	}
 	
 	public function index()
 	{
-		// Adiciona a proteção da página
-		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url());
-		}
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
 

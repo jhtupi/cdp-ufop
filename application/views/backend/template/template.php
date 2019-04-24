@@ -21,7 +21,7 @@
                             <a href="<?php echo base_url('admin/usuarios') ?>"><i class="fa fa-user fa-fw"></i> Usuários</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('admin') ?>"><i class="fa fa-users fa-fw"></i> Comunidades</a>
+                            <a href="<?php echo base_url('admin/comunidades') ?>"><i class="fa fa-users fa-fw"></i> Comunidades</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('admin') ?>"><i class="fa fa-comments fa-fw"></i> Reuniões</a>
