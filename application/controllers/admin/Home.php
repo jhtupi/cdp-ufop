@@ -7,8 +7,8 @@ class Home extends CI_Controller {
 		parent::__construct();
 
 		// Adiciona a proteção da página
-		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url('admin/login'));
+		if(!$this->session->userdata('logado') && $this->session->userdata('userlogado')->adm == 1) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
 		}
 	}
 	

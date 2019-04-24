@@ -18,6 +18,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h2>Bem vindo ao sistema <?php echo $this->session->userdata('userlogado')->nome; ?>!</h2>
+                                    <h2>Seu ADM: <?php echo $this->session->userdata('userlogado')->adm ?></h2>
                                 </div>
                                 
                             </div>

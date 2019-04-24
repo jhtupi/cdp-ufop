@@ -134,6 +134,13 @@ class Usuarios extends CI_Controller {
 			if($userlogado){
 				$dadosSessao['userlogado'] = $userlogado[0];	// Recebe todos os dados da tabela 'usuário'
 				$dadosSessao['logado'] = TRUE;	// Confirmação que o usuário está logado no sistema
+
+				// Verifica se o usuário é administrador
+				if($userlogado->adm == 1) {
+					$dadosSessao['adm'] = 1;
+				} else {
+					$dadosSessao['adm'] = 0;
+				}
 				$this->session->set_userdata($dadosSessao); // Envia os dados do usuário logado à sessão
 				redirect(base_url()); // Redireciona o usuário para página de administrador
 			} else { // Não encontrou usuário e senhas iguais

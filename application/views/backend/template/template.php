@@ -33,7 +33,7 @@
                             <a href="<?php echo base_url() ?>"><i class="fa fa-coffee fa-fw"></i> Voltar ao CdP-UFOP</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('admin/usuarios/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Sair do Sistema</a>
+                            <a href="<?php echo base_url('usuarios/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Sair do Sistema</a>
                         </li>
                     </ul>
                 </div>
