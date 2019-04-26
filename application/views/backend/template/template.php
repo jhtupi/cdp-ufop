@@ -24,7 +24,7 @@
                             <a href="<?php echo base_url('admin/comunidades') ?>"><i class="fa fa-users fa-fw"></i> Comunidades</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('admin') ?>"><i class="fa fa-comments fa-fw"></i> Reuniões</a>
+                            <a href="<?php echo base_url('admin/reunioes') ?>"><i class="fa fa-comments fa-fw"></i> Reuniões</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('admin') ?>"><i class="fa fa-file-archive-o fa-fw"></i> Materiais</a>

@@ -12,7 +12,8 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           <?php echo 'Adicionar novo usuário' ?>
+                           <?php echo 'Adicionar nova reunião' ?>
+
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -21,25 +22,38 @@
                                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
                                         echo form_open(base_url('criar_usuario/criar_usuario')); // Abre o formulário apontando pro método de inserção no controlador
                                     ?>
-                                    <!-- Tema -->
+                                    <!-- Título -->
                                     <div class="form-group">
-                                        <label id="txt-tema">Tema da comunidade</label>
-                                        <input type="text"id="txt-tema" name="txt-tema" class="form-control" placeholder="Digite o tema da comunidade" value= "<?php echo set_value('txt-tema') ?>">
+                                        <label id="txt-titulo">Título da reunião</label>
+                                        <input type="text"id="txt-titulo" name="txt-titulo" class="form-control" placeholder="Digite o título da reunião" value= "<?php echo set_value('txt-titulo') ?>">
                                     </div>
 
-                                    <!-- Descrição -->
+                                     <!-- IMG -->
                                     <div class="form-group">
-                                        <label id="txt-descricao">Descrição</label>
-                                        <textarea id="txt-descricao" name="txt-descricao" class="form-control" placeholder="Digite a descrição da sua comunidade" value= "<?php echo set_value('txt-descricao') ?>"></textarea>
-                                    </div>
-
-                                    <!-- IMG -->
-                                    <div class="form-group">
-                                        <label id="txt-img">Imagem da comunidade</label>
+                                        <label id="txt-img">Imagem da Reunião</label>
                                         <input type="text" id="txt-img" name="txt-img" class="form-control" placeholder="A CONFIGURAR" value= "<?php echo set_value('txt-img') ?>">
                                     </div>
 
-                                    <button type="submit" class="btn btn-default">Criar Comunidade</button>
+                                    <!-- Data -->
+                                    <div class="form-group">
+                                        <label id="txt-data">Data da reunião</label>
+                                        <input type="date"id="txt-data" name="txt-data" class="form-control" placeholder="Digite o título da reunião" value= "<?php echo set_value('txt-data') ?>">
+                                    </div>
+
+                                    <!-- Horário -->
+                                    <div class="form-group">
+                                        <label id="txt-hora">Horário da reunião</label>
+                                        <input type="time"id="txt-hora" name="txt-hora" class="form-control" placeholder="Digite o título da reunião" value= "<?php echo set_value('txt-hora') ?>">
+                                    </div>
+
+                                    <!-- Resumo -->
+                                    <div class="form-group">
+                                        <label id="txt-resumo">Resumo</label>
+                                        <textarea id="txt-resumo" name="txt-resumo" class="form-control" placeholder="Digite o resumo da sua reunião" value= "<?php echo set_value('txt-resumo') ?>"></textarea>
+                                    </div>
+
+                                   
+                                    <button type="submit" class="btn btn-default">Criar Reunião</button>
                                     
                                     <?php 
                                         echo form_close(); // Fecha o formulário
@@ -53,7 +67,7 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-6 -->
+                <!-- /.col-lg-12 -->
 
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -69,22 +83,24 @@
                                         }
                                     </style>
                                     <?php 
-                                        $this->table->set_heading("Imagem","Tema","Descrição","Alterar","Excluir"); 
+                                        $this->table->set_heading("Imagem","Título","Resumo","Alterar","Excluir"); 
                                         // Define as colunas da tabela
-                                        foreach ($comunidades as $comunidade) {
+                                        foreach ($reunioes as $reuniao) {
                                             // Verifica se o usuário tem ou não imagem
-                                            if($comunidade->imagem == 1) { 
-                                                $imgcomun= img("assets/frontend/img/comunidades/".md5($comunidade->id).".jpg"); 
+                                            if($reuniao->imagem == 1) { 
+                                                $imgreun= img("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg"); 
                                             } else {
-                                                $imgcomun= img("assets/frontend/img/semFoto.png"); 
+                                                $imgreun= img("assets/frontend/img/semFoto.png"); 
                                             }
-                                            $temacomun = $comunidade->tema;
-                                            $desccomun = $comunidade->descricao;
-                                            $alterar= anchor(base_url('admin/comunidades/alterar/'.md5($comunidade->id)), '<i class="fa fa-refresh fa-fw"></i> Alterar'); // Anchor serve para usar o helper
-                                            $excluir= anchor(base_url('admin/comunidades/excluir/'.md5($comunidade->id)), '<i class="fa fa-remove fa-fw"></i> Excluir'); // A vírgula serve de 'alias' 
+
+                                            $tituloreun = $reuniao->titulo;
+                                            $resumoreun = $reuniao->resumo;
+                                            
+                                            $alterar= anchor(base_url('admin/reunioes/alterar/'.md5($reuniao->id)), '<i class="fa fa-refresh fa-fw"></i> Alterar'); // Anchor serve para usar o helper
+                                            $excluir= anchor(base_url('admin/reunioes/excluir/'.md5($reuniao->id)), '<i class="fa fa-remove fa-fw"></i> Excluir'); // A vírgula serve de 'alias' 
                                                 // A função md5() criptografa o id da categoria
 
-                                            $this->table->add_row($imgcomun,$temacomun,$desccomun,$alterar,$excluir); // Define cada uma das linhas
+                                            $this->table->add_row($imgreun,$tituloreun,$resumoreun,$alterar,$excluir); // Define cada uma das linhas
                                         }
 
                                         // Como vai ser exibida, a formatação da tabela

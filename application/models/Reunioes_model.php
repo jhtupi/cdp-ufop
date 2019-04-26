@@ -24,6 +24,13 @@ class Reunioes_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function listar_reunioes() {
+		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade');
+		$this->db->from('reuniao'); 
+		$this->db->order_by('titulo', 'ASC');
+		return $this->db->get()->result();
+	}
+
 	public function listar_reunioes_recentes() {
 		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade');
 		$this->db->from('reuniao'); 

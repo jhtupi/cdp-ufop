@@ -25,8 +25,8 @@ class Reunioes extends CI_Controller {
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
 
-		// Carrega o Model de comunidades
-		$this->load->model('comunidades_model', 'modelcomunidades'); 
+		// Carrega o Model de reunioes
+		$this->load->model('reunioes_model', 'modelreunioes'); 
 		// Insere os dados da postagem no array dados
 		$dados['reunioes'] = $this->modelreunioes->listar_reunioes();
 
