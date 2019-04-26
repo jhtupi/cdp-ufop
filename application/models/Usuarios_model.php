@@ -40,5 +40,20 @@ class Usuarios_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function adicionar($nome,$email,$cpf,$telefone,$user,$senha) {
+		// Adiciona as variáveis como colunas da matriz $dados
+		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar, no caso, 'usuario'
+		$dados['nome'] = $nome;
+		$dados['user'] = $user;
+		$dados['email'] = $email;
+		$dados['telefone'] = $telefone;
+		$dados['cpf'] = $cpf;
+		$dados['senha'] = md5($senha); // Criptografa a senha por segurança
+		$dados['adm'] = 0;
+		$dados['prof'] = 1;
+									
+		return $this->db->insert('usuario', $dados); // Insere na tabela usuario os dados da variável na tabela
+	}
+
 
 }

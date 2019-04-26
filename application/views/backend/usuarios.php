@@ -45,12 +45,6 @@
                                         <input type="text" id="txt-telefone" name="txt-telefone" class="form-control" placeholder="Digite o telefone do usuário..." value= "<?php echo set_value('txt-telefone') ?>">
                                     </div>
 
-                                    <!-- Foto -->
-                                    <div class="form-group">
-                                        <label id="txt-foto">Foto do Usuário</label>
-                                        <input type="text" id="txt-foto" name="txt-foto" class="form-control" placeholder="Foto do usuário..." value= "<?php echo set_value('txt-foto') ?>">
-                                    </div>
-
                                     <!-- User -->
                                     <div class="form-group">
                                         <label id="txt-user">User</label>

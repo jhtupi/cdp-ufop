@@ -10,8 +10,15 @@
                     <div class="panel-body">
 
                         <?php 
+
+                            if ($enviado == 1) { // Caso o usuário foi criado, exibe a mensagem de confirmação
+                                echo '<div class="alert alert-success"> Usuário criado! </div>';
+                            } else if ($enviado == 2) {
+                                echo '<div class="alert alert-warning"> Usuário não criado! </div>';
+                            }
+
                             echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
-                            echo form_open(base_url('criar_usuario/criar_usuario')); // Abre o formulário apontando pro método de inserção no controlador
+                            echo form_open(base_url('usuarios/inserir')); // Abre o formulário apontando pro método de inserção no controlador
                         ?>
                         <!-- Nome -->
                         <div class="form-group">
@@ -35,12 +42,6 @@
                         <div class="form-group">
                             <label id="txt-telefone">Telefone do Usuário</label>
                             <input type="text" id="txt-telefone" name="txt-telefone" class="form-control" placeholder="Digite o telefone do usuário..." value= "<?php echo set_value('txt-telefone') ?>">
-                        </div>
-
-                        <!-- Foto -->
-                        <div class="form-group">
-                            <label id="txt-foto">Foto do Usuário</label>
-                            <input type="text" id="txt-foto" name="txt-foto" class="form-control" placeholder="Foto do usuário..." value= "<?php echo set_value('txt-foto') ?>">
                         </div>
 
                         <!-- User -->

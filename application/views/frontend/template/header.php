@@ -39,7 +39,13 @@
                     <li class="dropdown" style= "float: right;">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Área do Usuário <span class="caret"></span></a>
                        <ul class="dropdown-menu">
-                        <li><a href="<?php echo base_url('admin') ?>">Painel Administrativo</a></li>
+                        <?php
+                            if ($this->session->userdata('userlogado')->adm == 1) { // Caso o usuário seja administrador
+                        ?>
+                            <li><a href="<?php echo base_url('admin') ?>">Painel Administrativo</a></li>
+                        <?php
+                            } else {}
+                        ?>
                         <li><a href="<?php echo base_url('meu_perfil/'.$this->session->userdata('userlogado')->id)?>">Meu Perfil</a></li>
                         <li><a href="<?php echo base_url('home') ?>">Minhas Comunidades</a></li>
                         <li><a href="<?php echo base_url('home') ?>">Próximas Reuniões</a></li>

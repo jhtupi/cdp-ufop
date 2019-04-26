@@ -63,6 +63,7 @@ $route['meu_perfil/(:num)'] = 'usuarios/meu_perfil/$1'; // Rota para meu perfil
 $route['login'] = 'usuarios/pag_login'; // Rota para login
 $route['esqueci_senha'] = 'usuarios/esqueci_senha'; // Rota para esqueci minha senha
 $route['criar_usuario'] = 'usuarios/criar_usuario'; // Rota para criar usuário
+$route['criar_usuario/(:num)'] = 'usuarios/criar_usuario/$1'; // Rota para criar usuário
 
 // Reuniões
 $route['criar_reuniao'] = 'reunioes/criar_reuniao'; // Rota para criar reunião

@@ -12,7 +12,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           <?php echo 'Adicionar novo usuário' ?>
+                           <?php echo 'Adicionar nova comunidade' ?>
                         </div>
                         <div class="panel-body">
                             <div class="row">
