@@ -48,7 +48,7 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
 		$this->load->view('frontend/comunidade');	
-		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/aside-comunidade');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}

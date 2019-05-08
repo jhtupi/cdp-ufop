@@ -29,8 +29,15 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function criar_reuniao($enviado=null) {
+	public function criar_reuniao($idComunidade, $idUser,$enviado=null) {
 		$this->load->helper('funcoes');
+
+		// Carrega os modelos responsáveis
+		$this->load->model('reunioes_model', 'modelreunioes');
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($idComunidade);
+		$this->load->model('usuarios_model', 'modelusuarios');
+		$dados['usuarios'] = $this->modelusuarios->listar_usuario($idUser);
 
 
 		$dados['titulo'] = 'Criar reunião';

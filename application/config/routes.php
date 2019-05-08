@@ -66,7 +66,7 @@ $route['criar_usuario'] = 'usuarios/criar_usuario'; // Rota para criar usuário
 $route['criar_usuario/(:num)'] = 'usuarios/criar_usuario/$1'; // Rota para criar usuário
 
 // Reuniões
-$route['criar_reuniao'] = 'reunioes/criar_reuniao'; // Rota para criar reunião
+$route['criar_reuniao/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2'; // Rota para criar reunião
 $route['reuniao/(:num)'] = 'reunioes/reuniao/$1'; // Rota para visualizar reunião
 
 // Comunidades
