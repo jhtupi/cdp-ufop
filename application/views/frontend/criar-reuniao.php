@@ -25,7 +25,7 @@
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação 
 
                         $atributosForm = array('name' => 'formulario_contato', 'id'=> 'formulario_contato');
-                        echo form_open(base_url('contato/enviar_mensagem'),$atributosForm);
+                        echo form_open(base_url('usuarios/inserir'),$atributosForm);
 
                         $atribTitulo= array('name'=>'txtTitulo','id'=>'txtTitulo','class'=>'form-control','placeholder'=>'Digite o título da reunião', 
                             'value' => set_value('txtTitulo'));
@@ -49,8 +49,6 @@
                         form_input($atribHorario).
                         (" </div>");
 
-
-
                         $atribResumo= array('name'=>'txtResumo','id'=>'txtResumo','class'=>'form-control','placeholder'=>'Digite o resumo da sua reunião',
                             'value' => set_value('txtResumo'));
                         echo("<div class='form-group'>").
@@ -65,13 +63,19 @@
                         form_input($atribImg).
                         (" </div>");
 
+                        $atribUsuario= array('name'=>'txtUsuario','id'=>'txtUsuario','type' => 'hidden',
+                            'value' => set_value($this->session->userdata('userlogado')->id));
                         
                         echo form_submit('btn_enviar','Criar Reunião');
                         
                         echo form_close();
 
+
                     ?>
                 </div>
-               
+            
+                        <h4>
+                        <?php $atribUsuario ?>
+                        </h4>
 
             </div> 
