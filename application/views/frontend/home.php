@@ -17,7 +17,7 @@
                 
                 <?php
                     foreach($reunioes as $reuniao) {
-                        foreach($comuniades as $comunidade) {
+                        
                 ?>
                      <!-- Carrega a imagem caso houver-->
                     <h2>
@@ -27,7 +27,9 @@
                         Data: <a> <?php echo $reuniao->data ?></a>
                         Horário: <a> <?php echo $reuniao->horario ?></a>
                         <br>
-                        Comunidade: <a href=""><?php echo 'CONFIGURAR' ?></a>
+                        Comunidade: <a href=""><?php
+                        foreach($comunidades as $comunidade) {}
+                         ?></a>
                     </p>
                     <hr>
                     <?php 
@@ -46,8 +48,8 @@
 
 
                 <?php
+                    
                     }
-                }
                 ?>
 
             </div>
