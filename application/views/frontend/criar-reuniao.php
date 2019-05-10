@@ -14,68 +14,64 @@
                 <!-- Formulário de conntato -->
 
                 <div class="col-md-12">
-                   <?php 
 
-                        if ($enviado == 1) { // Caso o e-mail foi enviado, exibe a mensagem de confirmação
+                    <?php 
+                    
+                    foreach($comunidades as $comunidade) {
+                
+
+                        if ($enviado == 1) { // Caso o usuário foi criado, exibe a mensagem de confirmação
                             echo '<div class="alert alert-success"> Reunião criada! </div>';
                         } else if ($enviado == 2) {
                             echo '<div class="alert alert-warning"> Reunião não criada! </div>';
                         }
 
-                        echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação 
-
-                        $atributosForm = array('name' => 'formulario_contato', 'id'=> 'formulario_contato');
-                        echo form_open(base_url('usuarios/inserir'),$atributosForm);
-
-                        $atribTitulo= array('name'=>'txtTitulo','id'=>'txtTitulo','class'=>'form-control','placeholder'=>'Digite o título da reunião', 
-                            'value' => set_value('txtTitulo'));
-                        echo("<div class='form-group'>").
-                        form_label("Titulo",'txtTitulo').
-                        form_input($atribTitulo).
-                        ("</div>");
-
-
-                        $atribData= array('name'=>'txtData','id'=>'txtData','type' => 'date','class'=>'form-control','placeholder'=>'Data', 
-                            'value' => set_value('txtData'));
-                        echo("<div class='form-group'>").
-                        form_label("Data",'txtData').
-                        form_input($atribData).
-                        (" </div>");
-
-                        $atribHorario= array('name'=>'txtHorario','id'=>'txtHorario','type' => 'time','class'=>'form-control','placeholder'=>'Horário', 
-                            'value' => set_value('txtHorario'));
-                        echo("<div class='form-group'>").
-                        form_label("Horario",'txtHorario').
-                        form_input($atribHorario).
-                        (" </div>");
-
-                        $atribResumo= array('name'=>'txtResumo','id'=>'txtResumo','class'=>'form-control','placeholder'=>'Digite o resumo da sua reunião',
-                            'value' => set_value('txtResumo'));
-                        echo("<div class='form-group'>").
-                        form_label("Resumo",'txtResumo').
-                        form_textarea($atribResumo).
-                        (" </div>");
-
-                        $atribImg= array('name'=>'txtImg','id'=>'txtImg','class'=>'form-control','placeholder'=>'Imagem', 
-                            'value' => set_value('txtImg'));
-                        echo("<div class='form-group'>").
-                        form_label("Imagem",'txtImg').
-                        form_input($atribImg).
-                        (" </div>");
-
-                        $atribUsuario= array('name'=>'txtUsuario','id'=>'txtUsuario','type' => 'hidden',
-                            'value' => set_value($this->session->userdata('userlogado')->id));
-                        
-                        echo form_submit('btn_enviar','Criar Reunião');
-                        
-                        echo form_close();
-
-
+                        echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
+                        echo form_open(base_url('reunioes/inserir')); // Abre o formulário apontando pro método de inserção no controlador
                     ?>
+                    <!-- Título -->
+                    <div class="form-group">
+                        <label id="txt-titulo">Título</label>
+                        <input type="text" id="txt-titulo" name="txt-titulo" class="form-control" placeholder="Digite o título da reunião" value= "<?php echo set_value('txt-titulo') ?>">
+                    </div>
+
+                    <!-- Data -->
+                    <div class="form-group">
+                        <label id="txt-data">Data</label>
+                        <input type="date" id="txt-data" name="txt-data" class="form-control" value= "<?php echo set_value('txt-data') ?>">
+                    </div>
+
+                    <!-- Horário -->
+                    <div class="form-group">
+                        <label id="txt-horario">Horário</label>
+                        <input type="time" id="txt-horario" name="txt-horario" class="form-control" value= "<?php echo set_value('txt-horario') ?>">
+                    </div>
+
+                    <!-- Resumo -->
+                    <div class="form-group">
+                        <label id="txt-resumo">Resumo</label>
+                        <input type="textarea" id="txt-resumo" name="txt-resumo" class="form-control" placeholder="Digite o resumo da reunião" value= "<?php echo set_value('txt-resumo') ?>">
+                    </div>
+
+                    <!-- Foto -->
+                    <div class="form-group">
+                        <label id="txt-foto">Foto</label>
+                        <input type="text" id="txt-foto" name="txt-foto" class="form-control" placeholder="A CONFIGURAR"  value= "<?php echo set_value('txt-foto') ?>">
+                    </div>
+
+                    <!-- ID Usuário -->
+                    <input type="hidden" id="txt-iduser" name="txt-iduser" class="form-control" value = <?php echo $this->session->userdata('userlogado')->id ?>>
+
+                    <!-- ID Comunidade -->
+                    <input type="hidden" id="txt-comunidade" name="txt-comunidade" class="form-control" value = <?php echo $comunidade->id ?>>
+
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Criar reunião</button>
+                    
+                    <?php 
+                        echo form_close(); // Fecha o formulário
+                    }
+                    ?>
+
                 </div>
-            
-                        <h4>
-                        <?php $atribUsuario ?>
-                        </h4>
 
             </div> 

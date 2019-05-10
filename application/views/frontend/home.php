@@ -17,6 +17,7 @@
                 
                 <?php
                     foreach($reunioes as $reuniao) {
+                        foreach($comuniades as $comunidade) {
                 ?>
                      <!-- Carrega a imagem caso houver-->
                     <h2>
@@ -46,6 +47,7 @@
 
                 <?php
                     }
+                }
                 ?>
 
             </div>
