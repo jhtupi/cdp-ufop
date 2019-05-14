@@ -27,9 +27,14 @@
                         Data: <a> <?php echo $reuniao->data ?></a>
                         Horário: <a> <?php echo $reuniao->horario ?></a>
                         <br>
-                        Comunidade: <a href=""><?php
-                        foreach($comunidades as $comunidade) {}
-                         ?></a>
+                        <?php 
+                        foreach($comunidades as $comunidade) { ?>
+                        Comunidade: <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>">
+                            <?php
+                            if($reuniao->id_comunidade == $comunidade->id) {
+                                echo $comunidade->tema;
+                            }
+                        }?></a>
                     </p>
                     <hr>
                     <?php 

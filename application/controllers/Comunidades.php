@@ -39,6 +39,9 @@ class Comunidades extends CI_Controller {
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
 
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['membros'] = $this->modelcomunidades->membros_comunidade($id);
+
 		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';
 		// Dados a serem enviados para o Cabeçalho

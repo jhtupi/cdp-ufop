@@ -12,6 +12,7 @@
 
                 <?php
                     foreach($comunidades as $comunidade) {
+                    
                 ?>
                      <!-- Carrega a imagem caso houver-->
                     <h2>
@@ -42,7 +43,27 @@
                     <p class="lead">
                         Membros da comunidade
                         <br>
-                        A FAZER
+                        <?php
+                    foreach($membros as $membro) {
+                    ?>
+                    <div class="col-md-4 col-xs-6">
+                        <?php 
+                            // Verifica se o usuário tem ou não imagem
+                            if($membro->foto == 1) { 
+                                $mostraFoto= "assets/frontend/img/usuarios/".md5($membro->id).".jpg"; 
+                            } else {
+                                $mostraFoto= "assets/frontend/img/semFoto.png"; 
+                            }
+                        ?>
+                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
+                         <h4 class="text-center">
+                            <a href="<?php echo base_url('usuario/'.$membro->id.'/'.limpar($membro->nome)) ?>"><?php echo $membro->nome ?></a>
+                        </h4> 
+                    </div>
+
+                    <?php
+                        }
+                    ?>
                     </p>
                     <hr>
                     <p class="lead">

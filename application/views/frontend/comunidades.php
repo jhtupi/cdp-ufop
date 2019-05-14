@@ -25,7 +25,7 @@
                     <p class="lead">
                         criada por <a href=""><?php echo 'CONFIGURAR' ?></a>
                     </p>
-                    <p><span class="glyphicon glyphicon-time"></span> <?php echo postadoem($comunidade->data_criacao) ?></p>
+                    <p> <b> Criada em:</b> <?php echo postadoem($comunidade->data_criacao) ?></p>
                     <hr>
 
                     <!-- Carrega a imagem caso houver-->
@@ -34,7 +34,6 @@
                             $imgcomunidade = base_url("assets/frontend/img/comunidades/".md5($comunidade->id).".jpg");
                     ?>
                         <img class="img-responsive" src="<?php echo $imgcomunidade ?>" alt="">
-                        <hr>    
                     <?php 
                     }
                     ?>
