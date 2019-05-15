@@ -47,5 +47,13 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function inserir_membro_comunidade($idComunidade,$idUsuario) {
+		$dados['id_usuario'] = $idUsuario;
+		$dados['id_comunidade'] = $idComunidade;
+		$dados['data'] = date("y-m-d");
+		return $this->db->insert('entra', $dados); 
+	}
+
+
 
 }

@@ -78,8 +78,13 @@ class Comunidades extends CI_Controller {
 	}
 
 	public function participar_comunidade($idComunidade, $idUsuario) {
-		
-		comunidade($idComunidade);
+
+		// Adiciona o usuário na comunidade
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+		$this->modelcomunidades->inserir_membro_comunidade($idComunidade,$idUsuario);
+
+		// Retorna o usuário à comunidade
+		redirect(base_url('comunidade/'.$idComunidade));
 	}
 }
 
