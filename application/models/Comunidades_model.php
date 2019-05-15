@@ -35,7 +35,6 @@ class Comunidades_model extends CI_Model {
 		$this->db->select('id,titulo,imagem,data,horario,resumo');
 		$this->db->from('reuniao'); // seleciona a tabela
 		$this->db->where('id_comunidade ='.$id); // Compara com a variável id foi enviada
-		$this->db->order_by('horario', 'DESC');
 		$this->db->order_by('data', 'DESC');
 		return $this->db->get()->result();
 	}

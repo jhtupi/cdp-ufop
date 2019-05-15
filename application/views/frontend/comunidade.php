@@ -31,7 +31,15 @@
                     <p class="lead">
                         Data de criação: <a> <?php echo $comunidade->data_criacao ?></a>
                         <br>
-                        Criada por: <a href=""><?php echo 'CONFIGURAR' ?></a>
+                        <?php 
+                        foreach($membros as $membro) { ?>
+                            <?php
+                            if($comunidade->id_usuario == $membro->id) {
+                                ?>Criada por: <a href="<?php echo base_url('usuario/'.$membro->id.'/'.limpar($membro->nome))?>"><?php 
+                                echo $membro->nome;
+                            }
+                        }
+                         ?></a>
                         <br>
                         NPS Médio: <a> <?php echo 'configurar'?></a>
                     </p>
