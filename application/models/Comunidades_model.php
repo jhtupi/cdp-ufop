@@ -23,14 +23,10 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function membros_comunidade($id) {
-		$this->db->select('id_usuario');
+		$this->db->select('usuario.id,usuario.nome,usuario.foto');
 		$this->db->from('entra'); // seleciona a tabela
-		$this->db->where('id_comunidade ='.$id); // Compara com a variável id foi enviada
-		$id_users = $this->db->get()->result();
-
-		$this->db->select('nome');
-		$this->db->from('usuario'); // seleciona a tabela
-		$this->db->where('id ='.$id_users); // Compara com a variável id foi enviada
+		$this->db->join('usuario', 'entra.id_usuario = usuario.id', 'inner');
+		$this->db->join('comunidade', 'entra.id_comunidade ='.$id, 'inner');
 		return $this->db->get()->result();
 	}
 

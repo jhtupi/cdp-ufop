@@ -46,7 +46,7 @@
                         <?php
                     foreach($membros as $membro) {
                     ?>
-                    <div class="col-md-4 col-xs-6">
+                    <div class="col-md-2 col-xs-3">
                         <?php 
                             // Verifica se o usuário tem ou não imagem
                             if($membro->foto == 1) { 
