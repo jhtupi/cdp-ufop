@@ -22,11 +22,21 @@ class Comunidades_model extends CI_Model {
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
+
 	public function membros_comunidade($id) {
 		$this->db->select('usuario.id,usuario.nome,usuario.foto');
 		$this->db->from('entra'); // seleciona a tabela
 		$this->db->join('usuario', 'entra.id_usuario = usuario.id', 'inner');
 		$this->db->join('comunidade', 'entra.id_comunidade ='.$id, 'inner');
+		return $this->db->get()->result();
+	}
+
+	public function reunioes_comunidade($id) {
+		$this->db->select('id,titulo,imagem,data,horario,resumo');
+		$this->db->from('reuniao'); // seleciona a tabela
+		$this->db->where('id_comunidade ='.$id); // Compara com a variável id foi enviada
+		$this->db->order_by('horario', 'DESC');
+		$this->db->order_by('data', 'DESC');
 		return $this->db->get()->result();
 	}
 

@@ -40,10 +40,12 @@
                         <?php echo $comunidade->descricao ?>
                     </p>
                     <hr>
-                    <p class="lead">
-                        Membros da comunidade
-                        <br>
-                        <?php
+
+                                                    <!-- Membros da Comunidade -->
+                    <h2>Membros da comunidade</h2>
+                        
+                    <br>
+                    <?php
                     foreach($membros as $membro) {
                     ?>
                     <div class="col-md-2 col-xs-3">
@@ -61,22 +63,51 @@
                         </h4> 
                     </div>
 
+                    <!-- Foreach usuários -->   
                     <?php
                         }
                     ?>
-                    </p>
+
+                                                    <!-- Reuniões da Comunidade -->
+                    
+                    <div class="col-md-12 col-xs-12">
                     <hr>
+                    <h2>Reuniões da comunidade</h2>
+                    <?php
+                    foreach($reunioes as $reuniao) {
+                    ?>
+                     <!-- Carrega a imagem caso houver-->
+                    <h3>
+                        <a href="<?php echo base_url('reuniao/'.$reuniao->id)?>"> <?php echo $reuniao->titulo ?></a>
+                    </h3>
                     <p class="lead">
-                        Reuniões já feitas
+                        Data: <a> <?php echo $reuniao->data ?></a>
+                        Horário: <a> <?php echo $reuniao->horario ?></a>
                         <br>
-                        A FAZER
-                    </p>
+                        </p>
+                        <hr>
+                        <?php 
+                            if($reuniao->imagem == 1) { // Se houver imagem
+                                $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
+                        ?>
+                            <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
+                            <hr>    
+                        <?php 
+                        }
+                        ?>
                     
-                         
-                    
-                    
+                        <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                        <hr>
+
+                        <!-- Foreach reuniões -->   
+                        <?php
+                            
+                            }
+                        ?>
+                 <!-- Foreach comunidade -->   
                 <?php 
                 }
                 ?>
-
+                </div>
             </div>
