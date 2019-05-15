@@ -15,8 +15,11 @@
                     </div>
                     <!-- /.input-group -->
                 </div>
+
                 <?php
-                    foreach($comunidades as $comunidade) {
+                    foreach($membros as $membro) {
+                        if ($this->session->userdata('userlogado')->id == $membro->id) { // Caso o usuário seja administrador
+                            foreach($comunidades as $comunidade) {
                 ?>
                 <!-- Blog Categories Well -->
                 <div class="well">
@@ -24,8 +27,26 @@
                         <input class="btn btn-default"  type="submit" value="Criar reunião" />
                     </form>
                     
-                <?php } ?>   
-                    <!-- /.row -->
+                <?php       } // foreach Comunidade
+                ?>   
+                    
                 </div>
+
+
+                <?php  
+                        } else {
+                            foreach($comunidades as $comunidade) {
+                            ?>
+                
+                <div class="well">
+                    <form action="<?php echo base_url("participar_comunidade"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
+                        <input class="btn btn-default" type="submit" value="Participar da comunidade"/>
+                    </form>
+                    
+                <?php
+                            } // foreach Comunidade
+                        } // else
+                    } // foreach Membro
+                ?>
 
             </div>

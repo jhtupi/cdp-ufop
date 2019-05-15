@@ -76,6 +76,11 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}
+
+	public function participar_comunidade($idComunidade, $idUsuario) {
+		
+		comunidade($idComunidade);
+	}
 }
 
 

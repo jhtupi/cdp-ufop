@@ -83,15 +83,13 @@
                     <p class="lead">
                         Data: <a> <?php echo $reuniao->data ?></a>
                         Horário: <a> <?php echo $reuniao->horario ?></a>
-                        <br>
                         </p>
-                        <hr>
                         <?php 
                             if($reuniao->imagem == 1) { // Se houver imagem
                                 $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
                         ?>
                             <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
-                            <hr>    
+                                
                         <?php 
                         }
                         ?>

@@ -73,6 +73,7 @@ $route['reuniao/(:num)'] = 'reunioes/reuniao/$1'; // Rota para visualizar reuni�
 // Comunidades
 $route['criar_comunidade'] = 'comunidades/criar_comunidade'; // Rota para criar comunidade
 $route['comunidade/(:num)'] = 'comunidades/comunidade/$1'; // Rota para visualizar comunidade
+$route['participar_comunidade/(:num)/(:num)'] = 'comunidades/participar_comunidade/$1/$2'; // Rota para criar reunião
 
 // Extras
 $route['contato/(:num)'] = 'contato/index/$1'; // Rota para o envio de formulário de contato
