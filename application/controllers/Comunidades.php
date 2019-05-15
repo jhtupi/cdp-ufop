@@ -86,6 +86,16 @@ class Comunidades extends CI_Controller {
 		// Retorna o usuário à comunidade
 		redirect(base_url('comunidade/'.$idComunidade));
 	}
+
+	public function sair_comunidade($idComunidade, $idUsuario) {
+
+		// Adiciona o usuário na comunidade
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+		$this->modelcomunidades->remover_membro_comunidade($idComunidade,$idUsuario);
+
+		// Retorna o usuário à comunidade
+		redirect(base_url('comunidade/'.$idComunidade));
+	}
 }
 
 

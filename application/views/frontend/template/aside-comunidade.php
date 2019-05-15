@@ -34,8 +34,8 @@
                             <input class="btn btn-default col-md-12"  type="submit" value="Criar reunião" />
                         </form>
                         <br><br>
-                        <form action="<?php echo base_url("criar_reuniao"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
-                            <input class="btn btn-default col-md-12"  type="submit" value="Criar reunião" />
+                        <form action="<?php echo base_url("sair_comunidade"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
+                            <input class="btn btn-default col-md-12"  type="submit" value="Sair da comunidade" />
                         </form>
                     </div>
                         

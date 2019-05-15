@@ -53,6 +53,10 @@ class Comunidades_model extends CI_Model {
 		$dados['data'] = date("y-m-d");
 		return $this->db->insert('entra', $dados); 
 	}
+	public function remover_membro_comunidade($idComunidade,$idUsuario) { // A fazer
+		$this->db->where('id_usuario='.$idUsuario)->where('id_comunidade='.$idComunidade);
+		return $this->db->delete('entra');
+	}
 
 
 
