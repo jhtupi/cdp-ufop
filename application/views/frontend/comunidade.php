@@ -31,7 +31,15 @@
                     <p class="lead">
                         Data de criação: <a> <?php echo $comunidade->data_criacao ?></a>
                         <br>
-                        Criada por: <a href=""><?php echo 'CONFIGURAR' ?></a>
+                        <?php 
+                        foreach($membros as $membro) { ?>
+                            <?php
+                            if($comunidade->id_usuario == $membro->id) {
+                                ?>Criada por: <a href="<?php echo base_url('usuario/'.$membro->id.'/'.limpar($membro->nome))?>"><?php 
+                                echo $membro->nome;
+                            }
+                        }
+                         ?></a>
                         <br>
                         NPS Médio: <a> <?php echo 'configurar'?></a>
                     </p>
@@ -40,13 +48,15 @@
                         <?php echo $comunidade->descricao ?>
                     </p>
                     <hr>
-                    <p class="lead">
-                        Membros da comunidade
-                        <br>
-                        <?php
+
+                                                    <!-- Membros da Comunidade -->
+                    <h2>Membros da comunidade</h2>
+                        
+                    <br>
+                    <?php
                     foreach($membros as $membro) {
                     ?>
-                    <div class="col-md-4 col-xs-6">
+                    <div class="col-md-2 col-xs-3">
                         <?php 
                             // Verifica se o usuário tem ou não imagem
                             if($membro->foto == 1) { 
@@ -61,22 +71,49 @@
                         </h4> 
                     </div>
 
+                    <!-- Foreach usuários -->   
                     <?php
                         }
                     ?>
-                    </p>
+
+                                                    <!-- Reuniões da Comunidade -->
+                    
+                    <div class="col-md-12 col-xs-12">
                     <hr>
+                    <h2>Reuniões da comunidade</h2>
+                    <?php
+                    foreach($reunioes as $reuniao) {
+                    ?>
+                     <!-- Carrega a imagem caso houver-->
+                    <h3>
+                        <a href="<?php echo base_url('reuniao/'.$reuniao->id)?>"> <?php echo $reuniao->titulo ?></a>
+                    </h3>
                     <p class="lead">
-                        Reuniões já feitas
-                        <br>
-                        A FAZER
-                    </p>
+                        Data: <a> <?php echo $reuniao->data ?></a>
+                        Horário: <a> <?php echo $reuniao->horario ?></a>
+                        </p>
+                        <?php 
+                            if($reuniao->imagem == 1) { // Se houver imagem
+                                $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
+                        ?>
+                            <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
+                                
+                        <?php 
+                        }
+                        ?>
                     
-                         
-                    
-                    
+                        <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                        <hr>
+
+                        <!-- Foreach reuniões -->   
+                        <?php
+                            
+                            }
+                        ?>
+                 <!-- Foreach comunidade -->   
                 <?php 
                 }
                 ?>
-
+                </div>
             </div>

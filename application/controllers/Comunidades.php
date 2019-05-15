@@ -42,6 +42,9 @@ class Comunidades extends CI_Controller {
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['membros'] = $this->modelcomunidades->membros_comunidade($id);
 
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['reunioes'] = $this->modelcomunidades->reunioes_comunidade($id);
+
 		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';
 		// Dados a serem enviados para o Cabeçalho
@@ -72,6 +75,26 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
+	}
+
+	public function participar_comunidade($idComunidade, $idUsuario) {
+
+		// Adiciona o usuário na comunidade
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+		$this->modelcomunidades->inserir_membro_comunidade($idComunidade,$idUsuario);
+
+		// Retorna o usuário à comunidade
+		redirect(base_url('comunidade/'.$idComunidade));
+	}
+
+	public function sair_comunidade($idComunidade, $idUsuario) {
+
+		// Adiciona o usuário na comunidade
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+		$this->modelcomunidades->remover_membro_comunidade($idComunidade,$idUsuario);
+
+		// Retorna o usuário à comunidade
+		redirect(base_url('comunidade/'.$idComunidade));
 	}
 }
 
