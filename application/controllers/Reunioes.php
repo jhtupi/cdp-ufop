@@ -34,7 +34,27 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function criar_reuniao($idComunidade, $idUser,$enviado=null) {
+	public function participar_reuniao($idReuniao, $idUsuario) {
+
+		// Adiciona o usuário na comunidade
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+		$this->modelreunioes->inserir_participante_reuniao($idReuniao,$idUsuario);
+
+		// Retorna o usuário à comunidade
+		redirect(base_url('reuniao/'.$idReuniao));
+	}
+
+	public function sair_reuniao($idReuniao, $idUsuario) {
+
+		// Adiciona o usuário na comunidade
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+		$this->modelreunioes->remover_participante_reuniao($idReuniao,$idUsuario);
+
+		// Retorna o usuário à comunidade
+		redirect(base_url('reuniao/'.$idReuniao));
+	}
+
+	public function criar_reuniao($idReuniao, $idUser,$enviado=null) {
 		$this->load->helper('funcoes');
 
 		// Carrega os modelos responsáveis

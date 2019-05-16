@@ -46,6 +46,16 @@ class Reunioes_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function inserir_participante_reuniao($idReuniao,$idUsuario) {
+		$dados['id_usuario'] = $idUsuario;
+		$dados['id_reuniao'] = $idReuniao;
+		return $this->db->insert('participa', $dados); 
+	}
+	public function remover_participante_reuniao($idReuniao,$idUsuario) { // A fazer
+		$this->db->where('id_usuario='.$idUsuario)->where('id_reuniao='.$idReuniao);
+		return $this->db->delete('participa');
+	}
+
 	public function adicionar($titulo,$data,$horario,$resumo,$idUser,$idComunidade) {
 		// Adiciona as variáveis como colunas da matriz $dados
 		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar

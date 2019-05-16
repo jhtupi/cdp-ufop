@@ -69,12 +69,17 @@ $route['criar_usuario/(:num)'] = 'usuarios/criar_usuario/$1'; // Rota para criar
 $route['criar_reuniao/(:num)/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2/$3'; // Rota para criar reunião
 $route['criar_reuniao/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2'; // Rota para criar reunião
 $route['reuniao/(:num)'] = 'reunioes/reuniao/$1'; // Rota para visualizar reunião
+$route['participar_reuniao/(:num)/(:num)'] = 'reunioes/participar_reuniao/$1/$2'; // Rota para participar da reunião
+$route['sair_reuniao/(:num)/(:num)'] = 'reunioes/sair_reuniao/$1/$2'; // Rota para sair da reunião
+
 
 // Comunidades
 $route['criar_comunidade'] = 'comunidades/criar_comunidade'; // Rota para criar comunidade
 $route['comunidade/(:num)'] = 'comunidades/comunidade/$1'; // Rota para visualizar comunidade
 $route['participar_comunidade/(:num)/(:num)'] = 'comunidades/participar_comunidade/$1/$2'; // Rota para participar da comunidade
 $route['sair_comunidade/(:num)/(:num)'] = 'comunidades/sair_comunidade/$1/$2'; // Rota para sair da comunidade
+
+
 
 // Extras
 $route['contato/(:num)'] = 'contato/index/$1'; // Rota para o envio de formulário de contato
