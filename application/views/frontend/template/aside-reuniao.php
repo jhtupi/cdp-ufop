@@ -18,25 +18,50 @@
 
                 <?php
                 // Verifica se o usuário é membro da comunidade
-                $ehMembro = 0;
-                    foreach($membros as $membro) {
-                        if ($this->session->userdata('userlogado')->id == $membro->id){
-                            $ehMembro = 1;
+                $ehParticipante = 0;
+                    foreach($participantes as $participante) {
+                        if ($this->session->userdata('userlogado')->id == $participante->id){
+                            $ehParticipante = 1;
                         } else {}
                     }
 
-                    if ($ehMembro) { // Caso o usuário seja administrador
+                    if ($ehParticipante) {
                         foreach($comunidades as $comunidade) { 
                     ?>
-                    <!-- Caso seja membro da comunidade -->
+                    <!-- Caso seja participante da reunião -->
                     <div class="well col-md-12">
-                        <form action="<?php echo base_url("criar_reuniao"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
-                            <input class="btn btn-default col-md-12"  type="submit" value="Criar reunião" />
+                        <?php
+                        //$reunioes as $reuniao;
+                        $jaAconteceu = False; 
+                        foreach($reunioes as $reuniao) {
+                            $hoje = strtotime(date('Y-m-d'));
+                            $dataReuniao = strtotime($reuniao->data);
+                            if($hoje < $dataReuniao) { // Reunião já aconteceu
+                                $jaAconteceu = True;
+                            } else {}
+                        } // foreach Reunioes
+
+                         if ($jaAconteceu) {
+                         ?>
+                         <!-- Reunião já ocorreu -->
+                        <form action="<?php echo base_url("reuniao/3") ?>">
+                            <input class="btn btn-default col-md-12"  type="submit" value="Postar Material" />
                         </form>
                         <br><br>
-                        <form action="<?php echo base_url("sair_comunidade"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
-                            <input class="btn btn-default col-md-12"  type="submit" value="Sair da comunidade" />
+                        <form action="">
+                            <input class="btn btn-default col-md-12"  type="submit" value="Avaliar reunião" />
                         </form>
+
+                        <?php } else {}
+                         ?>
+                         <!-- Reunião ainda não ocorreu -->
+                        <form action="<?php echo base_url("reuniao/3") ?>">
+                            <input class="btn btn-default col-md-12"  type="submit" value="Postar Material" />
+                        </form>
+                        <br><br>
+                        <?php   // else $jaAconteceu
+                        ?>
+
                     </div>
                         
                 <?php   } // foreach Comunidade
@@ -45,7 +70,7 @@
                 <?php } else {
                             foreach($comunidades as $comunidade) {
                             ?>
-                <!-- Caso não seja membro -->
+                <!-- Caso não seja participante -->
                 <div class="well col-md-12">
                     <form action="<?php echo base_url("participar_comunidade"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
                         <input class="btn btn-default col-md-12" type="submit" value="Participar da comunidade"/>

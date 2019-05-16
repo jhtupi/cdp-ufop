@@ -14,6 +14,11 @@ class Reunioes extends CI_Controller {
 
 		$this->load->model('reunioes_model', 'modelreunioes');
 		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
+		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
+
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+
 
 		$dados['titulo'] = 'Visualizar reunião';
 		$dados['subtitulo'] = '';
@@ -24,7 +29,7 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
 		$this->load->view('frontend/reuniao');	
-		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/aside-reuniao');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}
