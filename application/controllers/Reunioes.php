@@ -128,7 +128,31 @@ class Reunioes extends CI_Controller {
 		}
 	}
 
+	public function avaliar($idReuniao, $idUsuario) {
 
+		// Carrega o model
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+
+		// Faz a validação do formulário
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('nps-reuniao', 'NPS',
+			'required|greater_than[0]|less_than[11]');
+
+
+		if ($this->form_validation->run() == FALSE) { 
+			redirect(base_url('reuniao/'.$idReuniao));
+		} else {
+			// Validação correta, resgata as variáveis
+			$nps= $this->input->post('nps-reuniao');
+
+			if($this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('reuniao/'.$idReuniao));
+			} else { // Caso não tenha conseguido acessar o model
+				echo "Houve um erro no sistema!";
+			}
+
+		}
+	}
 
 
 }

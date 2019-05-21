@@ -42,15 +42,16 @@
                         ?>
                     
                     <div class="well col-md-12">
-                        
+                        <?php foreach($reunioes as $reuniao) {
+                         ?>
                          <!-- Reunião já ocorreu | Usuário é participante -->
-                        <form action="<?php echo base_url("reuniao/3") ?>">
+                        <form action="<?php echo base_url("'reuniao/'.$reuniao->id") ?>">
                             <input class="btn btn-default col-md-12"  type="submit" value="Postar Material" />
                         </form>
                         <br><br>
-                        <form action="">
-                            <button type="button" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-NPS">Avaliar reunião</button>
-                        </form>
+                        <button type="button" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-NPS">Avaliar reunião</button>
+                        <?php } // foreach Reunião ?> 
+                        
 
                     </div>
                         <?php } // foreach Comunidade
@@ -95,18 +96,21 @@
                       </div>
                       <div class="modal-body">
                         
-                        <form role="form" method="post" action="<?= base_url('index.php/clientes/salvar')?>" id="formulario_clientes">
+                        <form role="form" method="post" action="<?= base_url('reunioes/avaliar/'.$reuniao->id.'/'.$this->session->userdata('userlogado')->id)?>" id="form-NPS">
                           <div class="form-group">
+                            <?php foreach($reunioes as $reuniao) {
+                            ?>
                             <label for="nps-reuniao">De 1 a 10, o quanto você indicaria uma reunião desta comunidade para um amigo ou colega?</label>
                             (1- Jamais indicaria | 10- Indicaria com certeza)
                             <input type="number" class="form-control" min="1" max="10" id="nps-reuniao" name="nps-reuniao">
+                            <?php } // foreach Reunião ?> 
                           </div>
                         </form>     
                             
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary" onclick="$('#formulario_clientes').submit()">Avaliar reunião</button>
+                        <button type="button" class="btn btn-primary" onclick="$('#form-NPS').submit()">Avaliar reunião</button>
                       </div>
                     </div><!-- /.modal-content -->
                   </div><!-- /.modal-dialog -->

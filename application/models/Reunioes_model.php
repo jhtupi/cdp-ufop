@@ -70,5 +70,11 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('reuniao', $dados); 
 	}
 
+	public function avaliar($idReuniao, $idUsuario, $nps) {
+		$dados['nps'] = $nps;
+		$this->db->where('id_usuario='.$idUsuario)->where('id_reuniao='.$idReuniao);
+		return $this->db->update('participa', $dados);
+	}
+
 
 }
