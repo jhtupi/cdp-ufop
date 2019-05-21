@@ -22,7 +22,7 @@
                     foreach($reunioes as $reuniao) {
                         $hoje = strtotime(date('Y-m-d'));
                         $dataReuniao = strtotime($reuniao->data);
-                        if($hoje < $dataReuniao) { // Reunião já aconteceu
+                        if($hoje > $dataReuniao) { // Reunião já aconteceu
                             $jaAconteceu = True;
                         } else {}
                     } // foreach Reunioes
@@ -49,7 +49,7 @@
                         </form>
                         <br><br>
                         <form action="">
-                            <input class="btn btn-default col-md-12"  type="submit" value="Avaliar reunião" />
+                            <button type="button" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-NPS">Avaliar reunião</button>
                         </form>
 
                     </div>
@@ -86,7 +86,7 @@
                         ?>
 
                         <!-- Modal para avaliação de NPS -->
-            <div class="modal show bs-example-modal-lg" id="modalEditarCliente" >
+            <div class="modal fade" id="modal-NPS" >
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
