@@ -146,7 +146,11 @@ class Reunioes extends CI_Controller {
 			$nps= $this->input->post('nps-reuniao');
 
 			if($this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps)) { // Se conseguiu acessar o model e adicionar
-				redirect(base_url('reuniao/'.$idReuniao));
+				if($this->modelreunioes->calcularNPS($idReuniao)) {
+					redirect(base_url('reuniao/'.$idReuniao));
+				} else {
+				echo "Houve um erro no sistema!";
+				}
 			} else { // Caso não tenha conseguido acessar o model
 				echo "Houve um erro no sistema!";
 			}
