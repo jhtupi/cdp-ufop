@@ -39,6 +39,11 @@
                                 echo $comunidade->tema;
                             }
                         }?></a>
+                        
+                        <?php   if($reuniao->nps != NULL) { ?>
+                            <br>NPS: <a> <?php echo $reuniao->nps ?></a>
+                        <?php } ?>
+
                     </p>
                     <br>
                     <p class="">

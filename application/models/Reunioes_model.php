@@ -18,21 +18,21 @@ class Reunioes_model extends CI_Model {
 
 	
 	public function listar_reuniao($id) {
-		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade');
+		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); // seleciona a tabela
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
 
 	public function listar_reunioes() {
-		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade');
+		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
 		$this->db->order_by('titulo', 'ASC');
 		return $this->db->get()->result();
 	}
 
 	public function listar_reunioes_recentes() {
-		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade');
+		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
 		$this->db->order_by('data', 'ASC');
 		return $this->db->get()->result();
@@ -65,6 +65,7 @@ class Reunioes_model extends CI_Model {
 		$dados['resumo'] = $resumo;
 		$dados['id_usuario'] = $idUser;
 		$dados['id_comunidade'] = $idComunidade;
+
 									
 		// Insere na tabela usuario os dados da variável na tabela
 		return $this->db->insert('reuniao', $dados); 
@@ -73,7 +74,18 @@ class Reunioes_model extends CI_Model {
 	public function avaliar($idReuniao, $idUsuario, $nps) {
 		$dados['nps'] = $nps;
 		$this->db->where('id_usuario='.$idUsuario)->where('id_reuniao='.$idReuniao);
-		return $this->db->update('participa', $dados);
+		if($this->db->update('participa', $dados)) {
+			return calcularNPS($idReuniao);
+		}
+		return 0;
+	}
+
+	public function calcularNPS($idReuniao) {
+		// Seleciona todos os NPS da reunião
+		$this->db->select('nps');
+		$this->db->from('participa'); // seleciona a tabela
+		$this->db->where('id_reuniao ='.$idReuniao); // Compara com a variável id foi enviada
+
 	}
 
 
