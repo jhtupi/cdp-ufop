@@ -104,6 +104,9 @@ class Comunidades_model extends CI_Model {
 			}
 
 		} else {
+			$this->db->set('nps_medio', null);
+		    $this->db->where('id', $idComunidade);
+		    $this->db->update('comunidade');
 			return NULL;
 		  }
 		
