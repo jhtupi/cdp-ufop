@@ -73,28 +73,36 @@ class Reunioes_model extends CI_Model {
 
 
 	public function calcularNPS($idReuniao) {
-		// Seleciona promotores
-		
 
-	$result = $this->db->select_sum('nps')->where('id_reuniao ='.$idReuniao)->where('nps >= 9');
-	$query = $this->db->get('participa');
-		if($query->num_rows() == 1){
-            	$promotores = $query->row(0)->value();
-            }else{
-				$promotores = 2;
-            }
-		 
-		
+	// Seleciona promotores
+	$result = $this->db->select('*')->where('id_reuniao ='.$idReuniao)->where('nps >= 9');
+	$query = $this->db->get('participa')->result();
+	$promotores = 0;
+	foreach($query as $q) {
+		$promotores = $promotores + $q->nps;
+	}
+	
+	// Seleciona detratores
+	$result = $this->db->select('*')->where('id_reuniao ='.$idReuniao)->where('nps <= 6');
+	$query = $this->db->get('participa')->result();
+	$detratores = 0;
+	foreach($query as $q) {
+		$detratores = $detratores + $q->nps;
+	}
 
-		//$promotores = $this->db->get()->result();
-		// Seleciona detratores
-		//$detratores = $this->db->select('nps')->from('participa')->where('id_reuniao ='.$idReuniao)->where('nps <= 6'); 
-		// Seleciona neutros
-		//$neutros = $this->db->select('nps')->from('participa')->where('id_reuniao ='.$idReuniao)->where('nps > 6')->where('nps <= 8');
+	// Seleciona neutros
+	$result = $this->db->select('*')->where('id_reuniao ='.$idReuniao)->where('nps > 6')->where('nps < 9');
+	$query = $this->db->get('participa')->result();
+	$neutros = 0;
+	foreach($query as $q) {
+		$neutros = $neutros + $q->nps;
+	}
+	
 
-		//$todos = $promotores + $detratores + $neutros;
+	$todos = $promotores + $detratores + $neutros;
+
 		// Calcula o NPS e atualiza
-		$dados['nps'] = $promotores; //(($promotores-$detratores)/$todos)*100;
+		$dados['nps'] = (($promotores-$detratores)/$todos)*100;
 		$this->db->where('id='.$idReuniao);
 		return $this->db->update('reuniao', $dados);
 	}

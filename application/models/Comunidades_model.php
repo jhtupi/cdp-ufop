@@ -22,6 +22,21 @@ class Comunidades_model extends CI_Model {
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
+	public function listar_comunidade_reuniao($idReuniao) {
+		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.imagem,comunidade.nps_medio,comunidade.id_usuario,comunidade.data_criacao');
+		//$this->db->from('comunidade'); // seleciona a tabela
+		//$this->db->where('id ='.$id); // Compara com a variável id foi enviada
+		$this->db->from('reuniao')->where('reuniao.id ='.$idReuniao); // seleciona a tabela
+		$this->db->join('comunidade', 'reuniao.id_comunidade = comunidade.id', 'inner');
+		return $this->db->get()->result();
+	}
+
+	public function criador_comunidade($idComunidade) {
+		$this->db->select('usuario.id,usuario.nome,usuario.foto');
+		$this->db->from('comunidade')->where('comunidade.id ='.$idComunidade);; // seleciona a tabela
+		$this->db->join('usuario', 'comunidade.id_usuario = usuario.id', 'inner');
+		return $this->db->get()->result();
+	}
 
 	public function membros_comunidade($id) {
 		$this->db->select('usuario.id,usuario.nome,usuario.foto');
@@ -57,6 +72,42 @@ class Comunidades_model extends CI_Model {
 		return $this->db->delete('entra');
 	}
 
+	public function adicionar($tema,$descricao,$idUser) {
+		// Adiciona as variáveis como colunas da matriz $dados
+		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
+		$dados['tema'] = $tema;
+		$dados['descricao'] = $descricao;
+		$dados['id_usuario'] = $idUser;
+
+		// Insere na tabela usuario os dados da variável na tabela
+		return $this->db->insert('comunidade', $dados); 
+	}
+
+	public function calcularNPSMedio($idComunidade) {
+
+		// Seleciona promotores
+		$result = $this->db->select('*')->where('id_comunidade ='.$idComunidade);
+		if ($query = $this->db->get('reuniao')->result()) {
+			$todos = 0;
+			$nTodos = 0;
+			foreach($query as $q) {
+				$todos = $todos + $q->nps;		
+				$nTodos++;
+			}
+			$nps = $todos/$nTodos;
+			$dados['nps_medio'] = $nps;
+			$this->db->where('id='.$idComunidade);
+			if($this->db->update('comunidade', $dados)) {
+				return $nps;
+			} else {
+				return NULL;
+			}
+
+		} else {
+			return NULL;
+		  }
+		
+	}
 
 
 }

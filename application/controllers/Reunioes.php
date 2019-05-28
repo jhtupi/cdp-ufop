@@ -17,7 +17,7 @@ class Reunioes extends CI_Controller {
 		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
-		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
 
 
 		$dados['titulo'] = 'Visualizar reunião';
@@ -54,7 +54,7 @@ class Reunioes extends CI_Controller {
 		redirect(base_url('reuniao/'.$idReuniao));
 	}
 
-	public function criar_reuniao($idReuniao, $idUser,$enviado=null) {
+	public function criar_reuniao($idComunidade, $idUser,$criada=null) {
 		$this->load->helper('funcoes');
 
 		// Carrega os modelos responsáveis
@@ -67,7 +67,7 @@ class Reunioes extends CI_Controller {
 
 		$dados['titulo'] = 'Criar reunião';
 		$dados['subtitulo'] = 'CdP-UFOP';
-		$dados['enviado'] = $enviado;
+		$dados['criada'] = $criada;
 		// Dados a serem enviados para o Cabeçalho
 
 		// Faz as chamadas dos templates dos views de header, footer, aside
@@ -103,7 +103,7 @@ class Reunioes extends CI_Controller {
 		// Preenchimento requerido
 		
 		// Resumo
-		$this->form_validation->set_rules('txt-user', 'Resumo',
+		$this->form_validation->set_rules('txt-resumo', 'Resumo',
 			'min_length[20]');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
@@ -122,7 +122,7 @@ class Reunioes extends CI_Controller {
 			if($this->modelreunioes->adicionar($titulo,$data,$horario,$resumo,$idUser,$idComunidade)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/1'));
 			} else { // Caso não tenha conseguido acessar o model
-				echo "Houve um erro no sistema!";
+				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/2'));
 			}
 
 		}
@@ -149,7 +149,7 @@ class Reunioes extends CI_Controller {
 				if($this->modelreunioes->calcularNPS($idReuniao)) {
 					redirect(base_url('reuniao/'.$idReuniao));
 				} else {
-				echo "Houve um erro no sistema!";
+				echo "Houve um erro no calculo do NPS!";
 				}
 			} else { // Caso não tenha conseguido acessar o model
 				echo "Houve um erro no sistema!";

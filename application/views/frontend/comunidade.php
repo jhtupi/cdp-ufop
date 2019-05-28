@@ -32,16 +32,20 @@
                         Data de criação: <a> <?php echo $comunidade->data_criacao ?></a>
                         <br>
                         <?php 
-                        foreach($membros as $membro) { ?>
+                        foreach($criador as $cr) { ?>
                             <?php
-                            if($comunidade->id_usuario == $membro->id) {
-                                ?>Criada por: <a href="<?php echo base_url('usuario/'.$membro->id.'/'.limpar($membro->nome))?>"><?php 
-                                echo $membro->nome;
+                            if($comunidade->id_usuario == $cr->id) {
+                                ?>Criada por: <a href="<?php echo base_url('usuario/'.$cr->id.'/'.limpar($cr->nome))?>"><?php 
+                                echo $cr->nome;
                             }
                         }
                          ?></a>
-                        <br>
-                        NPS Médio: <a> <?php echo 'configurar'?></a>
+                     <?php  //foreach($npsCom as $nps) {
+                        if($npsCom != NULL) { ?>
+                    <br>NPS Médio: <a> <?php echo $npsCom ?></a>
+                    <?php 
+                        }
+                    //} ?>
                     </p>
                     <br>
                     <p class="">

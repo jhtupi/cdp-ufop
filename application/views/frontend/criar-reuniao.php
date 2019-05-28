@@ -20,9 +20,9 @@
                     foreach($comunidades as $comunidade) {
                 
 
-                        if ($enviado == 1) { // Caso o usuário foi criado, exibe a mensagem de confirmação
+                        if ($criada == 1) { // Caso o usuário foi criado, exibe a mensagem de confirmação
                             echo '<div class="alert alert-success"> Reunião criada! </div>';
-                        } else if ($enviado == 2) {
+                        } else if ($criada == 2) {
                             echo '<div class="alert alert-warning"> Reunião não criada! </div>';
                         }
 
@@ -51,12 +51,6 @@
                     <div class="form-group">
                         <label id="txt-resumo">Resumo</label>
                         <input type="textarea" id="txt-resumo" name="txt-resumo" class="form-control" placeholder="Digite o resumo da reunião" value= "<?php echo set_value('txt-resumo') ?>">
-                    </div>
-
-                    <!-- Foto -->
-                    <div class="form-group">
-                        <label id="txt-foto">Foto</label>
-                        <input type="text" id="txt-foto" name="txt-foto" class="form-control" placeholder="A CONFIGURAR"  value= "<?php echo set_value('txt-foto') ?>">
                     </div>
 
                     <!-- ID Usuário -->

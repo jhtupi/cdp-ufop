@@ -16,40 +16,53 @@
                 <div class="col-md-12">
                    <?php 
 
-                        if ($enviado == 1) { // Caso o e-mail foi enviado, exibe a mensagem de confirmação
-                            echo '<div class="alert alert-success"> E-mail enviado! </div>';
-                        } else if ($enviado == 2) {
-                            echo '<div class="alert alert-warning"> E-mail não enviado! </div>';
+                        if ($criada == 1) { 
+                            echo '<div class="alert alert-success"> Comunidade criada! </div>';
+                        } else if ($criada == 2) {
+                            echo '<div class="alert alert-warning"> Comunidade não criada! </div>';
                         }
 
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação 
 
-                        $atributosForm = array('name' => 'formulario_contato', 'id'=> 'formulario_contato');
-                        echo form_open(base_url('contato/enviar_mensagem'),$atributosForm);
+                        $atributosComunidade = array('name' => 'formulario_comunidade', 'id'=> 'formulario_comunidade');
+                        echo form_open(base_url('comunidades/inserir'),$atributosComunidade);
 
-                        $atribTitulo= array('name'=>'txtTitulo','id'=>'txtTitulo','class'=>'form-control','placeholder'=>'Digite o título da reunião', 
-                            'value' => set_value('txtTitulo'));
+                        $atribTema= array('name'=>'txt-tema','id'=>'txt-tema','class'=>'form-control','placeholder'=>'Digite o tema da comunidade', 
+                            'value' => set_value('txt-tema'));
                         echo("<div class='form-group'>").
-                        form_label("Titulo",'txtTitulo').
-                        form_input($atribTitulo).
+                        form_label("Tema",'txt-tema').
+                        form_input($atribTema).
                         ("</div>");
 
-                        $atribDescrição= array('name'=>'txtDescricao','id'=>'txtDescricao','class'=>'form-control','placeholder'=>'Digite a descrição da comunidade',
-                            'value' => set_value('txtDescricao'));
+                        $atribDescrição= array('name'=>'txt-descricao','id'=>'txt-descricao','class'=>'form-control','placeholder'=>'Digite a descrição da comunidade',
+                            'value' => set_value('txt-descricao'));
                         echo("<div class='form-group'>").
-                        form_label("Descrição",'txtDescricao').
+                        form_label("Descrição",'txt-descricao').
                         form_textarea($atribDescrição).
                         (" </div>");
+                        echo form_hidden('txt-iduser', $this->session->userdata('userlogado')->id);
 
-                        $atribImg= array('name'=>'txtImg','id'=>'txtImg','class'=>'form-control','placeholder'=>'Imagem', 
-                            'value' => set_value('txtImg'));
-                        echo("<div class='form-group'>").
-                        form_label("Imagem",'txtImg').
-                        form_input($atribImg).
-                        (" </div>");
 
-                        
-                        echo form_submit('btn_enviar','Criar Comunidade');
+                        /* Adicionar imagem 
+                        $divopen= '<div class="form-group">';
+                        $divclose= '</div>';
+                        echo form_open_multipart('comunidades/nova_foto');   // Formulário especial para arquivos
+                        echo form_hidden('id', md5($this->session->userdata('userlogado')->id));
+                        echo $divopen.form_label("Imagem",'txtImg');
+
+                        // O simbolo '=>' serve para apontar
+                        // Cria uma variável para montar os formulários formatados
+                        $imagem= array('name' => 'userfile', 'id' => 'userfile', 'class' => 'form-control');
+                        echo form_upload($imagem); // O identificador neste upload deve ser sempre userfile
+                        echo $divclose;
+                        echo $divopen;
+                        $botao= array('name' => 'btn_adicionar', 'id' => 'btn_adicionar', 'class' => 'btn btn-default', 'value' => 'Adicionar foto');
+                        echo form_submit($botao);
+                        echo $divclose;
+                        echo form_close();*/
+
+                        $botao2= array('name' => 'btn_enviar', 'id' => 'btn_enviar', 'class' => 'btn btn-default col-lg-12', 'value' => 'Criar Comunidade');
+                        echo form_submit($botao2);
                         
                         echo form_close();
 

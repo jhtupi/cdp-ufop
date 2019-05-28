@@ -28,7 +28,7 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/html-header', $dados); // Aqui a variável $dados é carregada na view
 		$this->load->view('frontend/template/header');
 		$this->load->view('frontend/comunidades');	// Chamada do conteúdo da página em si
-		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/aside-comunidades');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}
@@ -38,12 +38,10 @@ class Comunidades extends CI_Controller {
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
-
-		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['criador'] = $this->modelcomunidades->criador_comunidade($id);
 		$dados['membros'] = $this->modelcomunidades->membros_comunidade($id);
-
-		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['reunioes'] = $this->modelcomunidades->reunioes_comunidade($id);
+		$dados['npsCom'] = $this->modelcomunidades->calcularNPSMedio($id);
 
 		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';
@@ -60,12 +58,12 @@ class Comunidades extends CI_Controller {
 	}
 
 
-	public function criar_comunidade($enviado=null) {
+	public function criar_comunidade($criada=null) {
 		$this->load->helper('funcoes');
 
 		$dados['titulo'] = 'Criar Comunidade';
 		$dados['subtitulo'] = 'CdP-UFOP';
-		$dados['enviado'] = $enviado;
+		$dados['criada'] = $criada;
 		// Dados a serem enviados para o Cabeçalho
 
 		// Faz as chamadas dos templates dos views de header, footer, aside
@@ -75,6 +73,42 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
+	}
+
+	public function inserir() {
+
+
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+
+		// Validações do Formulário
+
+		// Tema
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('txt-tema', 'Tema',
+			'required|min_length[3]'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+		
+		// Descrição
+		$this->form_validation->set_rules('txt-descricao', 'Descrição',
+			'required|min_length[20]');
+		// Preenchimento requerido | Mínimo de 20 caracteres
+		
+		
+		if ($this->form_validation->run() == FALSE) { 
+			redirect(base_url('criar_comunidade'.'/2'));
+		} else {
+			// Validação correta, resgata as variáveis
+			$tema= $this->input->post('txt-tema');
+			$descricao= $this->input->post('txt-descricao');
+			$idUser= $this->input->post('txt-iduser');
+
+			if($this->modelcomunidades->adicionar($tema,$descricao,$idUser)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('criar_comunidade/'.'/1'));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('criar_comunidade/'.'/2'));
+			}
+
+		}
 	}
 
 	public function participar_comunidade($idComunidade, $idUsuario) {
