@@ -22,6 +22,13 @@ class Comunidades_model extends CI_Model {
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
+	public function destaques_comunidade() {
+		$this->db->select('id,tema,nps_medio');
+		$this->db->from('comunidade'); // seleciona a tabela
+		$this->db->limit(4);	// limita a chamada para apenas os primeiros 4 itens
+		$this->db->order_by('nps_medio', 'DESC'); // Ordenar por data da mais antiga para mais nova
+		return $this->db->get()->result();
+	}
 	public function listar_comunidade_reuniao($idReuniao) {
 		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.imagem,comunidade.nps_medio,comunidade.id_usuario,comunidade.data_criacao');
 		//$this->db->from('comunidade'); // seleciona a tabela

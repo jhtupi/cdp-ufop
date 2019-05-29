@@ -103,6 +103,7 @@
                             <label for="nps-reuniao">De 1 a 10, o quanto você indicaria uma reunião desta comunidade para um amigo ou colega?</label>
                             (1- Jamais indicaria | 10- Indicaria com certeza)
                             <input type="number" class="form-control" min="1" max="10" id="nps-reuniao" name="nps-reuniao">
+                            <input type="hidden" name="id-comunidade" id="id-comunidade" value="<?php echo $reuniao->id_comunidade ?>">
                             <?php } // foreach Reunião ?> 
                           </div>
                         </form>     

@@ -6,6 +6,9 @@ class Comunidades extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$this->destaques = $this->modelcomunidades->destaques_comunidade();
+
 	}
 	
 	public function index() {
@@ -17,6 +20,7 @@ class Comunidades extends CI_Controller {
 		$this->load->model('comunidades_model', 'modelcomunidades'); 
 		// Insere os dados da postagem no array dados
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+
 
 
 		$dados['titulo'] = 'Comunidades existentes';
@@ -64,6 +68,7 @@ class Comunidades extends CI_Controller {
 		$dados['titulo'] = 'Criar Comunidade';
 		$dados['subtitulo'] = 'CdP-UFOP';
 		$dados['criada'] = $criada;
+		$dados['destaques'] = $this->destaques;
 		// Dados a serem enviados para o Cabeçalho
 
 		// Faz as chamadas dos templates dos views de header, footer, aside

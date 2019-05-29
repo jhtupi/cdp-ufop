@@ -6,6 +6,9 @@ class Usuarios extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$this->destaques = $this->modelcomunidades->destaques_comunidade();
+
 	}
 	
 	public function index() {
@@ -17,6 +20,7 @@ class Usuarios extends CI_Controller {
 		$this->load->model('usuarios_model', 'modelusuarios'); 
 		// Insere os dados da postagem no array dados
 		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
+		$dados['destaques'] = $this->destaques;
 
 
 		$dados['titulo'] = 'Usuários do sistema';
@@ -38,6 +42,7 @@ class Usuarios extends CI_Controller {
 
 		$this->load->model('usuarios_model', 'modelusuarios');
 		$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
+		$dados['destaques'] = $this->destaques;
 
 		$dados['titulo'] = 'Visualizar usuário';
 		$dados['subtitulo'] = '';
@@ -80,6 +85,7 @@ class Usuarios extends CI_Controller {
 		$dados['usuarios'] = $this->modelusuarios->meu_perfil($id);
 		$dados['titulo'] = 'Meu Perfil';
 		$dados['subtitulo'] = '';
+		$dados['destaques'] = $this->destaques;
 		// Dados a serem enviados para o Cabeçalho
 
 

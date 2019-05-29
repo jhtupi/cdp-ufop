@@ -8,6 +8,9 @@ class Home extends CI_Controller {
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url('login'));
 		}
+		
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$this->destaques = $this->modelcomunidades->destaques_comunidade();
 	}
 	
 	public function index()
@@ -17,6 +20,7 @@ class Home extends CI_Controller {
 		$this->load->model('reunioes_model', 'modelreunioes');
 		// O modelo de destaques é carregado aqui na função index pois não será requerido em toda pasta como as categorias que ficam no header e aside
 		$dados['reunioes'] = $this->modelreunioes->listar_reunioes_recentes();
+		$dados['destaques'] = $this->destaques;
 		// Insere os dados da postagem no array dados
 	
 		$this->load->model('comunidades_model', 'modelcomunidades');

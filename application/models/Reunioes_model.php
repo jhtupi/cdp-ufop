@@ -108,10 +108,19 @@ class Reunioes_model extends CI_Model {
 		return $this->db->update('reuniao', $dados);
 	}
 
-	public function avaliar($idReuniao, $idUsuario, $nps) {
+	public function avaliar($idReuniao, $idUsuario, $nps, $idComunidade) {
 		$dados['nps'] = $nps;
 		$this->db->where('id_usuario='.$idUsuario)->where('id_reuniao='.$idReuniao);
-		return $this->db->update('participa', $dados);
+		if ($this->db->update('participa', $dados)) {
+			// Atualiza comunidade
+			$this->load->model('comunidades_model', 'modelcomunidades');
+			if($this->modelcomunidades->calcularNPSMedio($idComunidade)) {
+			return 1;
+			}
+			return 0;
+		} else {
+			return 0;
+		}
 	}
 
 }

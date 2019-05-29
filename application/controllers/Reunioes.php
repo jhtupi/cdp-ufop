@@ -5,6 +5,9 @@ class Reunioes extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$this->destaques = $this->modelcomunidades->destaques_comunidade();
 
 	}
 	
@@ -63,6 +66,7 @@ class Reunioes extends CI_Controller {
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($idComunidade);
 		$this->load->model('usuarios_model', 'modelusuarios');
 		$dados['usuarios'] = $this->modelusuarios->listar_usuario($idUser);
+		$dados['destaques'] = $this->destaques;
 
 
 		$dados['titulo'] = 'Criar reunião';
@@ -125,7 +129,7 @@ class Reunioes extends CI_Controller {
 			$idUser= $this->input->post('txt-iduser');
 			$idComunidade= $this->input->post('txt-comunidade');
 
-			if($this->modelreunioes->adicionar($titulo,$data,$horario,$resumo,$idUser,$idComunidade)) { // Se conseguiu acessar o model e adicionar
+			if($this->modelreunioes->adicionar($titulo,$data,$horario,$local,$resumo,$idUser,$idComunidade)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/1'));
 			} else { // Caso não tenha conseguido acessar o model
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/2'));
@@ -150,10 +154,13 @@ class Reunioes extends CI_Controller {
 		} else {
 			// Validação correta, resgata as variáveis
 			$nps= $this->input->post('nps-reuniao');
+			$idComunidade= $this->input->post('id-comunidade');
 
-			if($this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps)) { // Se conseguiu acessar o model e adicionar
+
+			if($this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps,$idComunidade)) { // Se conseguiu acessar o model e adicionar
 				if($this->modelreunioes->calcularNPS($idReuniao)) {
 					redirect(base_url('reuniao/'.$idReuniao));
+
 				} else {
 				echo "Houve um erro no calculo do NPS!";
 				}
