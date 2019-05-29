@@ -47,6 +47,12 @@
                         <input type="time" id="txt-horario" name="txt-horario" class="form-control" value= "<?php echo set_value('txt-horario') ?>">
                     </div>
 
+                    <!-- Local -->
+                    <div class="form-group">
+                        <label id="txt-local">Local</label>
+                        <input type="text" id="txt-local" name="txt-local" class="form-control" placeholder="Digite o local da reunião" value= "<?php echo set_value('txt-local') ?>">
+                    </div>
+
                     <!-- Resumo -->
                     <div class="form-group">
                         <label id="txt-resumo">Resumo</label>

@@ -18,21 +18,21 @@ class Reunioes_model extends CI_Model {
 
 	
 	public function listar_reuniao($id) {
-		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade,nps');
+		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); // seleciona a tabela
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
 
 	public function listar_reunioes() {
-		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade,nps');
+		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
 		$this->db->order_by('titulo', 'ASC');
 		return $this->db->get()->result();
 	}
 
 	public function listar_reunioes_recentes() {
-		$this->db->select('id,titulo,imagem,data,horario,resumo,id_usuario,id_comunidade,nps');
+		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
 		$this->db->order_by('data', 'ASC');
 		return $this->db->get()->result();
@@ -56,12 +56,13 @@ class Reunioes_model extends CI_Model {
 		return $this->db->delete('participa');
 	}
 
-	public function adicionar($titulo,$data,$horario,$resumo,$idUser,$idComunidade) {
+	public function adicionar($titulo,$data,$horario,$local,$resumo,$idUser,$idComunidade) {
 		// Adiciona as variáveis como colunas da matriz $dados
 		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
 		$dados['titulo'] = $titulo;
 		$dados['data'] = $data;
 		$dados['horario'] = $horario;
+		$dados['local'] = $local;
 		$dados['resumo'] = $resumo;
 		$dados['id_usuario'] = $idUser;
 		$dados['id_comunidade'] = $idComunidade;

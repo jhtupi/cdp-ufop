@@ -102,10 +102,15 @@ class Reunioes extends CI_Controller {
 			'required');
 		// Preenchimento requerido
 		
+		// Horário
+		$this->form_validation->set_rules('txt-horario', 'Horário',
+			'required|min_length[20]');
+		// Preenchimento requerido | Mínimo de 20 caracteres
+		
 		// Resumo
 		$this->form_validation->set_rules('txt-resumo', 'Resumo',
 			'min_length[20]');
-		// Preenchimento requerido | Mínimo de 20 caracteres
+		// Mínimo de 20 caracteres
 		
 		
 		if ($this->form_validation->run() == FALSE) { 
@@ -115,6 +120,7 @@ class Reunioes extends CI_Controller {
 			$titulo= $this->input->post('txt-titulo');
 			$data= $this->input->post('txt-data');
 			$horario= $this->input->post('txt-horario');
+			$local= $this->input->post('txt-local');
 			$resumo= $this->input->post('txt-resumo');
 			$idUser= $this->input->post('txt-iduser');
 			$idComunidade= $this->input->post('txt-comunidade');

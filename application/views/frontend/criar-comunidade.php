@@ -61,7 +61,7 @@
                         echo $divclose;
                         echo form_close();*/
 
-                        $botao2= array('name' => 'btn_enviar', 'id' => 'btn_enviar', 'class' => 'btn btn-default col-lg-12', 'value' => 'Criar Comunidade');
+                        $botao2= array('name' => 'btn_enviar', 'id' => 'btn_enviar', 'class' => 'btn btn-lg btn-success btn-block col-lg-12', 'value' => 'Criar Comunidade');
                         echo form_submit($botao2);
                         
                         echo form_close();
