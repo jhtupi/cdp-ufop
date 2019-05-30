@@ -18,7 +18,6 @@ class Reunioes extends CI_Controller {
 		$this->load->model('reunioes_model', 'modelreunioes');
 		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
 		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
-		//$dados['avaliadores'] = $this->modelreunioes->avaliadores_reuniao($id);
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);

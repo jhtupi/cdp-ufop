@@ -137,6 +137,23 @@ class Comunidades extends CI_Controller {
 		// Retorna o usuário à comunidade
 		redirect(base_url('comunidade/'.$idComunidade));
 	}
+
+	public function excluir_comunidade($idComunidade, $idUsuario) {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+		//echo $this->modelcomunidades->excluir($idComunidade, $idUsuario);
+		//return;
+		if($this->modelcomunidades->excluir($idComunidade, $idUsuario)) { // Se conseguiu acessar o model e adicionar
+			redirect(base_url());
+		} else { // Caso não tenha conseguido acessar o model
+			echo "Houve um erro na exclusão da comunidade!";
+		}
+	}
 }
 
 

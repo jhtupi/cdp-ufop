@@ -91,6 +91,20 @@ class Comunidades_model extends CI_Model {
 		return $this->db->insert('comunidade', $dados); 
 	}
 
+	public function excluir($idComunidade, $idUsuario) {
+		$this->db->select('*')->from('comunidade')->where('id ='.$idComunidade); 
+		$ids = $this->db->get()->result();
+		foreach($ids as $id) {
+			$id = $ids->id_usuario;
+		}
+		if ($id == $idUsuario) {
+			$this->db->where('id', $idComunidade);
+			return $this->db->delete('comunidade'); // deleta a categoria selecionada
+		} else {
+			return 0;
+		}
+	}
+
 	public function calcularNPSMedio($idComunidade) {
 
 		$this->db->select('*')->from('reuniao')->where('id_comunidade ='.$idComunidade);

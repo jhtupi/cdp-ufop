@@ -41,7 +41,7 @@
                         }
                          ?></a>
                      <?php  //foreach($npsCom as $nps) {
-                        if($npsCom != 101) { ?>
+                        if(!($npsCom >= 101)) { ?>
                     <br>NPS Médio: <a> <?php echo $npsCom ?></a>
                     <?php 
                         }
