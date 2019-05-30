@@ -39,7 +39,15 @@ class Reunioes_model extends CI_Model {
 	}
 
 	public function participantes_reuniao($id) {
-		$this->db->select('usuario.id,usuario.nome,usuario.foto');
+		$this->db->select('usuario.id,usuario.nome,usuario.foto, participa.nps');
+		$this->db->from('participa'); // seleciona a tabela
+		$this->db->join('usuario', 'participa.id_usuario = usuario.id', 'inner');
+		$this->db->join('reuniao', 'participa.id_reuniao ='.$id, 'inner');
+		return $this->db->get()->result();
+	}
+
+	public function avaliadores_reuniao($id) {
+		$this->db->select('usuario.id,participa.nps');
 		$this->db->from('participa'); // seleciona a tabela
 		$this->db->join('usuario', 'participa.id_usuario = usuario.id', 'inner');
 		$this->db->join('reuniao', 'participa.id_reuniao ='.$id, 'inner');

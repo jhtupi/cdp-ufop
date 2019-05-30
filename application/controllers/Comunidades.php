@@ -25,6 +25,7 @@ class Comunidades extends CI_Controller {
 
 		$dados['titulo'] = 'Comunidades existentes';
 		$dados['subtitulo'] = '';
+		$dados['destaques'] = $this->destaques;
 
 		// Dados a serem enviados para o Cabeçalho
 
@@ -46,6 +47,7 @@ class Comunidades extends CI_Controller {
 		$dados['membros'] = $this->modelcomunidades->membros_comunidade($id);
 		$dados['reunioes'] = $this->modelcomunidades->reunioes_comunidade($id);
 		$dados['npsCom'] = $this->modelcomunidades->calcularNPSMedio($id);
+		$dados['destaques'] = $this->destaques;
 
 		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';

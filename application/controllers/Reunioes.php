@@ -22,6 +22,7 @@ class Reunioes extends CI_Controller {
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
+		$dados['destaques'] = $this->destaques;
 
 
 		$dados['titulo'] = 'Visualizar reunião';
