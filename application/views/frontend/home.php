@@ -29,9 +29,9 @@
                         <br>
                         <?php 
                         foreach($comunidades as $comunidade) { ?>
-                        Comunidade: <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>">
                             <?php
                             if($reuniao->id_comunidade == $comunidade->id) {
+                                ?> Comunidade: <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>"> <?php
                                 echo $comunidade->tema;
                             }
                         }?></a>

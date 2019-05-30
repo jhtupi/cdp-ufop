@@ -6,6 +6,9 @@ class Sobrenos extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$this->destaques = $this->modelcomunidades->destaques_comunidade();
+
 	}
 	
 	public function index() {
@@ -14,6 +17,7 @@ class Sobrenos extends CI_Controller {
 
 		$dados['titulo'] = 'Sobre Nós';
 		$dados['subtitulo'] = 'Conheça nosso trabalho';
+		$dados['destaques'] = $this->destaques;
 		// Dados a serem enviados para o Cabeçalho
 
 		// Faz as chamadas dos templates dos views de header, footer, aside

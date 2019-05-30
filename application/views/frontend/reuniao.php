@@ -31,6 +31,8 @@
                         Data: <a> <?php echo $reuniao->data ?></a>
                         Horário: <a> <?php echo $reuniao->horario ?></a>
                         <br>
+                        Local: <a> <?php echo $reuniao->local ?></a>
+                        <br>
                         <?php 
                         foreach($comunidades as $comunidade) { ?>
                         Comunidade: <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>">

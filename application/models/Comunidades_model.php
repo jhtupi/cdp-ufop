@@ -47,9 +47,10 @@ class Comunidades_model extends CI_Model {
 
 	public function membros_comunidade($id) {
 		$this->db->select('usuario.id,usuario.nome,usuario.foto');
-		$this->db->from('entra'); // seleciona a tabela
+		$this->db->from('entra')->where('id_comunidade='.$id); // seleciona a tabela
+		//$this->db->join('comunidade', 'entra.id_comunidade ='.$id, 'inner');
+
 		$this->db->join('usuario', 'entra.id_usuario = usuario.id', 'inner');
-		$this->db->join('comunidade', 'entra.id_comunidade ='.$id, 'inner');
 		return $this->db->get()->result();
 	}
 
@@ -92,13 +93,14 @@ class Comunidades_model extends CI_Model {
 
 	public function calcularNPSMedio($idComunidade) {
 
-		// Seleciona promotores
-		$result = $this->db->select('*')->where('id_comunidade ='.$idComunidade);
-		if ($query = $this->db->get('reuniao')->result()) {
+		$this->db->select('*')->from('reuniao')->where('id_comunidade ='.$idComunidade);
+		if ($query = $this->db->get()->result()) {
 			$todos = 0;
 			$nTodos = 0;
 			foreach($query as $q) {
+				if($q->nps != NULL) {
 				$todos = $todos + $q->nps;		
+				}
 				$nTodos++;
 			}
 			$nps = $todos/$nTodos;
@@ -107,17 +109,22 @@ class Comunidades_model extends CI_Model {
 			if($this->db->update('comunidade', $dados)) {
 				return $nps;
 			} else {
-				return NULL;
+				return 102;
 			}
 
 		} else {
-			$this->db->set('nps_medio', null);
+			$this->db->set('nps_medio', 104);
 		    $this->db->where('id', $idComunidade);
 		    $this->db->update('comunidade');
-			return NULL;
+			return 103;
 		  }
 		
 	}
-
+/* 
+0 - Não rolou update avaliar
+$nps_medio - Rolou update NPS Médio
+-102 - Não rolou update
+-103 - Não obteve resultado
+*/
 
 }

@@ -41,7 +41,7 @@
                         }
                          ?></a>
                      <?php  //foreach($npsCom as $nps) {
-                        if($npsCom != NULL) { ?>
+                        if($npsCom != 101) { ?>
                     <br>NPS Médio: <a> <?php echo $npsCom ?></a>
                     <?php 
                         }
@@ -52,6 +52,10 @@
                         <?php echo $comunidade->descricao ?>
                     </p>
                     <hr>
+                     <!-- Foreach comunidade -->   
+                    <?php 
+                    }
+                    ?>
 
                                                     <!-- Membros da Comunidade -->
                     <h2>Membros da comunidade</h2>
@@ -115,10 +119,7 @@
                             
                             }
                         ?>
-                 <!-- Foreach comunidade -->   
-                <?php 
-                }
-                ?>
+                
                 </div>
             </div>
             

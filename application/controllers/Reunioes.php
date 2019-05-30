@@ -18,6 +18,7 @@ class Reunioes extends CI_Controller {
 		$this->load->model('reunioes_model', 'modelreunioes');
 		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
 		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
+		//$dados['avaliadores'] = $this->modelreunioes->avaliadores_reuniao($id);
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
@@ -156,16 +157,20 @@ class Reunioes extends CI_Controller {
 			$nps= $this->input->post('nps-reuniao');
 			$idComunidade= $this->input->post('id-comunidade');
 
-
-			if($this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps,$idComunidade)) { // Se conseguiu acessar o model e adicionar
+			$aval = $this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps,$idComunidade);
+			if($aval >= -100 && $aval <= 100) { // Se conseguiu acessar o model e adicionar e NPS Médio tbm
 				if($this->modelreunioes->calcularNPS($idReuniao)) {
 					redirect(base_url('reuniao/'.$idReuniao));
-
 				} else {
 				echo "Houve um erro no calculo do NPS!";
 				}
-			} else { // Caso não tenha conseguido acessar o model
-				echo "Houve um erro no sistema!";
+			} else if ($aval == 102) { // Não rolou update NPS médio
+				echo "Houve um erro no cálculo NPS Médio!";
+			
+			} else if ($aval == 103) { // Não rolou resultado da busca por reuniões desta comunidade
+				echo "Houve um erro no resultado da busca por reuniões desta comunidade!";
+			} else {
+				echo "Houve um erro na avaliação!";	
 			}
 
 		}
@@ -174,4 +179,10 @@ class Reunioes extends CI_Controller {
 
 }
 
+/* 
+0 - Não rolou update avaliar
+$nps_medio - Rolou update NPS Médio
+102 - Não rolou update
+103 - Não obteve resultado
+*/
 

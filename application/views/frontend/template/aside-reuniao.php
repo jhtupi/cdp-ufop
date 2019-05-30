@@ -29,11 +29,21 @@
 
                     // Verifica se o usuário é membro da reunião
                         $ehParticipante = 0;
+                        $jaAvaliou = 0;
                         foreach($participantes as $participante) {
                             if ($this->session->userdata('userlogado')->id == $participante->id){
                                 $ehParticipante = 1;
+
+                                // Verifica se o usuário já avaliou a reunião
+                                foreach($participantes as $participante) {
+                                    if ($this->session->userdata('userlogado')->id == $participante->id){
+                                        $jaAvaliou = 1;
+                                    } else {}
+                        }
                             } else {}
                         }
+
+
 
                      if ($jaAconteceu) {
 

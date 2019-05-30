@@ -114,13 +114,13 @@ class Reunioes_model extends CI_Model {
 		if ($this->db->update('participa', $dados)) {
 			// Atualiza comunidade
 			$this->load->model('comunidades_model', 'modelcomunidades');
-			if($this->modelcomunidades->calcularNPSMedio($idComunidade)) {
-			return 1;
-			}
-			return 0;
+			$npsMedio = $this->modelcomunidades->calcularNPSMedio($idComunidade);
+			return $npsMedio;				
+			
 		} else {
 			return 0;
 		}
 	}
 
 }
+

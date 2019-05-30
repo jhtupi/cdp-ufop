@@ -28,9 +28,6 @@
                         <a href="<?php echo base_url('sobrenos'); // baseurl chamando o controlador 'sobrenos' 
                                         ?>">Sobre Nós</a> 
                     </li>
-                    <li>
-                        <a href="<?php echo base_url('contato') ?>">Contato</a>
-                    </li>
                     
                 </ul>
               
