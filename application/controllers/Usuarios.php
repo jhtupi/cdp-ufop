@@ -199,7 +199,7 @@ class Usuarios extends CI_Controller {
 
 				// Se conseguiu acessar o model e adicionar ao banco de dados
 				if($this->modelusuarios->alterar_img($id)) { 
-					redirect(base_url('admin/usuarios/alterar/'.$id));
+					redirect(base_url('usuarios/meu_perfil/'.$id));
 				} else { // Caso não tenha conseguido acessar o model
 					echo "Houve um erro no sistema!";
 				}
