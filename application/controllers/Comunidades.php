@@ -103,16 +103,18 @@ class Comunidades extends CI_Controller {
 		
 		if ($this->form_validation->run() == FALSE) { 
 			redirect(base_url('criar_comunidade'.'/2'));
+
 		} else {
 			// Validação correta, resgata as variáveis
 			$tema= $this->input->post('txt-tema');
 			$descricao= $this->input->post('txt-descricao');
 			$idUser= $this->input->post('txt-iduser');
+			$dataCriacao = date('Y-m-d');
 
-			if($this->modelcomunidades->adicionar($tema,$descricao,$idUser)) { // Se conseguiu acessar o model e adicionar
+			if($this->modelcomunidades->adicionar($tema,$descricao,$idUser,$dataCriacao)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('criar_comunidade/'.'/1'));
-			} else { // Caso não tenha conseguido acessar o mode
-				redirect(base_url('criar_comunidade/'.'/2'));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('criar_comunidade/'.'/3'));
 			}
 
 		}

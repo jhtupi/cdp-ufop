@@ -29,7 +29,7 @@
                         ?>
                         <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
                          <h4 class="text-center">
-                            <a href="<?php echo base_url('usuario/'.$usuario->id.'/'.limpar($usuario->nome)) ?>"><?php echo $usuario->nome ?></a>
+                            <a href="<?php echo base_url('usuario/'.$usuario->id) ?>"><?php echo $usuario->nome ?></a>
                         </h4> 
                     </div>
 

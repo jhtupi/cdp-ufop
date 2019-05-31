@@ -19,7 +19,9 @@
                         if ($criada == 1) { 
                             echo '<div class="alert alert-success"> Comunidade criada! </div>';
                         } else if ($criada == 2) {
-                            echo '<div class="alert alert-warning"> Comunidade não criada! </div>';
+                            echo '<div class="alert alert-warning"> Comunidade não criada! Erro no formulário </div>';
+                        } else if ($criada == 3) {
+                            echo '<div class="alert alert-warning"> Comunidade não criada! Erro no banco de dados </div>';
                         }
 
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação 

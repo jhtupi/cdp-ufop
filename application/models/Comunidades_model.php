@@ -22,6 +22,15 @@ class Comunidades_model extends CI_Model {
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
+
+	public function listar_comunidades() {
+		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.imagem,comunidade.nps_medio,comunidade.data_criacao, comunidade.id_usuario, usuario.nome');
+		$this->db->from('comunidade'); 
+		$this->db->join('usuario', 'usuario.id = comunidade.id_usuario', 'inner');
+		$this->db->order_by('tema', 'ASC');
+		return $this->db->get()->result();
+	}
+
 	public function destaques_comunidade() {
 		$this->db->select('id,tema,nps_medio');
 		$this->db->from('comunidade')->where('nps_medio <= 100'); // seleciona a tabela
@@ -62,13 +71,6 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function listar_comunidades() {
-		$this->db->select('id,tema,descricao,imagem,nps_medio,id_usuario,data_criacao');
-		$this->db->from('comunidade'); 
-		$this->db->order_by('tema', 'ASC');
-		return $this->db->get()->result();
-	}
-
 	public function inserir_membro_comunidade($idComunidade,$idUsuario) {
 		$dados['id_usuario'] = $idUsuario;
 		$dados['id_comunidade'] = $idComunidade;
@@ -80,12 +82,13 @@ class Comunidades_model extends CI_Model {
 		return $this->db->delete('entra');
 	}
 
-	public function adicionar($tema,$descricao,$idUser) {
+	public function adicionar($tema,$descricao,$idUser,$dataCriacao) {
 		// Adiciona as variáveis como colunas da matriz $dados
 		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
 		$dados['tema'] = $tema;
 		$dados['descricao'] = $descricao;
 		$dados['id_usuario'] = $idUser;
+		$dados['data_criacao'] = $dataCriacao;
 
 		// Insere na tabela usuario os dados da variável na tabela
 		return $this->db->insert('comunidade', $dados); 

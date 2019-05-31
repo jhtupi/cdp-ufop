@@ -23,7 +23,7 @@
                         <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>"> <?php echo $comunidade->tema ?></a>
                     </h2>
                     <p class="lead">
-                        criada por <a href=""><?php echo 'CONFIGURAR' ?></a>
+                        criada por <a href="<?php echo base_url('usuario/'.$comunidade->id_usuario)?>"><?php echo $comunidade->nome; ?></a>
                     </p>
                     <p> <b> Criada em:</b> <?php echo postadoem($comunidade->data_criacao) ?></p>
                     <hr>

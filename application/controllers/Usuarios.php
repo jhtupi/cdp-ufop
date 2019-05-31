@@ -162,6 +162,54 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
+	public function nova_foto() {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários
+
+
+		// Configurações antes de fazer o upload da imagem
+		$id= $this->input->post('id'); // Recebe o ID do formulário
+		$config['upload_path']= './assets/frontend/img/usuarios'; // Aponta para a pasta onde salvo as imagens dos usuários
+		$config['allowed_types']= 'jpg'; // Tipos de arquivos suportados
+		$config['file_name']= $id.'.jpg'; // Configuração relacionada ao nome do arquivo
+		$config['overwrite']= TRUE; // Substitui(Reescreve) a imagem que já existe para este usuário
+		$this->load->library('upload', $config); // Carrega a biblioteca de upload e envia as configurações feitas para ela
+
+
+		// Faz o upload da imagem
+		if(!$this->upload->do_upload()) { // Se não conseguir fazer o upload, mostrar erros
+			echo $this->upload->display_errors();
+		} else {
+
+			// Configuração de alterações da imagem
+			$config2['source_img']= './assets/frontend/img/usuarios/'.$id.'.jpg'; // Caminho da imagem
+			$config2['create_thumb'] = FALSE; // Não cria Thumbnails
+			$config2['width'] = 200; // Largura da imagem em pixels
+			$config2['height'] = 200; // Altura da imagem em pixels
+
+			$this->load->library('image_lib'); // Carrega a biblioteca de alterações de imagem 
+			$this->image_lib->initialize($config2); // Envia as configurações feitas para ela
+			$this->image_lib->clear();
+
+			if($this->image_lib->resize()) { // Se foi possível fazer as alterações
+
+				// Se conseguiu acessar o model e adicionar ao banco de dados
+				if($this->modelusuarios->alterar_img($id)) { 
+					redirect(base_url('admin/usuarios/alterar/'.$id));
+				} else { // Caso não tenha conseguido acessar o model
+					echo "Houve um erro no sistema!";
+				}
+				
+			} else {
+				echo $this->image_lib->display_errors();
+			}
+		}
+	}
+
 
 
 
