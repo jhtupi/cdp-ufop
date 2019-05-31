@@ -26,6 +26,11 @@ class Departamentos_model extends CI_Model {
 		return $this->db->insert('departamento', $dados); 
 	}
 
+	public function excluir($id) {
+		$this->db->where('id', $id); // compara o id criptografado
+		return $this->db->delete('departamento'); // deleta a categoria selecionada
+	}
+
 
 }
 

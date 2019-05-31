@@ -20,12 +20,12 @@
                                 <div class="col-lg-12">
                                     <?php 
                                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
-                                        echo form_open(base_url('criar_usuario/criar_usuario')); // Abre o formulário apontando pro método de inserção no controlador
+                                        echo form_open(base_url('admin/departamentos/inserir')); // Abre o formulário apontando pro método de inserção no controlador
                                     ?>
                                     <!-- Título -->
                                     <div class="form-group">
                                         <label id="txt-nome">Nome do departamento</label>
-                                        <input type="text"id="txt-nome" name="txt-titulo" class="form-control" placeholder="Digite o título da reunião" value= "<?php echo set_value('txt-nome') ?>">
+                                        <input type="text"id="txt-nome" name="txt-nome" class="form-control" placeholder="Digite o título do departamento" value= "<?php echo set_value('txt-nome') ?>">
                                     </div>
                                  
                                     <button type="submit" class="btn btn-default">Criar Departamento</button>

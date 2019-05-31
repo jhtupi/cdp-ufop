@@ -43,6 +43,43 @@ class Departamentos extends CI_Controller {
 		$this->load->view('backend/template/html-footer');
 	}
 
+	public function inserir() {
+
+
+		// Validações do Formulário
+		// Nome
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('txt-nome', 'Nome do departamento',
+			'required'); 
+
+		
+		if ($this->form_validation->run() == FALSE) { 
+			$this->index();
+		} else {
+			// Validação correta, resgata as variáveis
+			$nome= $this->input->post('txt-nome');
+
+		$this->load->model('departamentos_model', 'modeldepartamentos'); // Carrega o Model de Departamentos
+			if($this->modeldepartamentos->adicionar($nome)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('admin/departamentos'));
+			} else { // Caso não tenha conseguido acessar o model
+				echo "Houve um erro no sistema!";
+			}
+
+		}
+	}
+
+	public function excluir($id) {
+
+		$this->load->model('departamentos_model', 'modeldepartamentos'); // Carrega o Model de usuários
+
+		if($this->modeldepartamentos->excluir($id)) { // Se conseguiu acessar o model e adicionar
+			redirect(base_url('admin/departamentos'));
+		} else { // Caso não tenha conseguido acessar o model
+			echo "Houve um erro no sistema!";
+		}
+	}
+
 	
 }
 
