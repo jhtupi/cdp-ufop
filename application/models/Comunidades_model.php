@@ -22,9 +22,18 @@ class Comunidades_model extends CI_Model {
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
+
+	public function listar_comunidades() {
+		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.imagem,comunidade.nps_medio,comunidade.data_criacao, comunidade.id_usuario, usuario.nome');
+		$this->db->from('comunidade'); 
+		$this->db->join('usuario', 'usuario.id = comunidade.id_usuario', 'inner');
+		$this->db->order_by('tema', 'ASC');
+		return $this->db->get()->result();
+	}
+
 	public function destaques_comunidade() {
 		$this->db->select('id,tema,nps_medio');
-		$this->db->from('comunidade'); // seleciona a tabela
+		$this->db->from('comunidade')->where('nps_medio <= 100'); // seleciona a tabela
 		$this->db->limit(4);	// limita a chamada para apenas os primeiros 4 itens
 		$this->db->order_by('nps_medio', 'DESC'); // Ordenar por data da mais antiga para mais nova
 		return $this->db->get()->result();
@@ -62,13 +71,6 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function listar_comunidades() {
-		$this->db->select('id,tema,descricao,imagem,nps_medio,id_usuario,data_criacao');
-		$this->db->from('comunidade'); 
-		$this->db->order_by('tema', 'ASC');
-		return $this->db->get()->result();
-	}
-
 	public function inserir_membro_comunidade($idComunidade,$idUsuario) {
 		$dados['id_usuario'] = $idUsuario;
 		$dados['id_comunidade'] = $idComunidade;
@@ -80,12 +82,13 @@ class Comunidades_model extends CI_Model {
 		return $this->db->delete('entra');
 	}
 
-	public function adicionar($tema,$descricao,$idUser) {
+	public function adicionar($tema,$descricao,$idUser,$dataCriacao) {
 		// Adiciona as variáveis como colunas da matriz $dados
 		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
 		$dados['tema'] = $tema;
 		$dados['descricao'] = $descricao;
 		$dados['id_usuario'] = $idUser;
+		$dados['data_criacao'] = $dataCriacao;
 
 		// Insere na tabela usuario os dados da variável na tabela
 		return $this->db->insert('comunidade', $dados); 
@@ -95,14 +98,20 @@ class Comunidades_model extends CI_Model {
 		$this->db->select('*')->from('comunidade')->where('id ='.$idComunidade); 
 		$ids = $this->db->get()->result();
 		foreach($ids as $id) {
-			$id = $ids->id_usuario;
+			$idUser = $id->id_usuario;
 		}
-		if ($id == $idUsuario) {
+		if ($idUser == $idUsuario) {
+			$this->load->model('comunidades_model', 'modelcomunidades');
+			$this->modelcomunidades->excluir_reunioes($idComunidade);
 			$this->db->where('id', $idComunidade);
 			return $this->db->delete('comunidade'); // deleta a categoria selecionada
 		} else {
 			return 0;
 		}
+	}
+	public function excluir_reunioes($idComunidade) {
+		$this->db->where('id_comunidade ',$idComunidade);;
+		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
 	}
 
 	public function calcularNPSMedio($idComunidade) {

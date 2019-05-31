@@ -55,5 +55,11 @@ class Usuarios_model extends CI_Model {
 		return $this->db->insert('usuario', $dados); // Insere na tabela usuario os dados da variável na tabela
 	}
 
+	public function alterar_img($id) {
+		$dados['foto']= 1;
+		$this->db->where('md5(id)', $id);
+		return $this->db->update('usuario', $dados);
+	}
+
 
 }

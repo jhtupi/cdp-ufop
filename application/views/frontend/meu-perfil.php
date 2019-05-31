@@ -18,7 +18,7 @@
                         <?php 
                             // Verifica se o usuário tem ou não imagem
                             if($usuario->foto == 1) { 
-                                $mostraFoto= "assets/frontend/img/usuarios/".md5($usuario->id).".jpg"; 
+                                $mostraFoto= "assets/frontend/img/usuarios/".$usuario->id.".jpg"; 
                             } else {
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
@@ -39,9 +39,34 @@
 
 
                     <hr>
-                
-                
 
+                    <!-- Alterar foto do usuário -->
+
+                    <label id="txt-nome">Alterar foto</label>
+                    <?php 
+
+                    // Cria variáveis para formatar o formulário 
+                    $divopen= '<div class="form-group">';
+                    $divclose= '</div>';
+
+                    // Monta o formulário através de helpers
+                    echo form_open_multipart('usuarios/nova_foto');   // Formulário especial para arquivos
+                    echo form_hidden('id', $usuario->id);
+                    echo $divopen;
+
+                    // O simbolo '=>' serve para apontar
+                    // Cria uma variável para montar os formulários formatados
+                    $imagem= array('name' => 'userfile', 'id' => 'userfile', 'class' => 'form-control');
+                    echo form_upload($imagem); // O identificador neste upload deve ser sempre userfile
+                    echo $divclose;
+                    echo $divopen;
+                    $botao= array('name' => 'btn_adicionar', 'id' => 'btn_adicionar', 'class' => 'btn btn-default',
+                        'value' => 'Adicionar nova foto');
+                    echo form_submit($botao);
+                    echo $divclose;
+                    echo form_close();    
+                    ?>
+                
 
                 <!-- Alterar usuário -->
                 

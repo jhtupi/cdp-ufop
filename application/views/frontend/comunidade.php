@@ -35,7 +35,7 @@
                         foreach($criador as $cr) { ?>
                             <?php
                             if($comunidade->id_usuario == $cr->id) {
-                                ?>Criada por: <a href="<?php echo base_url('usuario/'.$cr->id.'/'.limpar($cr->nome))?>"><?php 
+                                ?>Criada por: <a href="<?php echo base_url('usuario/'.$cr->id)?>"><?php 
                                 echo $cr->nome;
                             }
                         }
@@ -75,7 +75,7 @@
                         ?>
                         <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
                          <h4 class="text-center">
-                            <a href="<?php echo base_url('usuario/'.$membro->id.'/'.limpar($membro->nome)) ?>"><?php echo $membro->nome ?></a>
+                            <a href="<?php echo base_url('usuario/'.$membro->id) ?>"><?php echo $membro->nome ?></a>
                         </h4> 
                     </div>
 

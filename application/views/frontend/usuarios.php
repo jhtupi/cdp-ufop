@@ -22,14 +22,14 @@
                         <?php 
                             // Verifica se o usuário tem ou não imagem
                             if($usuario->foto == 1) { 
-                                $mostraFoto= "assets/frontend/img/usuarios/".md5($usuario->id).".jpg"; 
+                                $mostraFoto= "assets/frontend/img/usuarios/".$usuario->id.".jpg"; 
                             } else {
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
                         ?>
                         <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
                          <h4 class="text-center">
-                            <a href="<?php echo base_url('usuario/'.$usuario->id.'/'.limpar($usuario->nome)) ?>"><?php echo $usuario->nome ?></a>
+                            <a href="<?php echo base_url('usuario/'.$usuario->id) ?>"><?php echo $usuario->nome ?></a>
                         </h4> 
                     </div>
 

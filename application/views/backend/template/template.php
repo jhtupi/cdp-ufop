@@ -29,6 +29,9 @@
                         <li>
                             <a href="<?php echo base_url('admin') ?>"><i class="fa fa-file-archive-o fa-fw"></i> Materiais</a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url('admin/departamentos') ?>"><i class="fa fa-briefcase fa-fw"></i> Departamentos</a>
+                        </li>
                                                 <li>
                             <a href="<?php echo base_url() ?>"><i class="fa fa-coffee fa-fw"></i> Voltar ao CdP-UFOP</a>
                         </li>
