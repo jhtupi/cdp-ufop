@@ -9,6 +9,13 @@ class Departamentos_model extends CI_Model {
 		parent::__construct();
 	}
 
+	public function listar_departamento($id) {
+		$this->db->select('id,nome');
+		$this->db->from('departamento'); // seleciona a tabela
+		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
+		return $this->db->get()->result();
+	}
+
 	public function listar_departamentos() {
 		$this->db->select('id,nome');
 		$this->db->from('departamento'); 
@@ -24,6 +31,12 @@ class Departamentos_model extends CI_Model {
 									
 		// Insere na tabela usuario os dados da variável na tabela
 		return $this->db->insert('departamento', $dados); 
+	}
+
+	public function alterar($nome,$id) {
+		$dados['nome']= $nome;
+		$this->db->where('id', $id);
+		return $this->db->update('departamento', $dados);
 	}
 
 	public function excluir($id) {
