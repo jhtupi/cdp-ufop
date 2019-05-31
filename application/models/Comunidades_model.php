@@ -24,7 +24,7 @@ class Comunidades_model extends CI_Model {
 	}
 	public function destaques_comunidade() {
 		$this->db->select('id,tema,nps_medio');
-		$this->db->from('comunidade'); // seleciona a tabela
+		$this->db->from('comunidade')->where('nps_medio <= 100'); // seleciona a tabela
 		$this->db->limit(4);	// limita a chamada para apenas os primeiros 4 itens
 		$this->db->order_by('nps_medio', 'DESC'); // Ordenar por data da mais antiga para mais nova
 		return $this->db->get()->result();
@@ -98,11 +98,17 @@ class Comunidades_model extends CI_Model {
 			$idUser = $id->id_usuario;
 		}
 		if ($idUser == $idUsuario) {
+			$this->load->model('comunidades_model', 'modelcomunidades');
+			$this->modelcomunidades->excluir_reunioes($idComunidade);
 			$this->db->where('id', $idComunidade);
 			return $this->db->delete('comunidade'); // deleta a categoria selecionada
 		} else {
 			return 0;
 		}
+	}
+	public function excluir_reunioes($idComunidade) {
+		$this->db->where('id_comunidade ',$idComunidade);;
+		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
 	}
 
 	public function calcularNPSMedio($idComunidade) {

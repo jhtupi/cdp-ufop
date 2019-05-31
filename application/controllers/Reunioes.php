@@ -107,9 +107,9 @@ class Reunioes extends CI_Controller {
 			'required');
 		// Preenchimento requerido
 		
-		// Horário
-		$this->form_validation->set_rules('txt-horario', 'Horário',
-			'required|min_length[20]');
+		// Local
+		$this->form_validation->set_rules('txt-local', 'Local',
+			'required');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
 		// Resumo

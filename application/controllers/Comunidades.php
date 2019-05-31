@@ -111,7 +111,7 @@ class Comunidades extends CI_Controller {
 
 			if($this->modelcomunidades->adicionar($tema,$descricao,$idUser)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('criar_comunidade/'.'/1'));
-			} else { // Caso não tenha conseguido acessar o model
+			} else { // Caso não tenha conseguido acessar o mode
 				redirect(base_url('criar_comunidade/'.'/2'));
 			}
 
