@@ -95,9 +95,9 @@ class Comunidades_model extends CI_Model {
 		$this->db->select('*')->from('comunidade')->where('id ='.$idComunidade); 
 		$ids = $this->db->get()->result();
 		foreach($ids as $id) {
-			$id = $ids->id_usuario;
+			$idUser = $id->id_usuario;
 		}
-		if ($id == $idUsuario) {
+		if ($idUser == $idUsuario) {
 			$this->db->where('id', $idComunidade);
 			return $this->db->delete('comunidade'); // deleta a categoria selecionada
 		} else {
