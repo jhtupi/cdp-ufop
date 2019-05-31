@@ -22,7 +22,7 @@
                         <?php 
                             // Verifica se o usuário tem ou não imagem
                             if($usuario->foto == 1) { 
-                                $mostraFoto= "assets/frontend/img/usuarios/".md5($usuario->id).".jpg"; 
+                                $mostraFoto= "assets/frontend/img/usuarios/".$usuario->id.".jpg"; 
                             } else {
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }

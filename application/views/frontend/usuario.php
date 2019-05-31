@@ -34,7 +34,7 @@
                     </h3>  
                     <hr>
                     <p><b>E-mail: </b><?php echo $usuario->email ?></p>
-                    <p><b>Telefone: </b>A CONFIGURAR</p>
+                    <p><b>Telefone: </b><?php echo $usuario->telefone ?></p>
 
                     <hr>
                 </div>
