@@ -59,11 +59,13 @@
                         <br>
                         <p>
                         <?php foreach($comentarios as $comentario) { ?>
-                            <?php echo date('d/m/Y',$comentario->timestamp);?> - <?php echo date('H:m:s',$comentario->timestamp);?><br>
+                            <?php echo date('d/m/Y',$comentario->timestamp);?> - <?php echo date('H:m:s',$comentario->timestamp);?> 
+                            <?php if($comentario->id == $this->session->userdata('userlogado')->id) { ?>
+                            <a href="<?php echo base_url('reunioes/excluir_comentario/'.$comentario->id.'/'.$reuniao->id.'/'.$comentario->timestamp)?>">Excluir comentário</a>
+                            <?php } ?>
+                            <br>
                             <b><?php echo $comentario->nome;?>:</b>  <?php echo $comentario->comentario;?>
-
                         </p>
-
                         <?php } ?>
                         <?php 
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
@@ -84,7 +86,6 @@
                         <?php 
                         echo form_close(); // Fecha o formulário
                         ?>
-                        
                         <hr>    
                     
                     

@@ -174,6 +174,16 @@ class Reunioes extends CI_Controller {
 		}
 	}
 
+	public function excluir_comentario($idUsuario, $idReuniao, $timestamp) {
+		$this->load->model('reunioes_model', 'modelreunioes'); 
+
+		if($this->modelreunioes->remover_comentario($idUsuario,$idReuniao, $timestamp)) { // Se conseguiu acessar o model e adicionar
+			redirect(base_url('reuniao/'.$idReuniao));
+		} else { // Caso não tenha conseguido acessar o model
+			echo "Houve um erro no sistema!";
+		}
+	}
+
 	public function avaliar($idReuniao, $idUsuario) {
 
 		// Carrega o model

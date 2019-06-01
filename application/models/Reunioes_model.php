@@ -25,12 +25,16 @@ class Reunioes_model extends CI_Model {
 	}
 	
 	public function listar_comentarios($id) {
-		$this->db->select('comentario,usuario.nome,timestamp');
+		$this->db->select('comentario,usuario.nome,usuario.id,timestamp');
 		$this->db->from('comentarios_reuniao'); // seleciona a tabela
 		$this->db->join('usuario', 'comentarios_reuniao.id_usuario = usuario.id', 'inner');
 		$this->db->where('id_reuniao ='.$id); // Compara com a variável id foi enviada
 		$this->db->order_by('timestamp', 'ASC');
 		return $this->db->get()->result();
+	}
+	public function remover_comentario($idUsuario,$idReuniao,$timestamp) { // A fazer
+		$this->db->where('id_usuario='.$idUsuario)->where('id_reuniao='.$idReuniao)->where('timestamp='.$timestamp);
+		return $this->db->delete('comentarios_reuniao');
 	}
 
 	public function listar_reunioes() {
