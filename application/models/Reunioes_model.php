@@ -24,6 +24,54 @@ class Reunioes_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	
+
+	public function listar_reunioes() {
+		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
+		$this->db->from('reuniao'); 
+		$this->db->order_by('titulo', 'ASC');
+		return $this->db->get()->result();
+	}
+
+	public function listar_reunioes_recentes() {
+		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
+		$this->db->from('reuniao'); 
+		$this->db->order_by('data', 'ASC');
+		return $this->db->get()->result();
+	}
+
+	
+	public function adicionar($titulo,$data,$horario,$local,$resumo,$idUser,$idComunidade) {
+		// Adiciona as variáveis como colunas da matriz $dados
+		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
+		$dados['titulo'] = $titulo;
+		$dados['data'] = $data;
+		$dados['horario'] = $horario;
+		$dados['local'] = $local;
+		$dados['resumo'] = $resumo;
+		$dados['id_usuario'] = $idUser;
+		$dados['id_comunidade'] = $idComunidade;
+
+									
+		// Insere na tabela usuario os dados da variável na tabela
+		return $this->db->insert('reuniao', $dados); 
+	}
+
+
+										// COMENTÁRIOS DA REUNIÃO
+
+
+	public function adicionar_comentario($comentario,$idUser,$idReuniao,$timestamp) {
+		// Adiciona as variáveis como colunas da matriz $dados
+		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
+		$dados['comentario'] = $comentario;
+		$dados['id_usuario'] = $idUser;
+		$dados['id_reuniao'] = $idReuniao;
+		$dados['timestamp'] = $timestamp;
+									
+		// Insere na tabela usuario os dados da variável na tabela
+		return $this->db->insert('comentarios_reuniao', $dados); 
+	}
+
 	public function listar_comentarios($id) {
 		$this->db->select('comentario,usuario.nome,usuario.id,timestamp');
 		$this->db->from('comentarios_reuniao'); // seleciona a tabela
@@ -36,6 +84,10 @@ class Reunioes_model extends CI_Model {
 		$this->db->where('id_usuario='.$idUsuario)->where('id_reuniao='.$idReuniao)->where('timestamp='.$timestamp);
 		return $this->db->delete('comentarios_reuniao');
 	}
+
+
+										// MATERIAIS DA REUNIÃO
+
 
 	public function adicionar_material($nome,$idUsuario,$idReuniao) {
 		$dados['arquivo']= $nome;
@@ -62,19 +114,9 @@ class Reunioes_model extends CI_Model {
 		return $this->db->delete('material');
 	}
 
-	public function listar_reunioes() {
-		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
-		$this->db->from('reuniao'); 
-		$this->db->order_by('titulo', 'ASC');
-		return $this->db->get()->result();
-	}
 
-	public function listar_reunioes_recentes() {
-		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
-		$this->db->from('reuniao'); 
-		$this->db->order_by('data', 'ASC');
-		return $this->db->get()->result();
-	}
+										// PARTICIPANTES DA REUNIÃO
+
 
 	public function participantes_reuniao($id) {
 		$this->db->select('usuario.id,usuario.nome,usuario.foto, participa.nps');
@@ -94,33 +136,8 @@ class Reunioes_model extends CI_Model {
 		return $this->db->delete('participa');
 	}
 
-	public function adicionar($titulo,$data,$horario,$local,$resumo,$idUser,$idComunidade) {
-		// Adiciona as variáveis como colunas da matriz $dados
-		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
-		$dados['titulo'] = $titulo;
-		$dados['data'] = $data;
-		$dados['horario'] = $horario;
-		$dados['local'] = $local;
-		$dados['resumo'] = $resumo;
-		$dados['id_usuario'] = $idUser;
-		$dados['id_comunidade'] = $idComunidade;
 
-									
-		// Insere na tabela usuario os dados da variável na tabela
-		return $this->db->insert('reuniao', $dados); 
-	}
-
-	public function adicionar_comentario($comentario,$idUser,$idReuniao,$timestamp) {
-		// Adiciona as variáveis como colunas da matriz $dados
-		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
-		$dados['comentario'] = $comentario;
-		$dados['id_usuario'] = $idUser;
-		$dados['id_reuniao'] = $idReuniao;
-		$dados['timestamp'] = $timestamp;
-									
-		// Insere na tabela usuario os dados da variável na tabela
-		return $this->db->insert('comentarios_reuniao', $dados); 
-	}
+										// FUNÇÕES EXTRAS	
 
 
 	public function calcularNPS($idReuniao) {

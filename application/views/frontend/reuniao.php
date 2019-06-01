@@ -43,7 +43,7 @@
                             }
                         }?></a>
                         
-                        <?php   if($reuniao->nps != NULL) { ?>
+                        <?php   if($reuniao->nps <= 100) { ?>
                             <br>NPS: <a> <?php echo $reuniao->nps ?></a>
                         <?php } ?>
 
