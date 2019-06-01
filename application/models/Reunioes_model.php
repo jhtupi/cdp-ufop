@@ -45,6 +45,23 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('material', $dados);
 	}
 
+	public function listar_materiais($idReuniao) {
+		$this->db->select('id,arquivo,id_usuario');
+		$this->db->from('material');
+		$this->db->where('id_reuniao', $idReuniao);
+		return $this->db->get()->result();
+	}
+	public function download_material($idReuniao,$nome) {
+		$this->load->helper('download');
+		$data = file_get_contents('./assets/frontend/materiais/'.$idReuniao.'/'.$nome);
+		force_download($nome, $data);
+	}
+
+	public function remover_material($id) { // A fazer
+		$this->db->where('id='.$id);
+		return $this->db->delete('material');
+	}
+
 	public function listar_reunioes() {
 		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 

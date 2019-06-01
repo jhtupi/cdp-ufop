@@ -56,6 +56,20 @@
 
                     <p class="lead">
                         Materiais
+                        <br>
+
+                        <?php foreach($materiais as $material) { ?>
+                            <style> #material{font-size: 15px;}</style>
+                            <a id="material" href="<?php echo base_url('reunioes/download_material/'.$reuniao->id.'/'.$material->arquivo)?>"><?php echo $material->arquivo ?></a> 
+
+                            <!-- Caso o usuário seja quem postou o material-->
+                            <?php if($material->id_usuario == $this->session->userdata('userlogado')->id) { ?>
+                             - <a id="material" href="<?php echo base_url('reunioes/excluir_material/'.$material->id.'/'.$reuniao->id)?>">Excluir material</a>
+                            <?php } ?>
+                            
+                            <br>
+                        </p>
+                        <?php } ?>
                     </p>
                     <hr>
                     

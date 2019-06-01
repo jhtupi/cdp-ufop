@@ -23,6 +23,7 @@ class Reunioes extends CI_Controller {
 		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
 		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
 		$dados['comentarios'] = $this->modelreunioes->listar_comentarios($id);
+		$dados['materiais'] = $this->modelreunioes->listar_materiais($id);
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
@@ -289,12 +290,42 @@ class Reunioes extends CI_Controller {
 			if(!$this->upload->do_upload()) { // Se não conseguir fazer o upload, mostrar erros
 				echo $this->upload->display_errors();
 			} else {
+				$nome = $this->upload->data('file_name'); // pega o nome do arquivo junto com a extensão
 				if($this->modelreunioes->adicionar_material($nome,$idUsuario,$idReuniao)) { 
 					redirect(base_url('reuniao/'.$idReuniao));
 				} else { // Caso não tenha conseguido acessar o model
 					echo "Houve um erro no sistema!";
 				}
 			}
+		}
+	}
+
+	public function download_material($idReuniao,$nome) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+
+		$this->load->model('reunioes_model', 'modelreunioes'); 
+
+		if($this->modelreunioes->download_material($idReuniao,$nome)) { 
+					redirect(base_url('reuniao/'.$idReuniao));
+				} else { // Caso não tenha conseguido acessar o model
+					echo "Houve um erro no sistema!";
+				}
+	}
+
+	public function excluir_material($id,$idReuniao) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->model('reunioes_model', 'modelreunioes'); 
+
+		if($this->modelreunioes->remover_material($id)) { // Se conseguiu acessar o model e adicionar
+			redirect(base_url('reuniao/'.$idReuniao));
+		} else { // Caso não tenha conseguido acessar o model
+			echo "Houve um erro no sistema!";
 		}
 	}
 
