@@ -13,6 +13,10 @@ class Reunioes extends CI_Controller {
 	
 	
 	public function reuniao($id) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('reunioes_model', 'modelreunioes');
@@ -40,6 +44,10 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function participar_reuniao($idReuniao, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		// Adiciona o usuário na comunidade
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
@@ -50,6 +58,10 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function sair_reuniao($idReuniao, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		// Adiciona o usuário na comunidade
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
@@ -60,6 +72,10 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function criar_reuniao($idComunidade, $idUser,$criada=null) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		// Carrega os modelos responsáveis
@@ -86,6 +102,10 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function inserir() {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
@@ -141,7 +161,10 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function enviar_comentario() {
-
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
 		$this->load->helper('date');
@@ -175,6 +198,10 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function excluir_comentario($idUsuario, $idReuniao, $timestamp) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->model('reunioes_model', 'modelreunioes'); 
 
 		if($this->modelreunioes->remover_comentario($idUsuario,$idReuniao, $timestamp)) { // Se conseguiu acessar o model e adicionar
@@ -185,6 +212,11 @@ class Reunioes extends CI_Controller {
 	}
 
 	public function avaliar($idReuniao, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+
 
 		// Carrega o model
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
@@ -218,6 +250,51 @@ class Reunioes extends CI_Controller {
 				echo "Houve um erro na avaliação!";	
 			}
 
+		}
+	}
+
+	public function postar_material() {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+
+		$idReuniao= $this->input->post('id-reuniao'); // Recebe o ID do formulário
+		$idUsuario= $this->input->post('id-usuario'); // Recebe o ID do formulário
+
+		// Faz a validação do formulário
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('nome-material', 'Nome do material',
+			'required');
+
+		if ($this->form_validation->run() == FALSE) { 
+			redirect(base_url('reuniao/'.$idReuniao));
+			} else {
+			// Caso não haja, cria uma pasta com o id da reunião
+	        $nome= $this->input->post('nome-material'); 
+			// Configurações antes de fazer o upload da imagem
+			$config['upload_path']= './assets/frontend/materiais/'.$idReuniao; // Aponta para a pasta onde salvo as imagens dos usuários
+			$config['allowed_types']= 'jpg|png|jpeg|pdf|docx|xlsx'; // Tipos de arquivos suportados
+			$config['file_name']= $nome; // Configuração relacionada ao nome do arquivo
+			$config['overwrite']= TRUE; // Substitui(Reescreve) a imagem que já existe para este usuário
+			if (!is_dir('./assets/frontend/materiais/'.$idReuniao)) {
+		        mkdir('./assets/frontend/materiais/'.$idReuniao, 0777, TRUE);
+	        }
+
+			$this->load->library('upload', $config); // Carrega a biblioteca de upload e envia as configurações feitas para ela
+
+			// Faz o upload da imagem
+			if(!$this->upload->do_upload()) { // Se não conseguir fazer o upload, mostrar erros
+				echo $this->upload->display_errors();
+			} else {
+				if($this->modelreunioes->adicionar_material($nome,$idUsuario,$idReuniao)) { 
+					redirect(base_url('reuniao/'.$idReuniao));
+				} else { // Caso não tenha conseguido acessar o model
+					echo "Houve um erro no sistema!";
+				}
+			}
 		}
 	}
 

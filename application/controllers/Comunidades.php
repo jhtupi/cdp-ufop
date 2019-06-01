@@ -12,6 +12,10 @@ class Comunidades extends CI_Controller {
 	}
 	
 	public function index() {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
@@ -39,6 +43,10 @@ class Comunidades extends CI_Controller {
 	}
 
 	public function comunidade($id) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
@@ -65,6 +73,10 @@ class Comunidades extends CI_Controller {
 
 
 	public function criar_comunidade($criada=null) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$dados['titulo'] = 'Criar Comunidade';
@@ -84,6 +96,10 @@ class Comunidades extends CI_Controller {
 
 	public function inserir() {
 
+// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
 
@@ -121,6 +137,10 @@ class Comunidades extends CI_Controller {
 	}
 
 	public function participar_comunidade($idComunidade, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		// Adiciona o usuário na comunidade
 		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
@@ -131,6 +151,10 @@ class Comunidades extends CI_Controller {
 	}
 
 	public function sair_comunidade($idComunidade, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		// Adiciona o usuário na comunidade
 		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
@@ -141,6 +165,10 @@ class Comunidades extends CI_Controller {
 	}
 
 	public function excluir_comunidade($idComunidade, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login

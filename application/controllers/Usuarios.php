@@ -12,6 +12,10 @@ class Usuarios extends CI_Controller {
 	}
 	
 	public function index() {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
@@ -38,6 +42,10 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function usuario($id, $slug=null) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('usuarios_model', 'modelusuarios');
@@ -59,6 +67,10 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function criar_usuario($enviado=null) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('usuarios_model', 'modelusuarios');
@@ -77,6 +89,10 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function meu_perfil($id) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('usuarios_model', 'modelusuarios');
@@ -99,6 +115,10 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function inserir() {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 
 
 		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários

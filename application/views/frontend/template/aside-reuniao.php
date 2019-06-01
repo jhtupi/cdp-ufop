@@ -55,9 +55,38 @@
                         <?php foreach($reunioes as $reuniao) {
                          ?>
                          <!-- Reunião já ocorreu | Usuário é participante -->
-                        <form action="<?php echo base_url("'reuniao/'.$reuniao->id") ?>">
-                            <input class="btn btn-default col-md-12"  type="submit" value="Postar Material" />
-                        </form>
+
+                        <?php 
+
+                        // Cria variáveis para formatar o formulário 
+                        $divopen= '<div class="form-group">';
+                        $divclose= '</div>';
+
+                        // Monta o formulário através de helpers
+                        echo form_open_multipart('reunioes/postar_material');   // Formulário especial para arquivos
+                        //echo form_hidden('id', $usuario->id);
+                        echo $divopen;
+
+                        // O simbolo '=>' serve para apontar
+                        // Cria uma variável para montar os formulários formatados
+                        echo form_hidden('id-reuniao', $reuniao->id);
+                        echo form_hidden('id-usuario', $this->session->userdata('userlogado')->id);
+                        $material= array('name' => 'userfile', 'id' => 'userfile', 'class' => 'form-control');
+                        echo form_upload($material); // O identificador neste upload deve ser sempre userfile
+                        //echo $divclose;
+                        $nomeMaterial= array('name'=>'nome-material','id'=>'nome-material','class'=>'form-control','placeholder'=>'Nome do material');
+                        echo form_input($nomeMaterial);
+                        //echo $divopen;
+                        $botao= array('name' => 'btn_adicionar', 'id' => 'btn_adicionar', 'class' => 'btn btn-default col-md-12',
+                            'value' => 'Postar material');
+                        echo form_submit($botao);
+                        echo $divclose;
+                        echo form_close();    
+                        ?>
+
+
+
+
                             <?php if (!$jaAvaliou) { ?>
                                 <br><br>
                                 <button type="button" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-NPS">Avaliar reunião</button>

@@ -15,6 +15,10 @@ class Home extends CI_Controller {
 	
 	public function index()
 	{
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('reunioes_model', 'modelreunioes');

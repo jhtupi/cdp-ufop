@@ -7,7 +7,7 @@
             <div class="col-md-8">
 
                 <h1 class="page-header">
-                    <?php echo $titulo ?>
+                    <?php echo $titulo; ?>
                 </h1>
 
                 <?php
@@ -51,6 +51,11 @@
                     <br>
                     <p class="">
                         <?php echo $reuniao->resumo ?>
+                    </p>
+                    <hr>
+
+                    <p class="lead">
+                        Materiais
                     </p>
                     <hr>
                     

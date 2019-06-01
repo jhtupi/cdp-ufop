@@ -37,6 +37,14 @@ class Reunioes_model extends CI_Model {
 		return $this->db->delete('comentarios_reuniao');
 	}
 
+	public function adicionar_material($nome,$idUsuario,$idReuniao) {
+		$dados['arquivo']= $nome;
+		$dados['id_usuario']= $idUsuario;
+		$dados['id_reuniao']= $idReuniao;
+		$this->db->where('id', $id);
+		return $this->db->insert('material', $dados);
+	}
+
 	public function listar_reunioes() {
 		$this->db->select('id,titulo,imagem,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
