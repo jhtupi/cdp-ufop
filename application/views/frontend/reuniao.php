@@ -53,16 +53,25 @@
                         <?php echo $reuniao->resumo ?>
                     </p>
                     <hr>
+                    
                     <p class="lead">
                         Comentários
                         <br>
+                        <p>
+                        <?php foreach($comentarios as $comentario) { ?>
+                            <?php echo date('d/m/Y',$comentario->timestamp);?> - <?php echo date('H:m:s',$comentario->timestamp);?><br>
+                            <b><?php echo $comentario->nome;?>:</b>  <?php echo $comentario->comentario;?>
+
+                        </p>
+
+                        <?php } ?>
                         <?php 
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
                         echo form_open(base_url('reunioes/enviar_comentario')); // Abre o formulário apontando pro método de inserção no controlador
                         ?>
                         <!-- Comentário -->
                         <div class="form-group">
-                            <label id="txt-comentario">Comentário</label>
+                            <label id="txt-comentario"></label>
                             <input type="text" id="txt-comentario" name="txt-comentario" class="form-control" placeholder="Deixe aqui seu comentário" value= "<?php echo set_value('txt-comentario') ?>">
                         </div>
 

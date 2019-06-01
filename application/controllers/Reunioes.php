@@ -18,7 +18,7 @@ class Reunioes extends CI_Controller {
 		$this->load->model('reunioes_model', 'modelreunioes');
 		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
 		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
-		//$dados['comentarios'] = $this->modelreunioes->comentarios_reuniao($id);
+		$dados['comentarios'] = $this->modelreunioes->listar_comentarios($id);
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
@@ -144,6 +144,7 @@ class Reunioes extends CI_Controller {
 
 
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+		$this->load->helper('date');
 
 		// Validações do Formulário
 
@@ -161,12 +162,10 @@ class Reunioes extends CI_Controller {
 			$comentario= $this->input->post('txt-comentario');
 			$idUser= $this->input->post('txt-usuario');
 			$idReuniao= $this->input->post('txt-reuniao');
-			$tempo= mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y"));
-			$timestamp = time();
-			$data= date("Y-m-d", $tempo);
-			$hora= date('H:i:s', $tempo);
+			$timestamp = now('America/Sao_Paulo');
 
-			if($this->modelreunioes->enviar_comentario($comentario,$idUser,$idReuniao,$data,$hora,$timestamp)) { // Se conseguiu acessar o model e adicionar
+
+			if($this->modelreunioes->adicionar_comentario($comentario,$idUser,$idReuniao,$timestamp)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('reuniao/'.$idReuniao));
 			} else { // Caso não tenha conseguido acessar o model
 				redirect(base_url('reuniao/'.$idReuniao));
