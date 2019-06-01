@@ -37,6 +37,7 @@
                         foreach($comunidades as $comunidade) { ?>
                         Comunidade: <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>">
                             <?php
+                            
                             if($reuniao->id_comunidade == $comunidade->id) {
                                 echo $comunidade->tema;
                             }
@@ -55,14 +56,25 @@
                     <p class="lead">
                         Comentários
                         <br>
-                        <!-- Local -->
+                        <?php 
+                        echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
+                        echo form_open(base_url('reunioes/enviar_comentario')); // Abre o formulário apontando pro método de inserção no controlador
+                        ?>
+                        <!-- Comentário -->
                         <div class="form-group">
-                            <label id="txt-local"> </label>
-                            <input type="text" id="txt-local" name="txt-local" class="form-control" placeholder="Deixe aqui seu comentário" value= "<?php echo set_value('txt-local') ?>">
+                            <label id="txt-comentario">Comentário</label>
+                            <input type="text" id="txt-comentario" name="txt-comentario" class="form-control" placeholder="Deixe aqui seu comentário" value= "<?php echo set_value('txt-comentario') ?>">
                         </div>
+
+                        <!-- ID Reunião -->
+                        <input type="hidden" id="txt-reuniao" name="txt-reuniao" class="form-control" value = <?php echo $reuniao->id ?>>
+                        <!-- ID Usuário -->
+                        <input type="hidden" id="txt-usuario" name="txt-usuario" class="form-control" value = <?php echo $this->session->userdata('userlogado')->id ?>>
                             <button type="submit" class="btn btn-md btn-default ">Enviar comentário</button>
                     </p>
-                    
+                        <?php 
+                        echo form_close(); // Fecha o formulário
+                        ?>
                         
                         <hr>    
                     

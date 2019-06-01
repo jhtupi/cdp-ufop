@@ -18,6 +18,7 @@ class Reunioes extends CI_Controller {
 		$this->load->model('reunioes_model', 'modelreunioes');
 		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
 		$dados['participantes'] = $this->modelreunioes->participantes_reuniao($id);
+		//$dados['comentarios'] = $this->modelreunioes->comentarios_reuniao($id);
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
@@ -134,6 +135,41 @@ class Reunioes extends CI_Controller {
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/1'));
 			} else { // Caso não tenha conseguido acessar o model
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/2'));
+			}
+
+		}
+	}
+
+	public function enviar_comentario() {
+
+
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+
+		// Validações do Formulário
+
+		// Título
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('txt-comentario', 'Comentário',
+			'required|max_length[200]'); 
+		// Preenchimento requerido 
+		
+		
+		if ($this->form_validation->run() == FALSE) { 
+			redirect(base_url('reuniao/'.$idReuniao));
+		} else {
+			// Validação correta, resgata as variáveis
+			$comentario= $this->input->post('txt-comentario');
+			$idUser= $this->input->post('txt-usuario');
+			$idReuniao= $this->input->post('txt-reuniao');
+			$tempo= mktime(date("H"),date("i"),date("s"),date("m"),date("d"),date("Y"));
+			$timestamp = time();
+			$data= date("Y-m-d", $tempo);
+			$hora= date('H:i:s', $tempo);
+
+			if($this->modelreunioes->enviar_comentario($comentario,$idUser,$idReuniao,$data,$hora,$timestamp)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('reuniao/'.$idReuniao));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('reuniao/'.$idReuniao));
 			}
 
 		}

@@ -72,6 +72,20 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('reuniao', $dados); 
 	}
 
+	public function enviar_comentario($comentario,$idUser,$idReuniao,$data,$hora,$timestamp) {
+		// Adiciona as variáveis como colunas da matriz $dados
+		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar
+		$dados['comentario'] = $comentario;
+		$dados['id_usuario'] = $idUser;
+		$dados['id_reuniao'] = $idReuniao;
+		$dados['id_usuario'] = $timestamp;
+		$dados['data'] = $data;
+		$dados['hora'] = $hora;
+									
+		// Insere na tabela usuario os dados da variável na tabela
+		return $this->db->insert('comentarios_reuniao', $dados); 
+	}
+
 
 	public function calcularNPS($idReuniao) {
 
