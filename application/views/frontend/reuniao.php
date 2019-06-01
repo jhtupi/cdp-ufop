@@ -55,10 +55,15 @@
                     <p class="lead">
                         Comentários
                         <br>
-                        A FAZER
+                        <!-- Local -->
+                        <div class="form-group">
+                            <label id="txt-local"> </label>
+                            <input type="text" id="txt-local" name="txt-local" class="form-control" placeholder="Deixe aqui seu comentário" value= "<?php echo set_value('txt-local') ?>">
+                        </div>
+                            <button type="submit" class="btn btn-md btn-default ">Enviar comentário</button>
                     </p>
                     
-                        <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
+                        
                         <hr>    
                     
                     

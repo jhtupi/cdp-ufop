@@ -19,7 +19,7 @@
                                 <div class="col-lg-12">
                                     <?php 
                                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
-                                        echo form_open(base_url('criar_usuario/criar_usuario')); // Abre o formulário apontando pro método de inserção no controlador
+                                        echo form_open(base_url('admin/usuarios/inserir')); // Abre o formulário apontando pro método de inserção no controlador
                                     ?>
                                     <!-- Nome -->
                                     <div class="form-group">
