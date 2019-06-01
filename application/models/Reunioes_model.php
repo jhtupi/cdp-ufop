@@ -78,7 +78,7 @@ class Reunioes_model extends CI_Model {
 		$dados['comentario'] = $comentario;
 		$dados['id_usuario'] = $idUser;
 		$dados['id_reuniao'] = $idReuniao;
-		$dados['id_usuario'] = $timestamp;
+		$dados['timestamp'] = $timestamp;
 		$dados['data'] = $data;
 		$dados['hora'] = $hora;
 									
