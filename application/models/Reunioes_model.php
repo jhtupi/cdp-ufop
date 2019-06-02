@@ -56,6 +56,11 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('reuniao', $dados); 
 	}
 
+	public function excluir_reunioes($idComunidade) {
+		$this->db->where('id_comunidade ',$idComunidade);;
+		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
+	}
+
 
 										// COMENTÁRIOS DA REUNIÃO
 

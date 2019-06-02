@@ -101,17 +101,13 @@ class Comunidades_model extends CI_Model {
 			$idUser = $id->id_usuario;
 		}
 		if ($idUser == $idUsuario) {
-			$this->load->model('comunidades_model', 'modelcomunidades');
-			$this->modelcomunidades->excluir_reunioes($idComunidade);
+			$this->load->model('reunioes_model', 'modelreunioes');
+			$this->modelreunioes->excluir_reunioes($idComunidade);
 			$this->db->where('id', $idComunidade);
 			return $this->db->delete('comunidade'); // deleta a categoria selecionada
 		} else {
 			return 0;
 		}
-	}
-	public function excluir_reunioes($idComunidade) {
-		$this->db->where('id_comunidade ',$idComunidade);;
-		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
 	}
 
 	public function calcularNPSMedio($idComunidade) {
