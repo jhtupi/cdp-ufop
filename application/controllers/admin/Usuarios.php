@@ -153,6 +153,12 @@ class Usuarios extends CI_Controller {
 
 		$this->load->library('form_validation');
 		// Validações do Formulário
+
+		// Departamento
+		$this->form_validation->set_rules('txt-depto', 'Departamento',
+			'required'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+		
 		// Nome
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('txt-nome', 'Nome do Usuário',
@@ -199,7 +205,8 @@ class Usuarios extends CI_Controller {
 			$user= $this->input->post('txt-user');
 			$senha= $this->input->post('txt-senha');
 			$id= $this->input->post('txt-id');
-			if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id)) { // Se conseguiu acessar o model e adicionar
+			$id_depto = $this->input->post('txt-depto');
+			if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id,$id_depto)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('admin/usuarios'));
 			} else { // Caso não tenha conseguido acessar o model
 				echo "Houve um erro no sistema!";

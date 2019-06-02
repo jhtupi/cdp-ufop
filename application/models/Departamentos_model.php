@@ -17,7 +17,7 @@ class Departamentos_model extends CI_Model {
 	}
 
 	public function listar_departamentos() {
-		$this->db->select('id,nome');
+		$this->db->select('*');
 		$this->db->from('departamento'); 
 		$this->db->order_by('nome', 'ASC');
 		return $this->db->get()->result();

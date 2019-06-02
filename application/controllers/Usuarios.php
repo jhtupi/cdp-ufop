@@ -73,12 +73,13 @@ class Usuarios extends CI_Controller {
 		}
 		$this->load->helper('funcoes');
 
-		$this->load->model('usuarios_model', 'modelusuarios');
+		$this->load->model('departamentos_model', 'modeldepartamentos');
 		//$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
 
 		$dados['titulo'] = 'Criar usuário';
 		$dados['subtitulo'] = '';
 		$dados['enviado'] = $enviado;
+		$dados['departamentos'] = $this->modeldepartamentos->listar_departamentos();
 		// Dados a serem enviados para o Cabeçalho
 
 
@@ -88,7 +89,7 @@ class Usuarios extends CI_Controller {
 		$this->load->view('backend/template/html-footer');
 	}
 
-	public function meu_perfil($id) {
+	public function meu_perfil($id, $enviado=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
@@ -96,12 +97,14 @@ class Usuarios extends CI_Controller {
 		$this->load->helper('funcoes');
 
 		$this->load->model('usuarios_model', 'modelusuarios');
-		//$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
+		$this->load->model('departamentos_model', 'modeldepartamentos');
+		$dados['departamentos'] = $this->modeldepartamentos->listar_departamentos();
 
 		$dados['usuarios'] = $this->modelusuarios->meu_perfil($id);
 		$dados['titulo'] = 'Meu Perfil';
 		$dados['subtitulo'] = '';
 		$dados['destaques'] = $this->destaques;
+		$dados['enviado'] = $enviado;
 		// Dados a serem enviados para o Cabeçalho
 
 
@@ -181,6 +184,84 @@ class Usuarios extends CI_Controller {
 
 		}
 	}
+
+	public function salvar_alteracoes($userCom) {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url('admin/login'));
+		}
+
+		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários
+
+		$this->load->library('form_validation');
+		// Validações do Formulário
+
+		// Departamento
+		$this->form_validation->set_rules('txt-depto', 'Departamento',
+			'required'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+
+
+		// Nome
+		$this->form_validation->set_rules('txt-nome', 'Nome do Usuário',
+			'required|min_length[3]'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+
+		// Email
+		$this->form_validation->set_rules('txt-email', 'E-mail',
+			'required|valid_email');
+		// Preenchimento requerido | Formato de e-mail válido
+		
+		// CPF
+		$this->form_validation->set_rules('txt-cpf', 'CPF',
+			'required|min_length[11]');
+		// Preenchimento requerido | Mínimo de 11 caracteres
+
+		// Telefone
+		$this->form_validation->set_rules('txt-telefone', 'Telefone',
+			'required|min_length[11]');
+		// Preenchimento requerido | Mínimo de 20 caracteres
+		
+		// User
+		$user= $this->input->post('txt-user');
+ 
+		// verificamos se ele é diferente do que veio inicialmente do banco e que foi passado como parâmetro na URL.
+		// Caso seja diferente ele irá verificar se é único e caso seja igual ele não fara nada
+		 if($userCom != $user){
+		     $this->form_validation->set_rules('txt-user','User', 'required|min_length[3]|is_unique[usuario.user]');
+		 }
+		
+		// Senha e Confirmar
+		$senha= $this->input->post('txt-senha');
+		if($senha != ""){
+		 $this->form_validation->set_rules('txt-senha','Senha', 'required|min_length[3]');
+		 $this->form_validation->set_rules('txt-confir-senha','Confirmar Senha', 'required|matches[txt-senha]');
+		}
+
+		// Preenchimento requerido | É comparado para ser igual ao txt-senha
+		 
+		$id= $this->input->post('txt-id');
+
+		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
+			redirect(base_url('meu_perfil/'.$id.'/2'));
+		} else {
+			// Recebe os dados do formulário
+			$nome= $this->input->post('txt-nome');
+			$email= $this->input->post('txt-email');
+			$historico= $this->input->post('txt-historico');
+			$user= $this->input->post('txt-user');
+			$senha= $this->input->post('txt-senha');
+			$id_depto = $this->input->post('txt-depto');
+			if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id,$id_depto)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('meu_perfil/'.$id));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('meu_perfil/'.$id.'/3'));
+			}
+
+		}
+	}
+
 
 	public function nova_foto() {
 

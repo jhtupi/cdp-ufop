@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 // Usuários
 $route['usuario/(:num)'] = 'usuarios/usuario/$1/$2'; // Controlador usuarios no método usuario
 $route['meu_perfil/(:num)'] = 'usuarios/meu_perfil/$1'; // Rota para meu perfil
+$route['meu_perfil/(:num)/(:num)'] = 'usuarios/meu_perfil/$1/$2'; // Rota para meu perfil
 								
 
 // Login								

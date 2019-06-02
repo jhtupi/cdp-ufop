@@ -34,13 +34,14 @@ class Usuarios_model extends CI_Model {
 	}
 
 	public function meu_perfil($id) {
-		$this->db->select('id,nome,user,email,foto,telefone,cpf,senha');
+		$this->db->select('usuario.id,usuario.nome,user,email,foto,telefone,cpf,senha,departamento.nome depto, departamento.id idDepto');
 		$this->db->from('usuario'); // seleciona a tabela
-		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
+		$this->db->join('departamento', 'usuario.id_depto = departamento.id', 'inner');
+		$this->db->where('usuario.id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
 
-	public function adicionar($nome,$email,$cpf,$telefone,$user,$senha) {
+	public function adicionar($nome,$email,$cpf,$telefone,$user,$senha,$departamento) {
 		// Adiciona as variáveis como colunas da matriz $dados
 		// A posição deve ter o mesmo nome que está na coluna da tabela que irei referenciar, no caso, 'usuario'
 		$dados['nome'] = $nome;
@@ -53,6 +54,20 @@ class Usuarios_model extends CI_Model {
 		$dados['prof'] = 1;
 									
 		return $this->db->insert('usuario', $dados); // Insere na tabela usuario os dados da variável na tabela
+	}
+
+	public function alterar($nome,$email,$cpf,$telefone,$user,$senha,$id_departamento) {
+		$dados['nome'] = $nome;
+		$dados['email'] = $email;
+		$dados['cpf'] = $cpf;
+		$dados['telefone'] = $telefone;
+		$dados['user'] = $user;
+		if($senha != ""){
+			$dados['senha']= md5($senha);
+		}
+		$dados['id_depto'] = $id_departamento;
+		$this->db->where('id', $id);
+		return $this->db->update('usuario', $dados);
 	}
 
 	public function alterar_img($id) {
