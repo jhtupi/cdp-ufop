@@ -128,9 +128,12 @@
                         ?>
                                 <br>
                         <?php  foreach($reunioes as $reuniao) { ?>
-                            <!-- Caso o usuário seja o criador da comunidade-->
-                            <?php if ($this->session->userdata('userlogado')->id == $reuniao->id_usuario) {?>
-                                 
+                            <!-- Caso o usuário seja o criador da reunião-->
+                            <?php if ($this->session->userdata('userlogado')->id == $reuniao->id_usuario) {?>                                    
+                                <!-- Edição e exclusão de reunião-->                                
+                                <form action="<?php echo base_url("reunioes/editar_reuniao"."/".$reuniao->id) ?>">
+                                <input class="btn btn-default col-md-12"  type="submit" value="Editar reuniao" />
+                                 <br><br>
                                 <form action="<?php echo base_url("reunioes/excluir_reuniao"."/".$reuniao->id) ?>">
                                 <input class="btn btn-danger col-md-12"  type="submit" value="Excluir reuniao" />
                             

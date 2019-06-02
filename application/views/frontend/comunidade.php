@@ -14,20 +14,11 @@
                     foreach($comunidades as $comunidade) {
                     
                 ?>
-                     <!-- Carrega a imagem caso houver-->
+                     
                     <h2>
                         <?php echo $comunidade->tema ?>
                     </h2>
                     <br>
-                    <?php 
-                       if($comunidade->imagem == 1) { // Se houver imagem
-                           $fotocomunidade = base_url("assets/frontend/img/comunidades/".md5($comunidade->id).".jpg");
-                       } else {
-                            $fotocomunidade= "assets/frontend/img/semFoto2.png"; 
-                        }
-                    ?>
-                    <img class="img-responsive img-circle" src="<?php echo base_url($fotocomunidade) ?>" alt="">
-                    <hr>
                     <p class="lead">
                         Data de criação: <a> <?php echo $comunidade->data_criacao ?></a>
                         <br>
@@ -92,7 +83,7 @@
                     <?php
                     foreach($reunioes as $reuniao) {
                     ?>
-                     <!-- Carrega a imagem caso houver-->
+                     
                     <h3>
                         <a href="<?php echo base_url('reuniao/'.$reuniao->id)?>"> <?php echo $reuniao->titulo ?></a>
                     </h3>
@@ -100,15 +91,6 @@
                         Data: <a> <?php echo $reuniao->data ?></a>
                         Horário: <a> <?php echo $reuniao->horario ?></a>
                         </p>
-                        <?php 
-                            if($reuniao->imagem == 1) { // Se houver imagem
-                                $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
-                        ?>
-                            <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
-                                
-                        <?php 
-                        }
-                        ?>
                     
                         <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 

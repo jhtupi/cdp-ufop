@@ -44,6 +44,35 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
+	public function editar_reuniao($id) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->helper('funcoes');
+
+		$this->load->model('reunioes_model', 'modelreunioes');
+		$dados['reunioes'] = $this->modelreunioes->listar_reuniao($id);
+
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
+		$dados['destaques'] = $this->destaques;
+
+
+		$dados['titulo'] = 'Visualizar reunião';
+		$dados['subtitulo'] = '';
+		// Dados a serem enviados para o Cabeçalho
+
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('frontend/template/html-header', $dados); 
+		$this->load->view('frontend/template/header');
+		$this->load->view('frontend/editar-reuniao');	
+		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/footer');
+		$this->load->view('frontend/template/html-footer');
+	}
+
 	public function participar_reuniao($idReuniao, $idUsuario) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -177,6 +206,10 @@ class Reunioes extends CI_Controller {
 		}
 	}
 
+
+														// COMENTÁRIOS
+
+
 	public function enviar_comentario() {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -228,49 +261,10 @@ class Reunioes extends CI_Controller {
 		}
 	}
 
-	public function avaliar($idReuniao, $idUsuario) {
-		// Adiciona a proteção da página
-		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url());
-		}
 
+														// MATERIAIS
 
-		// Carrega o model
-		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
-
-		// Faz a validação do formulário
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('nps-reuniao', 'NPS',
-			'required|greater_than[0]|less_than[11]');
-
-
-		if ($this->form_validation->run() == FALSE) { 
-			redirect(base_url('reuniao/'.$idReuniao));
-		} else {
-			// Validação correta, resgata as variáveis
-			$nps= $this->input->post('nps-reuniao');
-			$idComunidade= $this->input->post('id-comunidade');
-
-			$aval = $this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps,$idComunidade);
-			if($aval >= -100 && $aval <= 100) { // Se conseguiu acessar o model e adicionar e NPS Médio tbm
-				if($this->modelreunioes->calcularNPS($idReuniao)) {
-					redirect(base_url('reuniao/'.$idReuniao));
-				} else {
-				echo "Houve um erro no calculo do NPS!";
-				}
-			} else if ($aval == 102) { // Não rolou update NPS médio
-				echo "Houve um erro no cálculo NPS Médio!";
-			
-			} else if ($aval == 103) { // Não rolou resultado da busca por reuniões desta comunidade
-				echo "Houve um erro no resultado da busca por reuniões desta comunidade!";
-			} else {
-				echo "Houve um erro na avaliação!";	
-			}
-
-		}
-	}
-
-	public function postar_material() {
+public function postar_material() {
 
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -344,6 +338,59 @@ class Reunioes extends CI_Controller {
 			echo "Houve um erro no sistema!";
 		}
 	}
+
+
+
+
+														// EXTRAS
+
+
+
+	public function avaliar($idReuniao, $idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+
+
+		// Carrega o model
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+
+		// Faz a validação do formulário
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('nps-reuniao', 'NPS',
+			'required|greater_than[0]|less_than[11]');
+
+
+		if ($this->form_validation->run() == FALSE) { 
+			redirect(base_url('reuniao/'.$idReuniao));
+		} else {
+			// Validação correta, resgata as variáveis
+			$nps= $this->input->post('nps-reuniao');
+			$idComunidade= $this->input->post('id-comunidade');
+
+			$aval = $this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps,$idComunidade);
+			if($aval >= -100 && $aval <= 100) { // Se conseguiu acessar o model e adicionar e NPS Médio tbm
+				if($this->modelreunioes->calcularNPS($idReuniao)) {
+					redirect(base_url('reuniao/'.$idReuniao));
+				} else {
+				echo "Houve um erro no calculo do NPS!";
+				}
+			} else if ($aval == 102) { // Não rolou update NPS médio
+				echo "Houve um erro no cálculo NPS Médio!";
+			
+			} else if ($aval == 103) { // Não rolou resultado da busca por reuniões desta comunidade
+				echo "Houve um erro no resultado da busca por reuniões desta comunidade!";
+			} else {
+				echo "Houve um erro na avaliação!";	
+			}
+
+		}
+	}
+
+	
+
+	
 
 
 }

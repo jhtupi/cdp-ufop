@@ -6,7 +6,6 @@ class Comunidades_model extends CI_Model {
 	public $id;
 	public $tema;
 	public $descricao;
-	public $imagem;
 	public $nps_medio;
 	public $id_usuario;
 	public $data_criacao;
@@ -17,14 +16,14 @@ class Comunidades_model extends CI_Model {
 
 
 	public function listar_comunidade($id) {
-		$this->db->select('id,tema,descricao,imagem,nps_medio,id_usuario,data_criacao');
+		$this->db->select('id,tema,descricao,nps_medio,id_usuario,data_criacao');
 		$this->db->from('comunidade'); // seleciona a tabela
 		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
 
 	public function listar_comunidades() {
-		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.imagem,comunidade.nps_medio,comunidade.data_criacao, comunidade.id_usuario, usuario.nome');
+		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.nps_medio,comunidade.data_criacao, comunidade.id_usuario, usuario.nome');
 		$this->db->from('comunidade'); 
 		$this->db->join('usuario', 'usuario.id = comunidade.id_usuario', 'inner');
 		$this->db->order_by('tema', 'ASC');
@@ -39,7 +38,7 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 	public function listar_comunidade_reuniao($idReuniao) {
-		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.imagem,comunidade.nps_medio,comunidade.id_usuario,comunidade.data_criacao');
+		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.nps_medio,comunidade.id_usuario,comunidade.data_criacao');
 		//$this->db->from('comunidade'); // seleciona a tabela
 		//$this->db->where('id ='.$id); // Compara com a variável id foi enviada
 		$this->db->from('reuniao')->where('reuniao.id ='.$idReuniao); // seleciona a tabela
@@ -64,7 +63,7 @@ class Comunidades_model extends CI_Model {
 	}
 
 	public function reunioes_comunidade($id) {
-		$this->db->select('id,titulo,imagem,data,horario,resumo');
+		$this->db->select('id,titulo,data,horario,resumo');
 		$this->db->from('reuniao'); // seleciona a tabela
 		$this->db->where('id_comunidade ='.$id); // Compara com a variável id foi enviada
 		$this->db->order_by('data', 'DESC');

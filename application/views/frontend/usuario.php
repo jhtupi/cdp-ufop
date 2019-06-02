@@ -18,7 +18,7 @@
                         <?php 
                             // Verifica se o usuário tem ou não imagem
                             if($usuario->foto == 1) { 
-                                $mostraFoto= "assets/frontend/img/usuarios/".md5($usuario->id).".jpg"; 
+                                $mostraFoto= "assets/frontend/img/usuarios/".$usuario->id.".jpg"; 
                             } else {
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
@@ -30,7 +30,7 @@
                        <?php echo $usuario->nome ?>
                     </h2>
                     <h3>
-                       DEPARTAMENTO
+                       <?php echo $usuario->depto ?>
                     </h3>  
                     <hr>
                     <p><b>E-mail: </b><?php echo $usuario->email ?></p>

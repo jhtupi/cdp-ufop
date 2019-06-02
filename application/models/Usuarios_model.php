@@ -20,9 +20,10 @@ class Usuarios_model extends CI_Model {
 
 
 	public function listar_usuario($id) {
-		$this->db->select('id,nome,user,email,foto,telefone');
+		$this->db->select('usuario.id,usuario.nome,user,email,foto,telefone,departamento.nome depto, departamento.id idDepto');
 		$this->db->from('usuario'); // seleciona a tabela
-		$this->db->where('id ='.$id); // Compara com a variável id foi enviada
+		$this->db->join('departamento', 'usuario.id_depto = departamento.id', 'inner');
+		$this->db->where('usuario.id ='.$id); // Compara com a variável id foi enviada
 		return $this->db->get()->result();
 	}
 

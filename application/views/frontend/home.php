@@ -36,16 +36,7 @@
                             }
                         }?></a>
                     </p>
-                    <hr>
-                    <?php 
-                        if($reuniao->imagem == 1) { // Se houver imagem
-                            $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
-                    ?>
-                        <img class="img-responsive" src="<?php echo $fotoreuniao ?>" alt="">
-                        <hr>    
-                    <?php 
-                    }
-                    ?>
+                    
                 
                     <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 

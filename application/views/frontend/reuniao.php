@@ -13,19 +13,9 @@
                 <?php
                     foreach($reunioes as $reuniao) {
                 ?>
-                     <!-- Carrega a imagem caso houver-->
                     <h2>
                         <?php echo $reuniao->titulo ?>
                     </h2>
-                    <br>
-                    <?php 
-                       if($reuniao->imagem == 1) { // Se houver imagem
-                           $fotoreuniao = base_url("assets/frontend/img/reunioes/".md5($reuniao->id).".jpg");
-                       } else {
-                            $fotoreuniao= "assets/frontend/img/semFoto2.png"; 
-                        }
-                    ?>
-                    <img class="img-responsive img-circle" src="<?php echo base_url($fotoreuniao) ?>" alt="">
                     <hr>
                     <p class="lead">
                         Data: <a> <?php echo $reuniao->data ?></a>
