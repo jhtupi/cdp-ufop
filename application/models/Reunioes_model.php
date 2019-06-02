@@ -56,8 +56,28 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('reuniao', $dados); 
 	}
 
+	public function excluir_reuniao($idReuniao) {
+		
+		// Deleta os comentários e materiais
+		$this->modelreunioes->excluir_comentarios($idReuniao);
+		$this->modelreunioes->excluir_materiais($idReuniao);
+
+		$this->db->where('id',$idReuniao);;
+		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
+	}
+
 	public function excluir_reunioes($idComunidade) {
-		$this->db->where('id_comunidade ',$idComunidade);;
+		// Deleta os comentários e materiais
+		$result = $this->db->select('*')->where('id_comunidade ='.$idComunidade);
+		$query = $this->db->get('reuniao')->result();
+		$this->load->model('reunioes_model', 'modelreunioes');
+		foreach($query as $q) {
+			// Deleta os comentários e materiais
+			$this->modelreunioes->excluir_comentarios($q->id);
+			$this->modelreunioes->excluir_materiais($q->id);
+		}
+
+		$this->db->where('id_comunidade',$idComunidade);;
 		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
 	}
 
@@ -90,6 +110,11 @@ class Reunioes_model extends CI_Model {
 		return $this->db->delete('comentarios_reuniao');
 	}
 
+	public function excluir_comentarios($idReuniao) {
+		$this->db->where('id_reuniao',$idReuniao);
+		return $this->db->delete('comentarios_reuniao'); // deleta a categoria selecionada 
+	}
+
 
 										// MATERIAIS DA REUNIÃO
 
@@ -117,6 +142,16 @@ class Reunioes_model extends CI_Model {
 	public function remover_material($id) { // A fazer
 		$this->db->where('id='.$id);
 		return $this->db->delete('material');
+	}
+
+	public function excluir_materiais($idReuniao) {
+		// Deleta a pasta com os materiais
+		$path = './assets/frontend/materiais/'.$idReuniao;
+		$this->load->helper("file"); // load codeigniter file helper
+		delete_files($path, true , false);
+
+		$this->db->where('id_reuniao',$idReuniao);
+		return $this->db->delete('material'); // deleta a categoria selecionada 
 	}
 
 

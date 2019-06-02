@@ -169,11 +169,7 @@ class Comunidades extends CI_Controller {
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
 		}
-
-		// Adiciona a proteção da página
-		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url());
-		}
+		
 
 		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
 		//echo $this->modelcomunidades->excluir($idComunidade, $idUsuario);

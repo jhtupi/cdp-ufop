@@ -43,15 +43,15 @@
                             } else {}
                         }
 
-
-
+                    ?>
+                    <div class="well col-md-12">
+                    <?php                            
                      if ($jaAconteceu) {
 
                         if ($ehParticipante) {
                             foreach($comunidades as $comunidade) { 
                         ?>
                     
-                    <div class="well col-md-12">
                         <?php foreach($reunioes as $reuniao) {
                          ?>
                          <!-- Reunião já ocorreu | Usuário é participante -->
@@ -87,14 +87,14 @@
 
 
 
+                                <br>
                             <?php if (!$jaAvaliou) { ?>
-                                <br><br>
                                 <button type="button" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-NPS">Avaliar reunião</button>
                             <?php } // if jaAvaliou ?> 
                         <?php } // foreach Reunião ?> 
                         
 
-                    </div>
+                    
                         <?php } // foreach Comunidade
                         } else {} // Reunião já ocorreu | Usuário não é participante
 
@@ -104,28 +104,41 @@
                                 if ($ehParticipante) {
                          ?>
 
+                        
                          <!-- Reunião não ocorreu | Usuário é participante -->
-                        <div class="well col-md-12">
                         <form action="<?php echo base_url("sair_reuniao"."/".$reuniao->id."/".$this->session->userdata('userlogado')->id) ?>">
                         <input class="btn btn-default col-md-12" type="submit" value="Sair da reunião"/>
                         </form>   
                         <br><br>
-                        </div>  
+                          
                         <?php   } // if $ehParticipante
                                 else {
                         ?>
                         <!-- Reunião não ocorreu | Usuário não é participante -->
-                        <div class="well col-md-12">
+                        
                             <form action="<?php echo base_url("participar_reuniao"."/".$reuniao->id."/".$this->session->userdata('userlogado')->id) ?>">
                                 <input class="btn btn-default col-md-12" type="submit" value="Participar da reunião"/>
                                 </form>   
                                 <br><br>
-                        </div>  
+                        
                         <?php
                                 } // else $ehParticipante
                             } // foreach reuniões
                         } // else $jaAconteceu
                         ?>
+                                <br>
+                        <?php  foreach($reunioes as $reuniao) { ?>
+                            <!-- Caso o usuário seja o criador da comunidade-->
+                            <?php if ($this->session->userdata('userlogado')->id == $reuniao->id_usuario) {?>
+                                 
+                                <form action="<?php echo base_url("reunioes/excluir_reuniao"."/".$reuniao->id) ?>">
+                                <input class="btn btn-danger col-md-12"  type="submit" value="Excluir reuniao" />
+                            
+                            </form>
+                            <?php } // Fim if
+                        } // fim foreach
+                        ?>
+                    </div>
 
                 <div class="well col-md-12">
                     <h4>Comunidades destaque</h4>

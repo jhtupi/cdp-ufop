@@ -161,6 +161,22 @@ class Reunioes extends CI_Controller {
 		}
 	}
 
+	public function excluir_reuniao($idReuniao) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+		//echo $this->modelcomunidades->excluir($idComunidade, $idUsuario);
+		//return;
+		if($this->modelreunioes->excluir_reuniao($idReuniao)) { // Se conseguiu acessar o model e adicionar
+			redirect(base_url());
+		} else { // Caso não tenha conseguido acessar o model
+			echo "Houve um erro na exclusão da comunidade!";
+		}
+	}
+
 	public function enviar_comentario() {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
