@@ -56,16 +56,15 @@ class Usuarios_model extends CI_Model {
 		return $this->db->insert('usuario', $dados); // Insere na tabela usuario os dados da variável na tabela
 	}
 
-	public function alterar($nome,$email,$cpf,$telefone,$user,$senha,$id_departamento) {
+	public function alterar($id,$nome,$email,$telefone,$user,$senha,$id_depto) {
 		$dados['nome'] = $nome;
 		$dados['email'] = $email;
-		$dados['cpf'] = $cpf;
 		$dados['telefone'] = $telefone;
 		$dados['user'] = $user;
 		if($senha != ""){
 			$dados['senha']= md5($senha);
 		}
-		$dados['id_depto'] = $id_departamento;
+		$dados['id_depto'] = $id_depto;
 		$this->db->where('id', $id);
 		return $this->db->update('usuario', $dados);
 	}

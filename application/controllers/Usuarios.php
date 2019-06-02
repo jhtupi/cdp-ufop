@@ -202,7 +202,6 @@ class Usuarios extends CI_Controller {
 			'required'); 
 		// Preenchimento requerido | no mínimo 3 caracteres 
 
-
 		// Nome
 		$this->form_validation->set_rules('txt-nome', 'Nome do Usuário',
 			'required|min_length[3]'); 
@@ -212,11 +211,6 @@ class Usuarios extends CI_Controller {
 		$this->form_validation->set_rules('txt-email', 'E-mail',
 			'required|valid_email');
 		// Preenchimento requerido | Formato de e-mail válido
-		
-		// CPF
-		$this->form_validation->set_rules('txt-cpf', 'CPF',
-			'required|min_length[11]');
-		// Preenchimento requerido | Mínimo de 11 caracteres
 
 		// Telefone
 		$this->form_validation->set_rules('txt-telefone', 'Telefone',
@@ -244,17 +238,18 @@ class Usuarios extends CI_Controller {
 		$id= $this->input->post('txt-id');
 
 		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
+			//echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter 
 			redirect(base_url('meu_perfil/'.$id.'/2'));
 		} else {
 			// Recebe os dados do formulário
 			$nome= $this->input->post('txt-nome');
 			$email= $this->input->post('txt-email');
-			$historico= $this->input->post('txt-historico');
+			$telefone= $this->input->post('txt-telefone');
 			$user= $this->input->post('txt-user');
 			$senha= $this->input->post('txt-senha');
 			$id_depto = $this->input->post('txt-depto');
-			if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id,$id_depto)) { // Se conseguiu acessar o model e adicionar
-				redirect(base_url('meu_perfil/'.$id));
+			if($this->modelusuarios->alterar($id,$nome,$email,$telefone,$user,$senha,$id_depto)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('meu_perfil/'.$id.'/1'));
 			} else { // Caso não tenha conseguido acessar o model
 				redirect(base_url('meu_perfil/'.$id.'/3'));
 			}

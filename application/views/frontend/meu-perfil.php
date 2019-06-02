@@ -16,6 +16,9 @@
                             echo '<div class="alert alert-success"> Perfil atualizado! </div>';
                         } else if ($enviado == 2) {
                             echo '<div class="alert alert-warning"> Erro na validação do formulário! </div>';
+                            ?><div class="alert alert-danger">
+                            <?php   echo validation_errors(); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada ?>
+                            </div> <?php 
                         } else if ($enviado == 3) {
                             echo '<div class="alert alert-warning"> Erro no banco de dados! </div>';
                         }
@@ -83,7 +86,6 @@
                 <!-- Alterar usuário -->
                 
                     <?php 
-                    echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
                     
                     echo form_open('usuarios/salvar_alteracoes/'.$usuario->user); // Abre o formulário apontando pro método de inserção no controlador
 
@@ -99,7 +101,11 @@
                                 <option value="">Escolha um departamento</option>
                                 <?php
                                 foreach($departamentos as $departamento) {
-                                echo '<option value="'.$departamento->id.'"">'.$departamento->nome.'</option>';
+                                    if($departamento->id == $usuario->idDepto){
+                                        echo '<option value="'.$departamento->id.'" selected >'.$departamento->nome.'</option>';
+                                    } else {
+                                        echo '<option value="'.$departamento->id.'">'.$departamento->nome.'</option>';
+                                    }
                                 }
                                 ?>  
                             </select>
