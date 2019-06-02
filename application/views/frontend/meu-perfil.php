@@ -16,9 +16,6 @@
                             echo '<div class="alert alert-success"> Perfil atualizado! </div>';
                         } else if ($enviado == 2) {
                             echo '<div class="alert alert-warning"> Erro na validação do formulário! </div>';
-                            ?><div class="alert alert-danger">
-                            <?php   echo validation_errors(); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada ?>
-                            </div> <?php 
                         } else if ($enviado == 3) {
                             echo '<div class="alert alert-warning"> Erro no banco de dados! </div>';
                         }

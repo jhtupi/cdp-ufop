@@ -55,6 +55,16 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('reuniao', $dados); 
 	}
 
+	public function alterar($id,$titulo,$data,$horario,$local,$resumo) {
+		$dados['titulo'] = $titulo;
+		$dados['data'] = $data;
+		$dados['horario'] = $horario;
+		$dados['local'] = $local;
+		$dados['resumo'] = $resumo;
+		$this->db->where('id', $id);
+		return $this->db->update('reuniao', $dados);
+	}
+
 	public function excluir_reuniao($idReuniao) {
 		
 		// Deleta os comentários e materiais

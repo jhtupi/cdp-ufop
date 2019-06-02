@@ -12,7 +12,7 @@ class Reunioes extends CI_Controller {
 	}
 	
 	
-	public function reuniao($id) {
+	public function reuniao($id, $enviado=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
@@ -28,6 +28,8 @@ class Reunioes extends CI_Controller {
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade_reuniao($id);
 		$dados['destaques'] = $this->destaques;
+		$dados['enviado'] = $enviado;
+
 
 
 		$dados['titulo'] = 'Visualizar reunião';
@@ -116,7 +118,6 @@ class Reunioes extends CI_Controller {
 		$dados['usuarios'] = $this->modelusuarios->listar_usuario($idUser);
 		$dados['destaques'] = $this->destaques;
 
-
 		$dados['titulo'] = 'Criar reunião';
 		$dados['subtitulo'] = 'CdP-UFOP';
 		$dados['criada'] = $criada;
@@ -185,6 +186,67 @@ class Reunioes extends CI_Controller {
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/1'));
 			} else { // Caso não tenha conseguido acessar o model
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/2'));
+			}
+
+		}
+	}
+
+	public function salvar_alteracoes() {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url('admin/login'));
+		}
+
+		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+
+		$this->load->library('form_validation');
+		// Validações do Formulário
+
+		// Título
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('txt-titulo', 'Título',
+			'required|min_length[3]'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+
+		// Data
+		$this->form_validation->set_rules('txt-data', 'Data',
+			'required');
+		// Preenchimento requerido
+		
+		// Horário
+		$this->form_validation->set_rules('txt-horario', 'Horário',
+			'required');
+		// Preenchimento requerido
+		
+		// Local
+		$this->form_validation->set_rules('txt-local', 'Local',
+			'required');
+		// Preenchimento requerido | Mínimo de 20 caracteres
+		
+		// Resumo
+		$this->form_validation->set_rules('txt-resumo', 'Resumo',
+			'min_length[20]');
+		// Mínimo de 20 caracteres
+
+		// Preenchimento requerido | É comparado para ser igual ao txt-senha
+		 
+		$id= $this->input->post('txt-id');
+
+		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
+			//echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter 
+			redirect(base_url('reuniao/'.$id.'/2'));
+		} else {
+			// Recebe os dados do formulário
+			$titulo= $this->input->post('txt-titulo');
+			$data= $this->input->post('txt-data');
+			$horario= $this->input->post('txt-horario');
+			$local= $this->input->post('txt-local');
+			$resumo= $this->input->post('txt-resumo');
+			if($this->modelreunioes->alterar($id,$titulo,$data,$horario,$local,$resumo)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('reuniao/'.$id.'/1'));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('reuniao/'.$id.'/3'));
 			}
 
 		}

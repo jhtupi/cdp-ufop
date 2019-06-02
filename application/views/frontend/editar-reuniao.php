@@ -21,7 +21,8 @@
                 
 
                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
-                        echo form_open(base_url('reunioes/alterar/'.$reuniao->id)); // Abre o formulário apontando pro método de inserção no controlador
+                        echo form_open(base_url('reunioes/salvar_alteracoes')); // Abre o formulário apontando pro método de inserção no controlador
+
                     ?>
                     <!-- Título -->
                     <div class="form-group">
@@ -53,13 +54,12 @@
                         <input type="textarea" id="txt-resumo" name="txt-resumo" class="form-control" placeholder="Digite o resumo da reunião" value= "<?php echo $reuniao->resumo ?>">
                     </div>
 
-                    <!-- ID Usuário -->
-                    <input type="hidden" id="txt-iduser" name="txt-iduser" class="form-control" value = <?php echo $this->session->userdata('userlogado')->id ?>>
+                    <!-- ID Reunião -->
+                    <input type="hidden" id="txt-id" name="txt-id" class="form-control" value = "<?php echo $reuniao->id ?>">
 
-                    <!-- ID Comunidade -->
                     
 
-                    <button type="submit" class="btn btn-md btn-default btn-block">Alterar reunião</button>
+                    <button type="submit" class="btn btn-md btn-default btn-block">Atualizar reunião</button>
                     
                     <?php 
                         echo form_close(); // Fecha o formulário

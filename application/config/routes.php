@@ -70,8 +70,11 @@ $route['criar_usuario/(:num)'] = 'usuarios/criar_usuario/$1'; // Rota para criar
 $route['criar_reuniao/(:num)/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2/$3'; // Rota para criar reunião
 $route['criar_reuniao/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2'; // Rota para criar reunião
 $route['reuniao/(:num)'] = 'reunioes/reuniao/$1'; // Rota para visualizar reunião
+$route['reuniao/(:num)/(:num)'] = 'reunioes/reuniao/$1/$2'; // Rota para visualizar reunião
 $route['participar_reuniao/(:num)/(:num)'] = 'reunioes/participar_reuniao/$1/$2'; // Rota para participar da reunião
 $route['sair_reuniao/(:num)/(:num)'] = 'reunioes/sair_reuniao/$1/$2'; // Rota para sair da reunião
+$route['editar_reuniao/(:num)'] = 'reunioes/editar_reuniao/$1'; // Rota para sair da reunião
+
 
 
 // Comunidades
