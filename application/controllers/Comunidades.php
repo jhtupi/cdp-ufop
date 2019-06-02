@@ -42,7 +42,7 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function comunidade($id) {
+	public function comunidade($id, $enviado=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
@@ -56,6 +56,7 @@ class Comunidades extends CI_Controller {
 		$dados['reunioes'] = $this->modelcomunidades->reunioes_comunidade($id);
 		$dados['npsCom'] = $this->modelcomunidades->calcularNPSMedio($id);
 		$dados['destaques'] = $this->destaques;
+		$dados['enviado'] = $enviado;
 
 		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';
@@ -136,6 +137,32 @@ class Comunidades extends CI_Controller {
 		}
 	}
 
+	public function editar_comunidade($id) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->helper('funcoes');
+
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
+		$dados['destaques'] = $this->destaques;
+
+
+		$dados['titulo'] = 'Visualizar reunião';
+		$dados['subtitulo'] = '';
+		// Dados a serem enviados para o Cabeçalho
+
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('frontend/template/html-header', $dados); 
+		$this->load->view('frontend/template/header');
+		$this->load->view('frontend/editar-comunidade');	
+		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/footer');
+		$this->load->view('frontend/template/html-footer');
+	}
+
 	public function participar_comunidade($idComunidade, $idUsuario) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -148,6 +175,45 @@ class Comunidades extends CI_Controller {
 
 		// Retorna o usuário à comunidade
 		redirect(base_url('comunidade/'.$idComunidade));
+	}
+
+	public function salvar_alteracoes() {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url('admin/login'));
+		}
+
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+
+		// Validações do Formulário
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('txt-tema', 'Tema',
+			'required|min_length[3]'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+		
+		// Descrição
+		$this->form_validation->set_rules('txt-descricao', 'Descrição',
+			'required|min_length[20]');
+		// Preenchimento requerido | Mínimo de 20 caracteres
+		 
+		$id= $this->input->post('txt-id');
+
+		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
+			//echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter 
+			redirect(base_url('comunidade/'.$id.'/2'));
+		} else {
+			// Recebe os dados do formulário
+			$tema= $this->input->post('txt-tema');
+			$descricao= $this->input->post('txt-descricao');
+			if($this->modelcomunidades->alterar($id,$tema,$descricao)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('comunidade/'.$id.'/1'));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('comunidade/'.$id.'/3'));
+			}
+
+		}
 	}
 
 	public function sair_comunidade($idComunidade, $idUsuario) {

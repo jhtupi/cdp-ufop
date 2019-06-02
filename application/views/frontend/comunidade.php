@@ -12,7 +12,13 @@
 
                 <?php
                     foreach($comunidades as $comunidade) {
-                    
+                        if ($enviado == 1) { // Caso o usuário foi criado, exibe a mensagem de confirmação
+                            echo '<div class="alert alert-success"> Comunidade atualizada! </div>';
+                        } else if ($enviado == 2) {
+                            echo '<div class="alert alert-warning"> Erro na validação do formulário! </div>';
+                        } else if ($enviado == 3) {
+                            echo '<div class="alert alert-warning"> Erro no banco de dados! </div>';
+                        }
                 ?>
                      
                     <h2>

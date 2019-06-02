@@ -93,6 +93,13 @@ class Comunidades_model extends CI_Model {
 		return $this->db->insert('comunidade', $dados); 
 	}
 
+	public function alterar($id,$tema,$descricao) {
+		$dados['tema'] = $tema;
+		$dados['descricao'] = $descricao;
+		$this->db->where('id', $id);
+		return $this->db->update('comunidade', $dados);
+	}
+
 	public function excluir($idComunidade, $idUsuario) {
 		$this->db->select('*')->from('comunidade')->where('id ='.$idComunidade); 
 		$ids = $this->db->get()->result();

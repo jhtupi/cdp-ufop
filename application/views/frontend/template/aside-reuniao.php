@@ -134,7 +134,7 @@
                                 <?php if(!$jaAconteceu) { ?>                              
                                     <form action="<?php echo base_url("editar_reuniao"."/".$reuniao->id) ?>">
                                     <input class="btn btn-default col-md-12"  type="submit" value="Editar reuniao" />
-                                 <br><br>
+                                    <br><br>
                                  <?php } ?> 
                                 <form action="<?php echo base_url("reunioes/excluir_reuniao"."/".$reuniao->id) ?>">
                                 <input class="btn btn-danger col-md-12"  type="submit" value="Excluir reuniao" />
