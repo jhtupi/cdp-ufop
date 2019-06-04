@@ -20,7 +20,7 @@ class Usuarios_model extends CI_Model {
 
 
 	public function listar_usuario($id) {
-		$this->db->select('usuario.id,usuario.nome,user,email,foto,telefone,departamento.nome depto, departamento.id idDepto');
+		$this->db->select('usuario.id,usuario.nome,user,cpf,email,foto,telefone,departamento.nome depto, departamento.id idDepto');
 		$this->db->from('usuario'); // seleciona a tabela
 		$this->db->join('departamento', 'usuario.id_depto = departamento.id', 'inner');
 		$this->db->where('usuario.id ='.$id); // Compara com a variável id foi enviada
@@ -70,9 +70,14 @@ class Usuarios_model extends CI_Model {
 		return $this->db->update('usuario', $dados);
 	}
 
+	public function excluir($id) {
+		$this->db->where('id', $id); // compara o id criptografado
+		return $this->db->delete('usuario'); // deleta a categoria selecionada
+	}
+
 	public function alterar_img($id) {
 		$dados['foto']= 1;
-		$this->db->where('md5(id)', $id);
+		$this->db->where('id', $id);
 		return $this->db->update('usuario', $dados);
 	}
 

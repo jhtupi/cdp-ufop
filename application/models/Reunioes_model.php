@@ -37,6 +37,18 @@ class Reunioes_model extends CI_Model {
 		$this->db->order_by('data', 'ASC');
 		return $this->db->get()->result();
 	}
+	public function listar_proximas_reunioes($idUsuario) {
+		$this->db->select('reuniao.id,reuniao.titulo,reuniao.data,reuniao.horario,reuniao.local,reuniao.resumo,reuniao.id_usuario idUser,reuniao.id_comunidade,reuniao.nps');
+		$this->db->from('reuniao'); 
+		$this->db->join('participa', 'participa.id_usuario ='.$idUsuario, 'inner');
+
+		// Verifica se a reunião já passou
+		$this->load->helper('date');
+		$this->db->where('reuniao.id = participa.id_reuniao')->where('reuniao.data >'.date("d-m-Y", now('America/Sao_Paulo')));
+
+		$this->db->order_by('data', 'ASC');
+		return $this->db->get()->result();
+	}
 
 	
 	public function adicionar($titulo,$data,$horario,$local,$resumo,$idUser,$idComunidade) {

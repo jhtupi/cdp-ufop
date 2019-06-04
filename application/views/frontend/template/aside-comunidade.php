@@ -43,9 +43,11 @@
                             <br><br>
                             <form action="<?php echo base_url("editar_comunidade"."/".$comunidade->id) ?>">
                             <input class="btn btn-default col-md-12"  type="submit" value="Editar comunidade" />
+                            </form> 
                             <br><br>
                             <form action="<?php echo base_url("excluir_comunidade"."/".$comunidade->id."/".$this->session->userdata('userlogado')->id) ?>">
                             <input class="btn btn-danger col-md-12"  type="submit" value="Excluir comunidade" />
+                            </form> 
                         </form>
                         <?php } // Fim if?>
                     </div>

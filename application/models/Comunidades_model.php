@@ -30,6 +30,16 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
+	public function listar_minhas_comunidades($idUsuario) {
+		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.nps_medio,comunidade.data_criacao, comunidade.id_usuario, usuario.nome');
+		$this->db->from('comunidade'); 
+		$this->db->join('usuario', 'usuario.id = comunidade.id_usuario', 'inner');
+		$this->db->join('entra', 'entra.id_usuario='.$idUsuario, 'inner');
+		$this->db->where('comunidade.id = entra.id_comunidade');
+		$this->db->order_by('tema', 'ASC');
+		return $this->db->get()->result();
+	}
+
 	public function destaques_comunidade() {
 		$this->db->select('id,tema,nps_medio');
 		$this->db->from('comunidade')->where('nps_medio <= 100'); // seleciona a tabela

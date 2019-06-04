@@ -119,7 +119,7 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
-	public function alterar($id) {
+	public function alterar($id, $enviado = null) {
 
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -127,7 +127,10 @@ class Usuarios extends CI_Controller {
 		}
 
 		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários
+		$this->load->model('departamentos_model', 'modeldepartamentos');
 
+		$dados['departamentos'] = $this->modeldepartamentos->listar_departamentos();
+		$dados['enviado'] = $enviado;
 		$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
 		
 		// Dados a serem enviados para o Cabeçalho
@@ -142,7 +145,7 @@ class Usuarios extends CI_Controller {
 		$this->load->view('backend/template/html-footer');
 	}
 
-	public function salvar_alteracoes($idCrip, $userCom) {
+	public function salvar_alteracoes($userCom) {
 
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -158,21 +161,20 @@ class Usuarios extends CI_Controller {
 		$this->form_validation->set_rules('txt-depto', 'Departamento',
 			'required'); 
 		// Preenchimento requerido | no mínimo 3 caracteres 
-		
+
 		// Nome
-		$this->load->library('form_validation');
 		$this->form_validation->set_rules('txt-nome', 'Nome do Usuário',
 			'required|min_length[3]'); 
 		// Preenchimento requerido | no mínimo 3 caracteres 
-		
+
 		// Email
 		$this->form_validation->set_rules('txt-email', 'E-mail',
 			'required|valid_email');
 		// Preenchimento requerido | Formato de e-mail válido
-		
-		// Histórico
-		$this->form_validation->set_rules('txt-historico', 'Histórico',
-			'required|min_length[20]');
+
+		// Telefone
+		$this->form_validation->set_rules('txt-telefone', 'Telefone',
+			'required|min_length[11]');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
 		// User
@@ -190,26 +192,28 @@ class Usuarios extends CI_Controller {
 		 $this->form_validation->set_rules('txt-senha','Senha', 'required|min_length[3]');
 		 $this->form_validation->set_rules('txt-confir-senha','Confirmar Senha', 'required|matches[txt-senha]');
 		}
-		
+
+		// Preenchimento requerido | É comparado para ser igual ao txt-senha
+		 
+		$id= $this->input->post('txt-id');
 
 		// Preenchimento requerido | É comparado para ser igual ao txt-senha
 		 
 
 		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
-			$this->alterar($idCrip);
+			redirect(base_url('admin/usuarios/alterar/'.$id.'/2'));
 		} else {
 			// Recebe os dados do formulário
 			$nome= $this->input->post('txt-nome');
 			$email= $this->input->post('txt-email');
-			$historico= $this->input->post('txt-historico');
+			$telefone= $this->input->post('txt-telefone');
 			$user= $this->input->post('txt-user');
 			$senha= $this->input->post('txt-senha');
-			$id= $this->input->post('txt-id');
 			$id_depto = $this->input->post('txt-depto');
-			if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id,$id_depto)) { // Se conseguiu acessar o model e adicionar
-				redirect(base_url('admin/usuarios'));
+			if($this->modelusuarios->alterar($id,$nome,$email,$telefone,$user,$senha,$id_depto)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('admin/usuarios/alterar/'.$id.'/1'));
 			} else { // Caso não tenha conseguido acessar o model
-				echo "Houve um erro no sistema!";
+				redirect(base_url('admin/usuarios/alterar/'.$id.'/3'));
 			}
 
 		}
@@ -219,7 +223,7 @@ class Usuarios extends CI_Controller {
 
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url('admin/login'));
+			redirect(base_url());
 		}
 		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários
 

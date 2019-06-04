@@ -75,6 +75,36 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
+	public function proximas_reunioes($idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->helper('funcoes');
+
+		$this->load->model('reunioes_model', 'modelreunioes');
+		$dados['reunioes'] = $this->modelreunioes->listar_proximas_reunioes($idUsuario);
+		$dados['destaques'] = $this->destaques;
+		// Insere os dados da postagem no array dados
+	
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+
+
+		$dados['titulo'] = 'Reuniões';
+		$dados['subtitulo'] = 'Próximas a acontecer';
+		// Dados a serem enviados para o Cabeçalho
+
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('frontend/template/html-header', $dados); 
+		$this->load->view('frontend/template/header');
+		$this->load->view('frontend/reunioes');	
+		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/footer');
+		$this->load->view('frontend/template/html-footer');
+	}
+
 	public function participar_reuniao($idReuniao, $idUsuario) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login

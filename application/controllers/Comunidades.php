@@ -72,6 +72,37 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
+	public function minhas_comunidades($idUsuario) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->helper('funcoes');
+
+		$this->load->library('table'); // Chama a biblioteca de tabelas
+
+		// Carrega o Model de comunidades
+		$this->load->model('comunidades_model', 'modelcomunidades'); 
+		// Insere os dados da postagem no array dados
+		$dados['comunidades'] = $this->modelcomunidades->listar_minhas_comunidades($idUsuario);
+
+
+
+		$dados['titulo'] = 'Comunidades que pertenço';
+		$dados['subtitulo'] = '';
+		$dados['destaques'] = $this->destaques;
+
+		// Dados a serem enviados para o Cabeçalho
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('frontend/template/html-header', $dados); // Aqui a variável $dados é carregada na view
+		$this->load->view('frontend/template/header');
+		$this->load->view('frontend/minhas-comunidades');	// Chamada do conteúdo da página em si
+		$this->load->view('frontend/template/aside-comunidades');
+		$this->load->view('frontend/template/footer');
+		$this->load->view('frontend/template/html-footer');
+	}
+
 
 	public function criar_comunidade($criada=null) {
 		// Adiciona a proteção da página

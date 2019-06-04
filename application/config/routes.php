@@ -74,6 +74,9 @@ $route['reuniao/(:num)/(:num)'] = 'reunioes/reuniao/$1/$2'; // Rota para visuali
 $route['participar_reuniao/(:num)/(:num)'] = 'reunioes/participar_reuniao/$1/$2'; // Rota para participar da reunião
 $route['sair_reuniao/(:num)/(:num)'] = 'reunioes/sair_reuniao/$1/$2'; // Rota para sair da reunião
 $route['editar_reuniao/(:num)'] = 'reunioes/editar_reuniao/$1'; // Rota para editar a reunião
+$route['excluir_reuniao/(:num)'] = 'reunioes/excluir_reuniao/$1'; // Rota para editar a reunião
+$route['proximas_reunioes/(:num)'] = 'reunioes/proximas_reunioes/$1'; // Rota para visualizar próximas reuniões do usuário
+$route['reunioes_passadas/(:num)'] = 'reunioes/reunioes_passadas/$1'; // Rota para visualizar reuniões passadas do usuário
 
 
 
@@ -86,6 +89,7 @@ $route['participar_comunidade/(:num)/(:num)'] = 'comunidades/participar_comunida
 $route['sair_comunidade/(:num)/(:num)'] = 'comunidades/sair_comunidade/$1/$2'; // Rota para sair da comunidade
 $route['excluir_comunidade/(:num)/(:num)'] = 'comunidades/excluir_comunidade/$1/$2'; // Rota para excluir a comunidade
 $route['editar_comunidade/(:num)'] = 'comunidades/editar_comunidade/$1'; // Rota para editar a comunidade
+$route['minhas_comunidades/(:num)'] = 'comunidades/minhas_comunidades/$1'; // Rota para comunidades do usuário
 
 
 
