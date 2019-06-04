@@ -27,7 +27,7 @@
                             <a href="<?php echo base_url('admin/reunioes') ?>"><i class="fa fa-comments fa-fw"></i> Reuniões</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('admin') ?>"><i class="fa fa-file-archive-o fa-fw"></i> Materiais</a>
+                            <a href="<?php echo base_url('admin/materiais') ?>"><i class="fa fa-file-archive-o fa-fw"></i> Materiais</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('admin/departamentos') ?>"><i class="fa fa-briefcase fa-fw"></i> Departamentos</a>

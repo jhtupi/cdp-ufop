@@ -93,8 +93,9 @@ class Usuarios extends CI_Controller {
 			$telefone= $this->input->post('txt-telefone');
 			$user= $this->input->post('txt-user');
 			$senha= $this->input->post('txt-senha');
+			$departamento = 0;
 
-			if($this->modelusuarios->adicionar($nome,$email,$cpf,$telefone,$user,$senha)) { // Se conseguiu acessar o model e adicionar
+			if($this->modelusuarios->adicionar($nome,$email,$cpf,$telefone,$user,$senha,$departamento)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('admin/usuarios'));
 			} else { // Caso não tenha conseguido acessar o model
 				echo "Houve um erro no sistema!";

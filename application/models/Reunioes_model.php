@@ -148,6 +148,13 @@ class Reunioes_model extends CI_Model {
 		return $this->db->insert('material', $dados);
 	}
 
+	public function listar_todos_materiais() {
+		$this->db->select('material.id,arquivo,usuario.nome,reuniao.titulo reuniao, reuniao.id idReuniao');
+		$this->db->from('material');
+		$this->db->join('usuario', 'material.id_usuario = usuario.id', 'inner');
+		$this->db->join('reuniao', 'material.id_reuniao = reuniao.id', 'inner');
+		return $this->db->get()->result();
+	}
 	public function listar_materiais($idReuniao) {
 		$this->db->select('id,arquivo,id_usuario');
 		$this->db->from('material');

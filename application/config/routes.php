@@ -95,3 +95,4 @@ $route['minhas_comunidades/(:num)'] = 'comunidades/minhas_comunidades/$1'; // Ro
 
 // Extras
 $route['contato/(:num)'] = 'contato/index/$1'; // Rota para o envio de formulário de contato
+$route['admin/materiais'] = 'admin/reunioes/materiais'; // Rota para o envio de formulário de contato
