@@ -90,6 +90,73 @@ class Comunidades extends CI_Controller {
 		}
 	}
 
+	public function alterar($id, $enviado = null) {
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->helper('funcoes');
+
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
+
+
+		$dados['titulo'] = 'Painel de Controle';
+		$dados['subtitulo'] = 'Alterar comunidade';
+		$dados['enviado'] = $enviado;
+		// Dados a serem enviados para o Cabeçalho
+
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('backend/template/html-header', $dados); 
+		$this->load->view('backend/template/template');
+		$this->load->view('backend/alterar-comunidade');
+		$this->load->view('backend/template/html-footer');
+	}
+
+	public function salvar_alteracoes() {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url('admin/login'));
+		}
+
+		$this->load->model('comunidades_model', 'modelcomunidades'); // Carrega o Model de usuários
+
+		$this->load->library('form_validation');
+		// Validações do Formulário
+
+		// Tema
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('txt-tema', 'Tema',
+			'required|min_length[3]'); 
+		// Preenchimento requerido | no mínimo 3 caracteres 
+		
+		// Descrição
+		$this->form_validation->set_rules('txt-descricao', 'Descrição',
+			'required|min_length[20]');
+		// Preenchimento requerido | Mínimo de 20 caracteres
+		 
+		$id= $this->input->post('txt-id');
+
+		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
+			//echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter 
+			redirect(base_url('admin/comunidades/alterar/'.$id.'/2'));
+		} else {
+			// Recebe os dados do formulário
+			$tema= $this->input->post('txt-tema');
+			$descricao= $this->input->post('txt-descricao');
+			
+			if($this->modelcomunidades->alterar($id,$tema,$descricao)) { // Se conseguiu acessar o model e adicionar
+				redirect(base_url('admin/comunidades/alterar/'.$id.'/1'));
+			} else { // Caso não tenha conseguido acessar o model
+				redirect(base_url('admin/comunidades/alterar/'.$id.'/3'));
+			}
+
+		}
+	}
+
 	public function excluir($idComunidade, $idUsuario) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login

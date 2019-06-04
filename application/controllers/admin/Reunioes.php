@@ -59,7 +59,7 @@ class Reunioes extends CI_Controller {
 		
 		// Dados a serem enviados para o Cabeçalho
 		$dados['titulo'] = 'Painel de Controle';
-		$dados['subtitulo'] = 'Usuários';
+		$dados['subtitulo'] = 'Alterar reunião';
 		
 
 		// Faz as chamadas dos templates dos views de header, footer, aside
