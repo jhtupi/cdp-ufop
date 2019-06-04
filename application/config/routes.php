@@ -90,6 +90,8 @@ $route['sair_comunidade/(:num)/(:num)'] = 'comunidades/sair_comunidade/$1/$2'; /
 $route['excluir_comunidade/(:num)/(:num)'] = 'comunidades/excluir_comunidade/$1/$2'; // Rota para excluir a comunidade
 $route['editar_comunidade/(:num)'] = 'comunidades/editar_comunidade/$1'; // Rota para editar a comunidade
 $route['minhas_comunidades/(:num)'] = 'comunidades/minhas_comunidades/$1'; // Rota para comunidades do usuário
+$route['admin/comunidades/(:num)'] = 'admin/comunidades/index/$1'; // Rota para comunidades do usuário
+
 
 
 
