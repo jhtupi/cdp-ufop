@@ -13,7 +13,7 @@ class Home extends CI_Controller {
 		$this->destaques = $this->modelcomunidades->destaques_comunidade();
 	}
 	
-	public function index()
+	public function index($pular=null, $post_por_pagina=null)
 	{
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
@@ -23,12 +23,22 @@ class Home extends CI_Controller {
 
 		$this->load->model('reunioes_model', 'modelreunioes');
 		// O modelo de destaques é carregado aqui na função index pois não será requerido em toda pasta como as categorias que ficam no header e aside
-		$dados['reunioes'] = $this->modelreunioes->listar_reunioes_recentes();
-		$dados['destaques'] = $this->destaques;
-		// Insere os dados da postagem no array dados
+
+		// Dados para paginação
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
+		$config['base_url'] = base_url();
+		$config['total_rows'] = $this->modelcomunidades->contar();
+		$post_por_pagina = 7;
+		$config['per_page'] = $post_por_pagina;
+		$this->pagination->initialize($config);
+
 	
+		// Insere os dados da postagem no array dados
 		$this->load->model('comunidades_model', 'modelcomunidades');
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+		$dados['reunioes'] = $this->modelreunioes->listar_reunioes_recentes($pular,$post_por_pagina);
+		$dados['destaques'] = $this->destaques;
+		$dados['links_paginacao'] = $this->pagination->create_links();
 	
 
 		$dados['titulo'] = 'Página Inicial';

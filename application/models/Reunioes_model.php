@@ -37,10 +37,15 @@ class Reunioes_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function listar_reunioes_recentes() {
+	public function listar_reunioes_recentes($pular=null,$post_por_pagina=null) {
 		$this->db->select('id,titulo,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
 		$this->db->order_by('data', 'ASC');
+		if($pular && $post_por_pagina) {
+			$this->db->limit($post_por_pagina,$pular);
+		} else {
+			$this->db->limit(7);
+		}
 		return $this->db->get()->result();
 	}
 	public function listar_proximas_reunioes($idUsuario) {

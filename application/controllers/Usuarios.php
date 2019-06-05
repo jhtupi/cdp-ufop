@@ -11,7 +11,7 @@ class Usuarios extends CI_Controller {
 
 	}
 	
-	public function index() {
+	public function index($pular=null, $post_por_pagina=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
@@ -19,16 +19,24 @@ class Usuarios extends CI_Controller {
 		$this->load->helper('funcoes');
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
-
 		// Carrega o Model de usuários
 		$this->load->model('usuarios_model', 'modelusuarios'); 
-		// Insere os dados da postagem no array dados
-		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
-		$dados['destaques'] = $this->destaques;
+		
+
+		// Dados para paginação
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
+		$config['base_url'] = base_url('usuarios');
+		$config['total_rows'] = $this->modelcomunidades->contar();
+		$post_por_pagina = 6;
+		$config['per_page'] = $post_por_pagina; // mudar para 5
+		$this->pagination->initialize($config);
 
 
+		$dados['usuarios'] = $this->modelusuarios->listar_usuarios($pular,$post_por_pagina);
 		$dados['titulo'] = 'Usuários do sistema';
 		$dados['subtitulo'] = '';
+		$dados['destaques'] = $this->destaques;
+		$dados['links_paginacao'] = $this->pagination->create_links();
 
 		// Dados a serem enviados para o Cabeçalho
 

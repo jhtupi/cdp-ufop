@@ -34,6 +34,8 @@
                     <hr>
                 <?php
                 }
+                    // Adiciona o paginador
+                    echo "<div class= 'paginacao'>".$links_paginacao."</div>"
                 ?>
 
             </div>

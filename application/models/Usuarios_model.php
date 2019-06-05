@@ -35,7 +35,7 @@ class Usuarios_model extends CI_Model {
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);
 		} else {
-			$this->db->limit(7);
+			$this->db->limit(6);
 		}
 		return $this->db->get()->result();
 	}

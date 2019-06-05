@@ -54,10 +54,12 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-// Usuários
+// Usuários - Front
 $route['usuario/(:num)'] = 'usuarios/usuario/$1/$2'; // Controlador usuarios no método usuario
+$route['usuarios/(:num)'] = 'usuarios/index/$1'; 
 $route['meu_perfil/(:num)'] = 'usuarios/meu_perfil/$1'; // Rota para meu perfil
 $route['meu_perfil/(:num)/(:num)'] = 'usuarios/meu_perfil/$1/$2'; // Rota para meu perfil
+// Usuários - Back
 $route['admin/usuarios/(:num)'] = 'admin/usuarios/index/$1'; // Rota para visualizar reuniões passadas do usuário
 								
 
@@ -67,7 +69,7 @@ $route['esqueci_senha'] = 'usuarios/esqueci_senha'; // Rota para esqueci minha s
 $route['criar_usuario'] = 'usuarios/criar_usuario'; // Rota para criar usuário
 $route['criar_usuario/(:num)'] = 'usuarios/criar_usuario/$1'; // Rota para criar usuário
 
-// Reuniões
+// Reuniões - Front
 $route['criar_reuniao/(:num)/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2/$3'; // Rota para criar reunião
 $route['criar_reuniao/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2'; // Rota para criar reunião
 $route['reuniao/(:num)'] = 'reunioes/reuniao/$1'; // Rota para visualizar reunião
@@ -78,13 +80,15 @@ $route['editar_reuniao/(:num)'] = 'reunioes/editar_reuniao/$1'; // Rota para edi
 $route['excluir_reuniao/(:num)'] = 'reunioes/excluir_reuniao/$1'; // Rota para editar a reunião
 $route['proximas_reunioes/(:num)'] = 'reunioes/proximas_reunioes/$1'; // Rota para visualizar próximas reuniões do usuário
 $route['reunioes_passadas/(:num)'] = 'reunioes/reunioes_passadas/$1'; // Rota para visualizar reuniões passadas do usuário
+// Reuniões - Back
 $route['admin/reunioes/(:num)'] = 'admin/reunioes/index/$1'; // Rota para visualizar reuniões passadas do usuário
 
 
 
-// Comunidades
+// Comunidades - Front
 $route['criar_comunidade'] = 'comunidades/criar_comunidade'; // Rota para criar comunidade
 $route['criar_comunidade/(:num)'] = 'comunidades/criar_comunidade/$1'; // Rota para criar comunidade
+$route['comunidades/(:num)'] = 'comunidades/index/$1'; // Rota para visualizar comunidade
 $route['comunidade/(:num)'] = 'comunidades/comunidade/$1'; // Rota para visualizar comunidade
 $route['comunidade/(:num)/(:num)'] = 'comunidades/comunidade/$1/$2'; // Rota para visualizar comunidade
 $route['participar_comunidade/(:num)/(:num)'] = 'comunidades/participar_comunidade/$1/$2'; // Rota para participar da comunidade
@@ -92,6 +96,7 @@ $route['sair_comunidade/(:num)/(:num)'] = 'comunidades/sair_comunidade/$1/$2'; /
 $route['excluir_comunidade/(:num)/(:num)'] = 'comunidades/excluir_comunidade/$1/$2'; // Rota para excluir a comunidade
 $route['editar_comunidade/(:num)'] = 'comunidades/editar_comunidade/$1'; // Rota para editar a comunidade
 $route['minhas_comunidades/(:num)'] = 'comunidades/minhas_comunidades/$1'; // Rota para comunidades do usuário
+// Comunidades - Back
 $route['admin/comunidades/(:num)'] = 'admin/comunidades/index/$1'; // Rota para comunidades do usuário
 
 
@@ -100,3 +105,4 @@ $route['admin/comunidades/(:num)'] = 'admin/comunidades/index/$1'; // Rota para 
 // Extras
 $route['contato/(:num)'] = 'contato/index/$1'; // Rota para o envio de formulário de contato
 $route['admin/materiais'] = 'admin/reunioes/materiais'; // Rota para o envio de formulário de contato
+$route['(:num)'] = 'home/index/$1'; // Rota para paginação da home page
