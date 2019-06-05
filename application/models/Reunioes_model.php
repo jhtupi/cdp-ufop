@@ -44,7 +44,7 @@ class Reunioes_model extends CI_Model {
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);
 		} else {
-			$this->db->limit(7);
+			$this->db->limit(100);
 		}
 		return $this->db->get()->result();
 	}
@@ -276,9 +276,14 @@ class Reunioes_model extends CI_Model {
 	}
 
 	public function contar_recentes($idUsuario) {
+		$this->load->helper('date');
 		
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 		$this->db->where('participa.id_usuario ='.$idUsuario);
+		$this->db->where('reuniao.data <'.now('America/Sao_Paulo'));
+//if(date_parse($reuniao->data.' '.$reuniao->horario) < date_parse(date('Y-m-d h:m:s', now('America/Sao_Paulo'))) && $flag ==1)
+
+
 		return $this->db->count_all_results('participa');
 	}
 

@@ -24,18 +24,19 @@
                                         }
                                     </style>
                                     <?php 
-                                        $this->table->set_heading("Título","Resumo","Alterar","Excluir"); 
+                                        $this->table->set_heading("Título","Resumo", "Comunidade","Alterar","Excluir"); 
                                         // Define as colunas da tabela
                                         foreach ($reunioes as $reuniao) {
 
                                             $tituloreun = $reuniao->titulo;
                                             $resumoreun = $reuniao->resumo;
+                                            $com = $reuniao->id_comunidade;
                                             
                                             $alterar= anchor(base_url('admin/reunioes/alterar/'.$reuniao->id), '<i class="fa fa-refresh fa-fw"></i> Alterar'); // Anchor serve para usar o helper
                                             $excluir= anchor(base_url('admin/reunioes/excluir/'.$reuniao->id), '<i class="fa fa-remove fa-fw"></i> Excluir'); // A vírgula serve de 'alias' 
                                                 // A função md5() criptografa o id da categoria
 
-                                            $this->table->add_row($tituloreun,$resumoreun,$alterar,$excluir); // Define cada uma das linhas
+                                            $this->table->add_row($tituloreun,$resumoreun,$com,$alterar,$excluir); // Define cada uma das linhas
                                         }
 
                                         // Como vai ser exibida, a formatação da tabela

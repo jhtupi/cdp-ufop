@@ -78,11 +78,18 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function reunioes_comunidade($id) {
+	public function reunioes_comunidade($id,$pular=null,$post_por_pagina=null) {
 		$this->db->select('id,titulo,data,horario,resumo');
 		$this->db->from('reuniao'); // seleciona a tabela
 		$this->db->where('id_comunidade ='.$id); // Compara com a variável id foi enviada
 		$this->db->order_by('data', 'DESC');
+
+		if($pular && $post_por_pagina) {
+			$this->db->limit($post_por_pagina,$pular);
+		} else {
+			$this->db->limit(2);
+		}
+
 		return $this->db->get()->result();
 	}
 
@@ -170,6 +177,11 @@ $nps_medio - Rolou update NPS Médio
 
 	public function contar() {
 		return $this->db->count_all('comunidade');
+	}
+
+	public function contar_reunioes($idComunidade) {
+		$this->db->where('id_comunidade ='.$idComunidade);
+		return $this->db->count_all_results('reuniao');
 	}
 
 

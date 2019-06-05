@@ -88,7 +88,7 @@ class Reunioes extends CI_Controller {
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
 		$config['base_url'] = base_url('proximas_reunioes/'.$idUsuario);
 		$config['total_rows'] = $this->modelreunioes->contar_recentes($idUsuario);
-		$post_por_pagina = 3;
+		$post_por_pagina = 100;
 		$config['per_page'] = $post_por_pagina;
 		$this->pagination->initialize($config);
 
@@ -133,7 +133,7 @@ class Reunioes extends CI_Controller {
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
 		$config['base_url'] = base_url('reunioes_passadas/'.$idUsuario);
 		$config['total_rows'] = $this->modelreunioes->contar_recentes($idUsuario);
-		$post_por_pagina = 5;
+		$post_por_pagina = 100;
 		$config['per_page'] = $post_por_pagina;
 		$this->pagination->initialize($config);
 

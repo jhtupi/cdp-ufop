@@ -48,7 +48,7 @@ class Comunidades extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function comunidade($id, $enviado=null) {
+	public function comunidade($id, $pular=null, $post_por_pagina=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
@@ -56,13 +56,26 @@ class Comunidades extends CI_Controller {
 		$this->load->helper('funcoes');
 
 		$this->load->model('comunidades_model', 'modelcomunidades');
+
+		// Dados para paginação
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
+		$config['page_query_string'] = TRUE;
+		$config['base_url'] = base_url("comunidade/".$id);
+		$config['total_rows'] = $this->modelcomunidades->contar_reunioes($id);
+		$post_por_pagina = 2;
+		$config['per_page'] = $post_por_pagina; 
+		$this->pagination->initialize($config);
+
+
+
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
 		$dados['criador'] = $this->modelcomunidades->criador_comunidade($id);
 		$dados['membros'] = $this->modelcomunidades->membros_comunidade($id);
-		$dados['reunioes'] = $this->modelcomunidades->reunioes_comunidade($id);
+		$dados['reunioes'] = $this->modelcomunidades->reunioes_comunidade($id,$pular,$post_por_pagina);
 		$dados['npsCom'] = $this->modelcomunidades->calcularNPSMedio($id);
 		$dados['destaques'] = $this->destaques;
-		$dados['enviado'] = $enviado;
+		$dados['links_paginacao'] = $this->pagination->create_links();
+		
 
 		$dados['titulo'] = 'Visualizar comunidade';
 		$dados['subtitulo'] = '';
