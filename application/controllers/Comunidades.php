@@ -20,9 +20,9 @@ class Comunidades extends CI_Controller {
 		$this->load->model('comunidades_model', 'modelcomunidades'); 
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
-		$this->load->library('pagination'); // Chama a biblioteca de paginação
 
 		// Dados para paginação
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
 		$config['base_url'] = base_url('comunidades');
 		$config['total_rows'] = $this->modelcomunidades->contar();
 		$post_por_pagina = 5;

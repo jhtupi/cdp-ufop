@@ -40,7 +40,8 @@
                                     ?> Comunidade: <a href="<?php echo base_url('comunidade/'.$comunidade->id)?>"> <?php
                                     echo $comunidade->tema;
                                 }
-                            }?></a>
+                            }
+                            ?></a>
                         </p>
                         
                     
@@ -79,8 +80,13 @@
 
 
                 <?php
+
                     } // else flag ==1 
-              }   
+
+              }
+              // Adiciona o paginador
+                    echo "<div class= 'paginacao'>".$links_paginacao."</div>"
+                       
                 ?>
 
             </div>

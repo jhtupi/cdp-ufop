@@ -26,7 +26,7 @@ class Usuarios extends CI_Controller {
 		// Dados para paginação
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
 		$config['base_url'] = base_url('usuarios');
-		$config['total_rows'] = $this->modelcomunidades->contar();
+		$config['total_rows'] = $this->modelusuarios->contar();
 		$post_por_pagina = 6;
 		$config['per_page'] = $post_por_pagina; // mudar para 5
 		$this->pagination->initialize($config);

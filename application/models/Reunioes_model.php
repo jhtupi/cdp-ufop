@@ -48,16 +48,19 @@ class Reunioes_model extends CI_Model {
 		}
 		return $this->db->get()->result();
 	}
-	public function listar_proximas_reunioes($idUsuario) {
+	public function listar_proximas_reunioes($idUsuario, $pular=null, $post_por_pagina=null) {
 		$this->db->select('reuniao.id,reuniao.titulo,reuniao.data,reuniao.horario,reuniao.local,reuniao.resumo,reuniao.id_usuario idUser,reuniao.id_comunidade,reuniao.nps');
 		$this->db->from('participa'); 
-		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');
-		
-
-		// Verifica se a reunião já passou
-		
+		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 		$this->db->where('participa.id_usuario ='.$idUsuario);
 		$this->db->order_by('data', 'ASC');
+
+		if($pular && $post_por_pagina) {
+			$this->db->limit($post_por_pagina,$pular);
+		} else {
+			$this->db->limit(3);
+		}
+
 		return $this->db->get()->result();
 	}
 
@@ -270,6 +273,13 @@ class Reunioes_model extends CI_Model {
 
 	public function contar() {
 		return $this->db->count_all('reuniao');
+	}
+
+	public function contar_recentes($idUsuario) {
+		
+		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
+		$this->db->where('participa.id_usuario ='.$idUsuario);
+		return $this->db->count_all_results('participa');
 	}
 
 }
