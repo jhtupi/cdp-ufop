@@ -20,28 +20,32 @@ class Comunidades extends CI_Controller {
 
 	}
 	
-	public function index($criada=null, $pular=null, $post_por_pagina=null) {
+	public function index($pular=null, $post_por_pagina=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
 		}
+
+		// Carrega o Model de comunidades
+		$this->load->model('comunidades_model', 'modelcomunidades'); 
+
 		$this->load->helper('funcoes');
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
 
+		// Dados para paginação
+		$config['base_url'] = base_url('admin/comunidades');
+		$config['total_rows'] = $this->modelcomunidades->contar();
+		$post_por_pagina = 5;
+		$config['per_page'] = $post_por_pagina; // mudar para 5
+		$this->pagination->initialize($config);
 
-		
-
-
-
-		// Carrega o Model de comunidades
-		$this->load->model('comunidades_model', 'modelcomunidades'); 
 		// Insere os dados da postagem no array dados
-		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades($pular,$post_por_pagina);
 		$dados['titulo'] = 'Painel de Controle';
 		$dados['subtitulo'] = 'Comunidades';
-		$dados['criada'] = $criada;
+		$dados['links_paginacao'] = $this->pagination->create_links();
 
 		// Dados a serem enviados para o Cabeçalho
 

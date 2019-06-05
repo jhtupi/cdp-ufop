@@ -58,6 +58,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['usuario/(:num)'] = 'usuarios/usuario/$1/$2'; // Controlador usuarios no método usuario
 $route['meu_perfil/(:num)'] = 'usuarios/meu_perfil/$1'; // Rota para meu perfil
 $route['meu_perfil/(:num)/(:num)'] = 'usuarios/meu_perfil/$1/$2'; // Rota para meu perfil
+$route['admin/usuarios/(:num)'] = 'admin/usuarios/index/$1'; // Rota para visualizar reuniões passadas do usuário
 								
 
 // Login								
@@ -77,6 +78,7 @@ $route['editar_reuniao/(:num)'] = 'reunioes/editar_reuniao/$1'; // Rota para edi
 $route['excluir_reuniao/(:num)'] = 'reunioes/excluir_reuniao/$1'; // Rota para editar a reunião
 $route['proximas_reunioes/(:num)'] = 'reunioes/proximas_reunioes/$1'; // Rota para visualizar próximas reuniões do usuário
 $route['reunioes_passadas/(:num)'] = 'reunioes/reunioes_passadas/$1'; // Rota para visualizar reuniões passadas do usuário
+$route['admin/reunioes/(:num)'] = 'admin/reunioes/index/$1'; // Rota para visualizar reuniões passadas do usuário
 
 
 

@@ -44,6 +44,8 @@
                                             ));
 
                                         echo $this->table->generate(); // Gera a tabela
+                                        
+                                        echo "<div class= 'paginacao'>".$links_paginacao."</div>"
 
                                     ?>
                                 </div>

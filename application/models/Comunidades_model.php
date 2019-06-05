@@ -22,11 +22,17 @@ class Comunidades_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function listar_comunidades() {
+	public function listar_comunidades($pular=null,$post_por_pagina=null) {
 		$this->db->select('comunidade.id,comunidade.tema,comunidade.descricao,comunidade.nps_medio,comunidade.data_criacao, comunidade.id_usuario, usuario.nome');
 		$this->db->from('comunidade'); 
 		$this->db->join('usuario', 'usuario.id = comunidade.id_usuario', 'inner');
 		$this->db->order_by('tema', 'ASC');
+
+		if($pular && $post_por_pagina) {
+			$this->db->limit($post_por_pagina,$pular);
+		} else {
+			$this->db->limit(5);
+		}
 		return $this->db->get()->result();
 	}
 
@@ -161,5 +167,10 @@ $nps_medio - Rolou update NPS Médio
 -102 - Não rolou update
 -103 - Não obteve resultado
 */
+
+	public function contar() {
+		return $this->db->count_all('comunidade');
+	}
+
 
 }

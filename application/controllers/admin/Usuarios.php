@@ -19,17 +19,26 @@ class Usuarios extends CI_Controller {
 		}
 	}
 	
-	public function index()
+	public function index($pular=null,$post_por_pagina=null)
 	{
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
 
 		// Carrega o Model de usuários
 		$this->load->model('usuarios_model', 'modelusuarios'); 
-		$dados['usuarios'] = $this->modelusuarios->listar_usuarios();
+
+		// Dados para paginação
+		$config['base_url'] = base_url('admin/usuarios');
+		$config['total_rows'] = $this->modelusuarios->contar();
+		$post_por_pagina = 7;
+		$config['per_page'] = $post_por_pagina; // mudar para 5
+		$this->pagination->initialize($config);
 		
+		$dados['usuarios'] = $this->modelusuarios->listar_usuarios($pular,$post_por_pagina);
 		$dados['titulo'] = 'Painel de Controle';
 		$dados['subtitulo'] = 'Usuários';
+		$dados['links_paginacao'] = $this->pagination->create_links();
 		// Dados a serem enviados para o Cabeçalho
 
 		// Faz as chamadas dos templates dos views de header, footer, aside

@@ -17,16 +17,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <?php 
-
-                                        if ($criada == 1) { 
-                                            echo '<div class="alert alert-success"> Comunidade criada! </div>';
-                                        } else if ($criada == 2) {
-                                            echo '<div class="alert alert-warning"> Comunidade não criada! Erro no formulário </div>';
-                                        } else if ($criada == 3) {
-                                            echo '<div class="alert alert-warning"> Comunidade não criada! Erro no banco de dados </div>';
-                                        }
-                                        
+                                    <?php                                         
                                         echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
                                         echo form_open(base_url('admin/comunidades/inserir')); // Abre o formulário apontando pro método de inserção no controlador
                                     ?>
@@ -94,6 +85,7 @@
                                             ));
 
                                         echo $this->table->generate(); // Gera a tabela
+                                        echo "<div class= 'paginacao'>".$links_paginacao."</div>"
 
                                     ?>
                                 </div>

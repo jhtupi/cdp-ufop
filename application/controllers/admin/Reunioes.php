@@ -20,19 +20,30 @@ class Reunioes extends CI_Controller {
 
 	}
 	
-	public function index() {
+	public function index($pular=null, $post_por_pagina=null) {
 		$this->load->helper('funcoes');
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
 
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
+
 		// Carrega o Model de reunioes
 		$this->load->model('reunioes_model', 'modelreunioes'); 
 		// Insere os dados da postagem no array dados
-		$dados['reunioes'] = $this->modelreunioes->listar_reunioes();
 
 
+		// Dados para paginação
+		$config['base_url'] = base_url('admin/reunioes');
+		$config['total_rows'] = $this->modelreunioes->contar();
+		$post_por_pagina = 10;
+		$config['per_page'] = $post_por_pagina; 
+		$this->pagination->initialize($config);
+
+
+		$dados['reunioes'] = $this->modelreunioes->listar_reunioes($pular,$post_por_pagina);
 		$dados['titulo'] = 'Painel de Controle';
 		$dados['subtitulo'] = 'Reuniões';
+		$dados['links_paginacao'] = $this->pagination->create_links();
 
 		// Dados a serem enviados para o Cabeçalho
 

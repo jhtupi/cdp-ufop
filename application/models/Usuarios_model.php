@@ -27,10 +27,16 @@ class Usuarios_model extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-	public function listar_usuarios() {
+	public function listar_usuarios($pular=null,$post_por_pagina=null) {
 		$this->db->select('id,nome,user,email,foto,telefone');
 		$this->db->from('usuario'); 
 		$this->db->order_by('nome', 'ASC');
+
+		if($pular && $post_por_pagina) {
+			$this->db->limit($post_por_pagina,$pular);
+		} else {
+			$this->db->limit(7);
+		}
 		return $this->db->get()->result();
 	}
 
@@ -79,6 +85,10 @@ class Usuarios_model extends CI_Model {
 		$dados['foto']= 1;
 		$this->db->where('id', $id);
 		return $this->db->update('usuario', $dados);
+	}
+
+	public function contar() {
+		return $this->db->count_all('usuario');
 	}
 
 
