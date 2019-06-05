@@ -20,7 +20,7 @@ class Comunidades extends CI_Controller {
 
 	}
 	
-	public function index($criada=null) {
+	public function index($criada=null, $pular=null, $post_por_pagina=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
@@ -28,13 +28,17 @@ class Comunidades extends CI_Controller {
 		$this->load->helper('funcoes');
 
 		$this->load->library('table'); // Chama a biblioteca de tabelas
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
+
+
+		
+
+
 
 		// Carrega o Model de comunidades
 		$this->load->model('comunidades_model', 'modelcomunidades'); 
 		// Insere os dados da postagem no array dados
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
-
-
 		$dados['titulo'] = 'Painel de Controle';
 		$dados['subtitulo'] = 'Comunidades';
 		$dados['criada'] = $criada;
