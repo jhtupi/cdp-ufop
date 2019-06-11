@@ -19,7 +19,6 @@
                 
                 <?php
                     foreach($reunioes as $reuniao) {         
-                        echo $reuniao->titulo;
 
                     // Data e horário não passaram ainda
                     if(date_parse($reuniao->data.' '.$reuniao->horario) > date_parse(date('Y-m-d H:m:s', now('America/Sao_Paulo'))) && $flag ==0){

@@ -23,6 +23,8 @@
                     <h2>
                         <?php echo $reuniao->titulo ?>
                     </h2>
+
+
                     <br>
                     <p class="lead">
                         Data: <a> <?php echo $reuniao->data ?></a>
@@ -108,5 +110,9 @@
                 <?php 
                 }
                 ?>
+
+                <dialog open>
+                  <p>Olá para todos!</p>
+                </dialog>
 
             </div>

@@ -17,6 +17,8 @@
                     <h2>
                         <?php echo $comunidade->tema ?>
                     </h2>
+
+                    
                     <br>
                     <p class="lead">
                         Data de criação: <a> <?php echo $comunidade->data_criacao ?></a>
@@ -105,5 +107,6 @@
                         ?>
                 
                 </div>
+
             </div>
             
