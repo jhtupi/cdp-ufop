@@ -76,9 +76,6 @@ class Usuarios extends CI_Controller {
 
 	public function criar_usuario($enviado=null) {
 		// Adiciona a proteção da página
-		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url());
-		}
 		$this->load->helper('funcoes');
 
 		$this->load->model('departamentos_model', 'modeldepartamentos');
@@ -126,10 +123,6 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function inserir() {
-		// Adiciona a proteção da página
-		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
-			redirect(base_url());
-		}
 
 
 		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários
@@ -183,8 +176,9 @@ class Usuarios extends CI_Controller {
 			$telefone= $this->input->post('txt-telefone');
 			$user= $this->input->post('txt-user');
 			$senha= $this->input->post('txt-senha');
+			$departamento = 0;
 
-			if($this->modelusuarios->adicionar($nome,$email,$cpf,$telefone,$user,$senha)) { // Se conseguiu acessar o model e adicionar
+			if($this->modelusuarios->adicionar($nome,$email,$cpf,$telefone,$user,$senha,$departamento)) { // Se conseguiu acessar o model e adicionar
 				redirect(base_url('criar_usuario/1'));
 			} else { // Caso não tenha conseguido acessar o model
 				echo "Houve um erro no sistema!";
@@ -376,17 +370,6 @@ class Usuarios extends CI_Controller {
 		redirect(base_url('login')); 
 	}
 
-
-	public function esqueci_senha() {
-		$dados['titulo'] = 'Esqueci minha senha';
-		$dados['subtitulo'] = '';
-		// Dados a serem enviados para o Cabeçalho
-
-		// Faz as chamadas dos templates dos views de header, footer, aside
-		$this->load->view('backend/template/html-header', $dados); // Aqui a variável $dados é carregada na view
-		$this->load->view('backend/esqueci-senha');	// Chamada do conteúdo da página em si
-		$this->load->view('backend/template/html-footer');
-	}
 
 
 

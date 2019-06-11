@@ -30,13 +30,8 @@
                         ?>         
                         <br>
 
-                        <nav class ="navbar" style="margin: 0; border: 0; padding: 0;">
-                            <ul class="nav navbar-nav">
-                                <li class=" nav">
-                                    <a href="<?php echo base_url('esqueci_senha'); ?>">Esqueci minha senha</a> 
-                                </li>
-                            </ul>     
-                            <ul style="float: right;" class="nav navbar-nav">
+                        <nav class ="navbar" style="margin: 0; border: 0; padding: 0;"> 
+                            <ul style="float: left;" class="nav navbar-nav">
                                 <li class=" nav">
                                     <a href="<?php echo base_url('criar_usuario'); ?>">Criar usuário</a> 
                                 </li>
