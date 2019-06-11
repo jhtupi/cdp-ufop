@@ -53,9 +53,10 @@ class Reunioes_model extends CI_Model {
 		$this->db->select('reuniao.id,reuniao.titulo,reuniao.data,reuniao.horario,reuniao.local,reuniao.resumo,reuniao.id_usuario idUser,reuniao.id_comunidade,reuniao.nps npsReuniao');
 		$this->db->from('participa'); 
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
-		$this->db->where('reuniao.data <='.strtotime(date('Y-m-d',now('America/Sao_Paulo'))));
 		$this->db->where('participa.id_usuario ='.$idUsuario);
+		$this->db->where("reuniao.data >= STR_TO_DATE('".date('Y-m-d',now('America/Sao_Paulo'))."','%Y-%m-%d')");
 		$this->db->order_by('data', 'ASC');
+	
 
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);
@@ -72,8 +73,8 @@ class Reunioes_model extends CI_Model {
 		$this->db->from('participa'); 
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 		$this->db->where('participa.id_usuario ='.$idUsuario);
-		$this->db->where('reuniao.data >'.human_to_unix(date('Y-m-d',now('America/Sao_Paulo'))));
-		//$this->db->order_by('data', 'ASC');
+		$this->db->where("reuniao.data < STR_TO_DATE('".date('Y-m-d',now('America/Sao_Paulo'))."','%Y-%m-%d')");
+		$this->db->order_by('data', 'DESC');
 
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);
@@ -303,7 +304,7 @@ class Reunioes_model extends CI_Model {
 		
 		$this->db->from('participa');
 		$this->db->where('participa.id_usuario ='.$idUsuario);
-		$this->db->where('reuniao.data <='.strtotime(date('Y-m-d',now('America/Sao_Paulo'))));
+		$this->db->where("reuniao.data >= STR_TO_DATE('".date('Y-m-d',now('America/Sao_Paulo'))."','%Y-%m-%d')");
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 
 		return $this->db->count_all_results();
@@ -313,7 +314,7 @@ class Reunioes_model extends CI_Model {
 		
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 		$this->db->where('participa.id_usuario ='.$idUsuario);
-		$this->db->where('reuniao.data >'.strtotime(date('Y-m-d',now('America/Sao_Paulo'))));
+		$this->db->where("reuniao.data < STR_TO_DATE('".date('Y-m-d',now('America/Sao_Paulo'))."','%Y-%m-%d')");
 
 		return $this->db->count_all_results('participa');
 	}
