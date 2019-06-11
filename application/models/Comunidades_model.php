@@ -79,10 +79,10 @@ class Comunidades_model extends CI_Model {
 	}
 
 	public function reunioes_comunidade($id,$pular=null,$post_por_pagina=null) {
-		$this->db->select('id,titulo,data,horario,resumo');
+		$this->db->select('*');
 		$this->db->from('reuniao'); // seleciona a tabela
 		$this->db->where('id_comunidade ='.$id); // Compara com a variável id foi enviada
-		$this->db->order_by('data', 'DESC');
+		//$this->db->order_by('data', 'DESC');
 
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);

@@ -45,8 +45,8 @@
                         ?>
                         <li><a href="<?php echo base_url('meu_perfil/'.$this->session->userdata('userlogado')->id)?>">Meu Perfil</a></li>
                         <li><a href="<?php echo base_url('minhas_comunidades/'.$this->session->userdata('userlogado')->id) ?>">Minhas Comunidades</a></li>
-                        <li><a href="<?php echo base_url('proximas_reunioes/'.$this->session->userdata('userlogado')->id) ?>">Próximas Reuniões</a></li>
-                        <li><a href="<?php echo base_url('reunioes_passadas/'.$this->session->userdata('userlogado')->id) ?>">Reuniões Passadas</a></li>
+                        <li><a href="<?php echo base_url('proximas_reunioes') ?>">Próximas Reuniões</a></li>
+                        <li><a href="<?php echo base_url('reunioes_passadas') ?>">Reuniões Passadas</a></li>
                         <li><a href="<?php echo base_url('usuarios/logout') ?>">Logout</a></li>
                       </ul>
                     </li>

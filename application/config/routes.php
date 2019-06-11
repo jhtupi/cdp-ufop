@@ -78,10 +78,11 @@ $route['participar_reuniao/(:num)/(:num)'] = 'reunioes/participar_reuniao/$1/$2'
 $route['sair_reuniao/(:num)/(:num)'] = 'reunioes/sair_reuniao/$1/$2'; // Rota para sair da reunião
 $route['editar_reuniao/(:num)'] = 'reunioes/editar_reuniao/$1'; // Rota para editar a reunião
 $route['excluir_reuniao/(:num)'] = 'reunioes/excluir_reuniao/$1'; // Rota para editar a reunião
-$route['proximas_reunioes/(:num)'] = 'reunioes/proximas_reunioes/$1'; // Rota para visualizar próximas reuniões do usuário
-$route['proximas_reunioes/(:num)/(:num)'] = 'reunioes/proximas_reunioes/$1/$2'; // Paginação
-$route['reunioes_passadas/(:num)'] = 'reunioes/reunioes_passadas/$1'; // Rota para visualizar reuniões passadas do usuário
-$route['reunioes_passadas/(:num)/(:num)'] = 'reunioes/reunioes_passadas/$1/$2'; // Paginação
+$route['proximas_reunioes/(:num)'] = 'reunioes/proximas_reunioes/$1'; // Paginação
+$route['proximas_reunioes'] = 'reunioes/proximas_reunioes'; // Rota para visualizar próximas reuniões do usuário
+$route['reunioes_passadas'] = 'reunioes/reunioes_passadas'; // Rota para visualizar reuniões passadas do usuário
+$route['reunioes_passadas/(:num)'] = 'reunioes/reunioes_passadas/$1'; // Paginação
+
 // Reuniões - Back
 $route['admin/reunioes/(:num)'] = 'admin/reunioes/index/$1'; // Rota para visualizar reuniões passadas do usuário
 

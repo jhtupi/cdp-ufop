@@ -28,7 +28,7 @@ class Home extends CI_Controller {
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
 		$config['base_url'] = base_url();
 		$config['total_rows'] = $this->modelcomunidades->contar();
-		$post_por_pagina = 7;
+		$post_por_pagina = 5;
 		$config['per_page'] = $post_por_pagina;
 		$this->pagination->initialize($config);
 

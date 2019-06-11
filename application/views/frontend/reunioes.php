@@ -18,11 +18,11 @@
 
                 
                 <?php
-                    foreach($reunioes as $reuniao) {
-                    
+                    foreach($reunioes as $reuniao) {         
+                        echo $reuniao->titulo;
 
                     // Data e horário não passaram ainda
-                    if(date_parse($reuniao->data.' '.$reuniao->horario) > date_parse(date('Y-m-d h:m:s', now('America/Sao_Paulo'))) && $flag ==0){
+                    if(date_parse($reuniao->data.' '.$reuniao->horario) > date_parse(date('Y-m-d H:m:s', now('America/Sao_Paulo'))) && $flag ==0){
                         
                 ?>  
                         
@@ -52,7 +52,7 @@
 
                 <?php
                         } // if data e horários
-                        else if(date_parse($reuniao->data.' '.$reuniao->horario) < date_parse(date('Y-m-d h:m:s', now('America/Sao_Paulo'))) && $flag ==1) {
+                        else if(date_parse($reuniao->data.' '.$reuniao->horario) < date_parse(date('Y-m-d H:m:s', now('America/Sao_Paulo'))) && $flag ==1) {
                 ?>
 
                         <h2>
@@ -76,6 +76,8 @@
                         <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
+
+
 
 
 

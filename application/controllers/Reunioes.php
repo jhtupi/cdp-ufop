@@ -75,20 +75,24 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function proximas_reunioes($idUsuario, $pular=null, $post_por_pagina=null) {
+	public function proximas_reunioes($pular=null, $post_por_pagina=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
 		}
+		$idUsuario = $this->session->userdata('userlogado')->id;
 		$this->load->helper('funcoes');
 		$this->load->model('reunioes_model', 'modelreunioes');
-		$dados['reunioes'] = $this->modelreunioes->listar_proximas_reunioes($idUsuario,$pular,$post_por_pagina);
+		$post_por_pagina = 5;
+
+
+		$dados['reunioes'] = $this->modelreunioes->listar_prox_reunioes($idUsuario,$pular,$post_por_pagina);
+			
 
 		// Dados para paginação
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
-		$config['base_url'] = base_url('proximas_reunioes/'.$idUsuario);
+		$config['base_url'] = base_url('proximas_reunioes');
 		$config['total_rows'] = $this->modelreunioes->contar_recentes($idUsuario);
-		$post_por_pagina = 100;
 		$config['per_page'] = $post_por_pagina;
 		$this->pagination->initialize($config);
 
@@ -120,25 +124,26 @@ class Reunioes extends CI_Controller {
 		$this->load->view('frontend/template/html-footer');
 	}
 
-	public function reunioes_passadas($idUsuario, $pular=null, $post_por_pagina=null) {
+	public function reunioes_passadas($pular=null, $post_por_pagina=null) {
 		// Adiciona a proteção da página
 		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
 			redirect(base_url());
 		}
+		$idUsuario = $this->session->userdata('userlogado')->id;
+		$post_por_pagina = 3;
 		$this->load->helper('funcoes');
 
 		$this->load->model('reunioes_model', 'modelreunioes');
 
 		// Dados para paginação
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
-		$config['base_url'] = base_url('reunioes_passadas/'.$idUsuario);
-		$config['total_rows'] = $this->modelreunioes->contar_recentes($idUsuario);
-		$post_por_pagina = 100;
+		$config['base_url'] = base_url('reunioes_passadas');
+		$config['total_rows'] = $this->modelreunioes->contar_passadas($idUsuario);
 		$config['per_page'] = $post_por_pagina;
 		$this->pagination->initialize($config);
 
 
-		$dados['reunioes'] = $this->modelreunioes->listar_proximas_reunioes($idUsuario,$pular,$post_por_pagina);
+		$dados['reunioes'] = $this->modelreunioes->listar_reunioes_ant($idUsuario,$pular,$post_por_pagina);
 		$dados['destaques'] = $this->destaques;
 		// Insere os dados da postagem no array dados
 	
@@ -147,7 +152,7 @@ class Reunioes extends CI_Controller {
 
 
 		$dados['titulo'] = 'Reuniões';
-		$dados['subtitulo'] = 'Já acontecendo';
+		$dados['subtitulo'] = 'Já aconteceram';
 		$dados['links_paginacao'] = $this->pagination->create_links();
 		$dados['flag'] = 1;
 		/*

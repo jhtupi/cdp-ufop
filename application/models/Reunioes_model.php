@@ -40,20 +40,40 @@ class Reunioes_model extends CI_Model {
 	public function listar_reunioes_recentes($pular=null,$post_por_pagina=null) {
 		$this->db->select('id,titulo,data,horario,local,resumo,id_usuario,id_comunidade,nps');
 		$this->db->from('reuniao'); 
-		$this->db->order_by('data', 'ASC');
+		$this->db->order_by('data', 'DESC');
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);
 		} else {
-			$this->db->limit(100);
+			$this->db->limit(5);
 		}
 		return $this->db->get()->result();
 	}
-	public function listar_proximas_reunioes($idUsuario, $pular=null, $post_por_pagina=null) {
-		$this->db->select('reuniao.id,reuniao.titulo,reuniao.data,reuniao.horario,reuniao.local,reuniao.resumo,reuniao.id_usuario idUser,reuniao.id_comunidade,reuniao.nps');
+	public function listar_prox_reunioes($idUsuario, $pular=null, $post_por_pagina=null) {
+		$this->load->helper('date');
+		$this->db->select('reuniao.id,reuniao.titulo,reuniao.data,reuniao.horario,reuniao.local,reuniao.resumo,reuniao.id_usuario idUser,reuniao.id_comunidade,reuniao.nps npsReuniao');
+		$this->db->from('participa'); 
+		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
+		$this->db->where('reuniao.data <='.strtotime(date('Y-m-d',now('America/Sao_Paulo'))));
+		$this->db->where('participa.id_usuario ='.$idUsuario);
+		$this->db->order_by('data', 'ASC');
+
+		if($pular && $post_por_pagina) {
+			$this->db->limit($post_por_pagina,$pular);
+		} else {
+			$this->db->limit(3);
+		}
+
+		return $this->db->get()->result();
+	}
+
+	public function listar_reunioes_ant($idUsuario, $pular=null, $post_por_pagina=null) {
+		$this->load->helper('date');
+		$this->db->select('reuniao.id,reuniao.titulo,reuniao.data,reuniao.horario,reuniao.local,reuniao.resumo,reuniao.id_usuario idUser,reuniao.id_comunidade,reuniao.nps npsReuniao');
 		$this->db->from('participa'); 
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 		$this->db->where('participa.id_usuario ='.$idUsuario);
-		$this->db->order_by('data', 'ASC');
+		$this->db->where('reuniao.data >'.human_to_unix(date('Y-m-d',now('America/Sao_Paulo'))));
+		//$this->db->order_by('data', 'ASC');
 
 		if($pular && $post_por_pagina) {
 			$this->db->limit($post_por_pagina,$pular);
@@ -96,6 +116,8 @@ class Reunioes_model extends CI_Model {
 		// Deleta os comentários e materiais
 		$this->modelreunioes->excluir_comentarios($idReuniao);
 		$this->modelreunioes->excluir_materiais($idReuniao);
+		$this->modelreunioes->excluir_participa($idReuniao);
+
 
 		$this->db->where('id',$idReuniao);;
 		return $this->db->delete('reuniao'); // deleta a categoria selecionada 
@@ -110,6 +132,7 @@ class Reunioes_model extends CI_Model {
 			// Deleta os comentários e materiais
 			$this->modelreunioes->excluir_comentarios($q->id);
 			$this->modelreunioes->excluir_materiais($q->id);
+			$this->modelreunioes->excluir_participa($q->id);
 		}
 
 		$this->db->where('id_comunidade',$idComunidade);;
@@ -278,13 +301,26 @@ class Reunioes_model extends CI_Model {
 	public function contar_recentes($idUsuario) {
 		$this->load->helper('date');
 		
+		$this->db->from('participa');
+		$this->db->where('participa.id_usuario ='.$idUsuario);
+		$this->db->where('reuniao.data <='.strtotime(date('Y-m-d',now('America/Sao_Paulo'))));
+		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
+
+		return $this->db->count_all_results();
+	}
+	public function contar_passadas($idUsuario) {
+		$this->load->helper('date');
+		
 		$this->db->join('reuniao', 'reuniao.id = participa.id_reuniao', 'inner');		
 		$this->db->where('participa.id_usuario ='.$idUsuario);
-		$this->db->where('reuniao.data <'.now('America/Sao_Paulo'));
-//if(date_parse($reuniao->data.' '.$reuniao->horario) < date_parse(date('Y-m-d h:m:s', now('America/Sao_Paulo'))) && $flag ==1)
-
+		$this->db->where('reuniao.data >'.strtotime(date('Y-m-d',now('America/Sao_Paulo'))));
 
 		return $this->db->count_all_results('participa');
+	}
+
+	public function excluir_participa($idReuniao) {
+		$this->db->where('id_reuniao',$idReuniao);
+		return $this->db->delete('participa'); // deleta a categoria selecionada 
 	}
 
 }

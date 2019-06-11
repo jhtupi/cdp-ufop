@@ -59,8 +59,9 @@ class Comunidades extends CI_Controller {
 
 		// Dados para paginação
 		$this->load->library('pagination'); // Chama a biblioteca de paginação
-		$config['page_query_string'] = TRUE;
-		$config['base_url'] = base_url("comunidade/".$id);
+		$config['page_query_string'] = FALSE;
+		$config['uri_segment'] = 3;
+		$config['base_url'] = base_url("comunidade/".$id."/");
 		$config['total_rows'] = $this->modelcomunidades->contar_reunioes($id);
 		$post_por_pagina = 2;
 		$config['per_page'] = $post_por_pagina; 
