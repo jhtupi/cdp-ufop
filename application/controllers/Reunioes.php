@@ -10,6 +10,47 @@ class Reunioes extends CI_Controller {
 		$this->destaques = $this->modelcomunidades->destaques_comunidade();
 
 	}
+
+	public function index($pular=null, $post_por_pagina=null)
+	{
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url());
+		}
+		$this->load->helper('funcoes');
+
+		$this->load->model('reunioes_model', 'modelreunioes');
+		// O modelo de destaques é carregado aqui na função index pois não será requerido em toda pasta como as categorias que ficam no header e aside
+
+		// Dados para paginação
+		$this->load->library('pagination'); // Chama a biblioteca de paginação
+		$config['base_url'] = base_url();
+		$config['total_rows'] = $this->modelcomunidades->contar();
+		$post_por_pagina = 5;
+		$config['per_page'] = $post_por_pagina;
+		$this->pagination->initialize($config);
+
+	
+		// Insere os dados da postagem no array dados
+		$this->load->model('comunidades_model', 'modelcomunidades');
+		$dados['comunidades'] = $this->modelcomunidades->listar_comunidades();
+		$dados['reunioes'] = $this->modelreunioes->listar_reunioes_recentes($pular,$post_por_pagina);
+		$dados['destaques'] = $this->destaques;
+		$dados['links_paginacao'] = $this->pagination->create_links();
+	
+
+		$dados['titulo'] = 'Reunioes recentes';
+		$dados['subtitulo'] = '';
+		// Dados a serem enviados para o Cabeçalho
+
+		// Faz as chamadas dos templates dos views de header, footer, aside
+		$this->load->view('frontend/template/html-header', $dados); // Aqui a variável $dados é carregada na view
+		$this->load->view('frontend/template/header');
+		$this->load->view('frontend/reunioes');	// Chamada do conteúdo da página em si
+		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/footer');
+		$this->load->view('frontend/template/html-footer');
+	}
 	
 	
 	public function reuniao($id, $enviado=null) {
@@ -118,7 +159,7 @@ class Reunioes extends CI_Controller {
 		// Faz as chamadas dos templates dos views de header, footer, aside
 		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
-		$this->load->view('frontend/reunioes');	
+		$this->load->view('frontend/reunioes-rec');	
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
@@ -165,7 +206,7 @@ class Reunioes extends CI_Controller {
 		// Faz as chamadas dos templates dos views de header, footer, aside
 		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
-		$this->load->view('frontend/reunioes');	
+		$this->load->view('frontend/reunioes-rec');	
 		$this->load->view('frontend/template/aside');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
@@ -269,7 +310,7 @@ class Reunioes extends CI_Controller {
 		
 		
 		if ($this->form_validation->run() == FALSE) { 
-			redirect(base_url('criar_reuniao/'.$this->input->post('txt-comunidade').'/'.$this->input->post('txt-iduser').'/2'));
+			$this->criar_reuniao($this->input->post('txt-comunidade'),$this->input->post('txt-iduser'),2);
 		} else {
 			// Validação correta, resgata as variáveis
 			$titulo= $this->input->post('txt-titulo');
@@ -281,7 +322,7 @@ class Reunioes extends CI_Controller {
 			$idComunidade= $this->input->post('txt-comunidade');
 
 			if($this->modelreunioes->adicionar($titulo,$data,$horario,$local,$resumo,$idUser,$idComunidade)) { // Se conseguiu acessar o model e adicionar
-				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/1'));
+				redirect(base_url('comunidade/'.$idComunidade));
 			} else { // Caso não tenha conseguido acessar o model
 				redirect(base_url('criar_reuniao/'.$idComunidade.'/'.$idUser.'/2'));
 			}
@@ -386,7 +427,7 @@ class Reunioes extends CI_Controller {
 		$this->form_validation->set_rules('txt-comentario', 'Comentário',
 			'required|max_length[200]'); 
 		// Preenchimento requerido 
-		
+		$idReuniao= $this->input->post('txt-reuniao');
 		
 		if ($this->form_validation->run() == FALSE) { 
 			redirect(base_url('reuniao/'.$idReuniao));
@@ -394,7 +435,6 @@ class Reunioes extends CI_Controller {
 			// Validação correta, resgata as variáveis
 			$comentario= $this->input->post('txt-comentario');
 			$idUser= $this->input->post('txt-usuario');
-			$idReuniao= $this->input->post('txt-reuniao');
 			$timestamp = now('America/Sao_Paulo');
 
 
@@ -515,6 +555,7 @@ public function postar_material() {
 
 		// Carrega o model
 		$this->load->model('reunioes_model', 'modelreunioes'); // Carrega o Model de usuários
+		$this->load->model('comunidade_model', 'modelcomunidades'); // Carrega o Model de usuários
 
 		// Faz a validação do formulário
 		$this->load->library('form_validation');
@@ -532,6 +573,7 @@ public function postar_material() {
 			$aval = $this->modelreunioes->avaliar($idReuniao,$idUsuario,$nps,$idComunidade);
 			if($aval >= -100 && $aval <= 100) { // Se conseguiu acessar o model e adicionar e NPS Médio tbm
 				if($this->modelreunioes->calcularNPS($idReuniao)) {
+					$this->modelcomunidades->calcularNPSMedio($idComunidade);
 					redirect(base_url('reuniao/'.$idReuniao));
 				} else {
 				echo "Houve um erro no calculo do NPS!";
@@ -542,7 +584,9 @@ public function postar_material() {
 			} else if ($aval == 103) { // Não rolou resultado da busca por reuniões desta comunidade
 				echo "Houve um erro no resultado da busca por reuniões desta comunidade!";
 			} else {
-				echo "Houve um erro na avaliação!";	
+				echo "Houve um erro na avaliação! \n";
+				echo "aval:";
+				echo $aval;
 			}
 
 		}

@@ -228,7 +228,8 @@ class Reunioes_model extends CI_Model {
 		$this->db->select('usuario.id,usuario.nome,usuario.foto, participa.nps');
 		$this->db->from('participa'); // seleciona a tabela
 		$this->db->join('usuario', 'participa.id_usuario = usuario.id', 'inner');
-		$this->db->join('reuniao', 'participa.id_reuniao ='.$id, 'inner');
+		$this->db->where('participa.id_reuniao ='.$id);
+		
 		return $this->db->get()->result();
 	}
 

@@ -73,12 +73,12 @@ class Usuarios extends CI_Controller {
 
 		// Telefone
 		$this->form_validation->set_rules('txt-telefone', 'Telefone',
-			'required|min_length[11]');
+			'required|min_length[8]');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
 		// User
 		$this->form_validation->set_rules('txt-user', 'User',
-			'required|min_length[3]|is_unique[usuario.user]|alpha_numeric');
+			'required|min_length[3]|is_unique[usuario.user]');
 		// Preenchimento requerido | Mínimo de 3 caracteres | Deve ser único		
 		
 		// Senha
@@ -93,7 +93,7 @@ class Usuarios extends CI_Controller {
 		
 		
 		if ($this->form_validation->run() == FALSE) { 
-			redirect(base_url('criar_usuario/2'));
+			$this->index();
 		} else {
 			// Validação correta, resgata as variáveis
 			$nome= $this->input->post('txt-nome');
@@ -184,7 +184,7 @@ class Usuarios extends CI_Controller {
 
 		// Telefone
 		$this->form_validation->set_rules('txt-telefone', 'Telefone',
-			'required|min_length[11]');
+			'required|min_length[8]');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
 		// User
@@ -211,7 +211,7 @@ class Usuarios extends CI_Controller {
 		 
 
 		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
-			redirect(base_url('admin/usuarios/alterar/'.$id.'/2'));
+			$this->alterar($id.'/2');
 		} else {
 			// Recebe os dados do formulário
 			$nome= $this->input->post('txt-nome');

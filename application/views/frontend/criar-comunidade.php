@@ -24,7 +24,7 @@
                             echo '<div class="alert alert-warning"> Comunidade não criada! Erro no banco de dados </div>';
                         }
 
-                        echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação 
+                        echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
 
                         $atributosComunidade = array('name' => 'formulario_comunidade', 'id'=> 'formulario_comunidade');
                         echo form_open(base_url('comunidades/inserir'),$atributosComunidade);

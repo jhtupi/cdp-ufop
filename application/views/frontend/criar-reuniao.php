@@ -20,9 +20,7 @@
                     foreach($comunidades as $comunidade) {
                 
 
-                        if ($criada == 1) { // Caso o usuário foi criado, exibe a mensagem de confirmação
-                            echo '<div class="alert alert-success"> Reunião criada! </div>';
-                        } else if ($criada == 2) {
+                        if ($criada == 2) {
                             echo '<div class="alert alert-warning"> Reunião não criada! </div>';
                         }
 

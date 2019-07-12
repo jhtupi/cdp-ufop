@@ -40,13 +40,13 @@
 
                         <!-- Telefone -->
                         <div class="form-group">
-                            <label id="txt-telefone">Telefone do Usuário</label>
+                            <label id="txt-telefone">Telefone do Usuário (DDD + número) </label>
                             <input type="text" id="txt-telefone" name="txt-telefone" class="form-control" placeholder="Digite o telefone do usuário..." value= "<?php echo set_value('txt-telefone') ?>">
                         </div>
 
-                        <!-- User -->
+                        <!-- Usuário -->
                         <div class="form-group">
-                            <label id="txt-user">User</label>
+                            <label id="txt-user">Usuário</label>
                             <input type="text" id="txt-user" name="txt-user" class="form-control" placeholder="Digite o user do usuário..."  value= "<?php echo set_value('txt-user') ?>">
                         </div>
 

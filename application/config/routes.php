@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 // Usuários - Front
 $route['usuario/(:num)'] = 'usuarios/usuario/$1/$2'; // Controlador usuarios no método usuario
+$route['excluir/(:num)'] = 'usuarios/excluir/$1'; // Controlador usuarios no método usuario
 $route['usuarios/(:num)'] = 'usuarios/index/$1'; 
 $route['meu_perfil/(:num)'] = 'usuarios/meu_perfil/$1'; // Rota para meu perfil
 $route['meu_perfil/(:num)/(:num)'] = 'usuarios/meu_perfil/$1/$2'; // Rota para meu perfil
@@ -73,6 +74,7 @@ $route['criar_reuniao/(:num)/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2/$3'
 $route['criar_reuniao/(:num)/(:num)'] = 'reunioes/criar_reuniao/$1/$2'; // Rota para criar reunião
 $route['reuniao/(:num)'] = 'reunioes/reuniao/$1'; // Rota para visualizar reunião
 $route['reuniao/(:num)/(:num)'] = 'reunioes/reuniao/$1/$2'; // Rota para visualizar reunião
+$route['reunioes/(:num)'] = 'reunioes/index/$1'; // Rota para visualizar reuniões
 $route['participar_reuniao/(:num)/(:num)'] = 'reunioes/participar_reuniao/$1/$2'; // Rota para participar da reunião
 $route['sair_reuniao/(:num)/(:num)'] = 'reunioes/sair_reuniao/$1/$2'; // Rota para sair da reunião
 $route['editar_reuniao/(:num)'] = 'reunioes/editar_reuniao/$1'; // Rota para editar a reunião
@@ -90,7 +92,6 @@ $route['admin/reunioes/(:num)'] = 'admin/reunioes/index/$1'; // Rota para visual
 // Comunidades - Front
 $route['criar_comunidade'] = 'comunidades/criar_comunidade'; // Rota para criar comunidade
 $route['criar_comunidade/(:num)'] = 'comunidades/criar_comunidade/$1'; // Rota para criar comunidade
-$route['comunidades/(:num)'] = 'comunidades/index/$1'; // Rota para visualizar comunidade
 $route['comunidade/(:num)'] = 'comunidades/comunidade/$1'; // Rota para visualizar comunidade
 $route['comunidade/(:num)/(:num)'] = 'comunidades/comunidade/$1/$2'; // Paginação
 $route['participar_comunidade/(:num)/(:num)'] = 'comunidades/participar_comunidade/$1/$2'; // Rota para participar da comunidade

@@ -58,7 +58,6 @@ class Usuarios_model extends CI_Model {
 		$dados['cpf'] = $cpf;
 		$dados['senha'] = md5($senha); // Criptografa a senha por segurança
 		$dados['adm'] = 0;
-		$dados['prof'] = 1;
 									
 		return $this->db->insert('usuario', $dados); // Insere na tabela usuario os dados da variável na tabela
 	}

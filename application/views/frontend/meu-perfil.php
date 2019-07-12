@@ -19,6 +19,7 @@
                         } else if ($enviado == 3) {
                             echo '<div class="alert alert-warning"> Erro no banco de dados! </div>';
                         }
+                        echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter no sistema com uma div personalizada
                 ?>
                      
                     <div class="col-md-4">
@@ -30,7 +31,8 @@
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
                         ?>
-                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
+                        <img class="img-responsive img-circle" style="width: 16vw; height: 16vw;" src="<?php echo base_url($mostraFoto) ?>" alt="">
+                        
                     </div>
                     <div class="col-md-8">
                         <h2>
@@ -56,7 +58,7 @@
 
                     // Cria variáveis para formatar o formulário 
                     $divopen= '<div class="form-group col-md-12">';
-                    $label = '<hr><label id="txt-nome">Alterar foto</label>';
+                    $label = '<hr><label id="txt-nome">Alterar foto (.jpg)</label>';
                     $divclose= '</div>';
 
                     // Monta o formulário através de helpers
@@ -135,13 +137,13 @@
 
                         <!-- Senha -->
                         <div class="form-group">
-                            <label id="txt-senha">Senha</label>
+                            <label id="txt-senha">Senha (Opcional)</label>
                             <input type="password" id="txt-senha" name="txt-senha" class="form-control">
                         </div>
 
                         <!-- Confirmar Senha -->
                         <div class="form-group">
-                            <label id="txt-confir-senha">Confirmar Senha</label>
+                            <label id="txt-confir-senha">Confirmar Senha (Opcional)</label>
                             <input type="password" id="txt-confir-senha" name="txt-confir-senha" class="form-control">
                         </div>
                         <input type="hidden" name="txt-id" id="txt-id" value= "<?php echo $usuario->id ?>">

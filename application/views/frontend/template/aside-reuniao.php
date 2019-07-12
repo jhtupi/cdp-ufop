@@ -32,6 +32,7 @@
 
                     ?>
                     <div class="well col-md-12">
+                        <h4>Opções da reunião</h4>
                     <?php                            
                      if ($jaAconteceu) {
 
@@ -97,6 +98,35 @@
                         <input class="btn btn-default col-md-12" type="submit" value="Sair da reunião"/>
                         </form>   
                         <br><br>
+
+
+                        <?php 
+
+                        // Cria variáveis para formatar o formulário 
+                        $divopen= '<div class="form-group">';
+                        $divclose= '</div>';
+
+                        // Monta o formulário através de helpers
+                        echo form_open_multipart('reunioes/postar_material');   // Formulário especial para arquivos
+                        //echo form_hidden('id', $usuario->id);
+                        echo $divopen;
+
+                        // O simbolo '=>' serve para apontar
+                        // Cria uma variável para montar os formulários formatados
+                        echo form_hidden('id-reuniao', $reuniao->id);
+                        echo form_hidden('id-usuario', $this->session->userdata('userlogado')->id);
+                        $material= array('name' => 'userfile', 'id' => 'userfile', 'class' => 'form-control');
+                        echo form_upload($material); // O identificador neste upload deve ser sempre userfile
+                        //echo $divclose;
+                        $nomeMaterial= array('name'=>'nome-material','id'=>'nome-material','class'=>'form-control','placeholder'=>'Nome do material');
+                        echo form_input($nomeMaterial);
+                        //echo $divopen;
+                        $botao= array('name' => 'btn_adicionar', 'id' => 'btn_adicionar', 'class' => 'btn btn-default col-md-12',
+                            'value' => 'Postar material');
+                        echo form_submit($botao);
+                        echo $divclose;
+                        echo form_close();    
+                        ?>
                           
                         <?php   } // if $ehParticipante
                                 else {
@@ -134,30 +164,35 @@
                         ?>
                     </div>
 
-                <div class="well col-md-12">
-                    <h4>Comunidades destaque</h4>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="list-unstyled">
-                                <?php
-                                foreach($destaques as $destaque) { 
-                                                        // laço de repetição exclusivo para arrays
-                                                        // alias $categoria
-                                
+                <?php if ($destaques != null) {
+                 ?>
+                    
+                        <div class="well col-md-12">
+                            <h4>Comunidades destaque</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="list-unstyled">
+                                        <?php
+                                        foreach($destaques as $destaque) { 
+                                                                // laço de repetição exclusivo para arrays
+                                                                // alias $categoria
+                                        
 
-                                                            // o '.' concatena com o id da categoria
-                                                            // a função limpar() do helper serve para deixar a url mais limpa
-                                ?>
-                                    <li><a href="<?php echo base_url('comunidade/'.$destaque->id)?>"><?php echo $destaque->tema ?></a>
-                                    </li> 
-                                <?php   // A tag <li> tem que estar entre as chaves porém fora da chamada php
-                                }            
-                                ?>
-                                
-                            </ul>
+                                                                    // o '.' concatena com o id da categoria
+                                                                    // a função limpar() do helper serve para deixar a url mais limpa
+                                        ?>
+                                            <li><a href="<?php echo base_url('comunidade/'.$destaque->id)?>"><?php echo $destaque->tema ?></a>
+                                            </li> 
+                                        <?php   // A tag <li> tem que estar entre as chaves porém fora da chamada php
+                                        }            
+                                        ?>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    
+                <?php } ?>
 
                         <!-- Modal para avaliação de NPS -->
             <div class="modal fade" id="modal-NPS" >

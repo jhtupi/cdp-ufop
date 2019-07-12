@@ -77,6 +77,7 @@ class Usuarios extends CI_Controller {
 	public function criar_usuario($enviado=null) {
 		// Adiciona a proteção da página
 		$this->load->helper('funcoes');
+		$this->load->library('form_validation');
 
 		$this->load->model('departamentos_model', 'modeldepartamentos');
 		//$dados['usuarios'] = $this->modelusuarios->listar_usuario($id);
@@ -117,7 +118,7 @@ class Usuarios extends CI_Controller {
 		$this->load->view('frontend/template/html-header', $dados); 
 		$this->load->view('frontend/template/header');
 		$this->load->view('frontend/meu-perfil');	
-		$this->load->view('frontend/template/aside');
+		$this->load->view('frontend/template/aside-meu-perfil');
 		$this->load->view('frontend/template/footer');
 		$this->load->view('frontend/template/html-footer');
 	}
@@ -147,12 +148,12 @@ class Usuarios extends CI_Controller {
 
 		// Telefone
 		$this->form_validation->set_rules('txt-telefone', 'Telefone',
-			'required|min_length[11]');
+			'required|min_length[8]');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
 		// User
 		$this->form_validation->set_rules('txt-user', 'User',
-			'required|min_length[3]|is_unique[usuario.user]|alpha_numeric');
+			'required|min_length[3]|is_unique[usuario.user]');
 		// Preenchimento requerido | Mínimo de 3 caracteres | Deve ser único		
 		
 		// Senha
@@ -167,7 +168,7 @@ class Usuarios extends CI_Controller {
 		
 		
 		if ($this->form_validation->run() == FALSE) { 
-			redirect(base_url('criar_usuario/2'));
+			$this->criar_usuario('/2');
 		} else {
 			// Validação correta, resgata as variáveis
 			$nome= $this->input->post('txt-nome');
@@ -179,7 +180,7 @@ class Usuarios extends CI_Controller {
 			$departamento = 0;
 
 			if($this->modelusuarios->adicionar($nome,$email,$cpf,$telefone,$user,$senha,$departamento)) { // Se conseguiu acessar o model e adicionar
-				redirect(base_url('criar_usuario/1'));
+				redirect(base_url('login'));
 			} else { // Caso não tenha conseguido acessar o model
 				echo "Houve um erro no sistema!";
 			}
@@ -210,13 +211,13 @@ class Usuarios extends CI_Controller {
 		// Preenchimento requerido | no mínimo 3 caracteres 
 
 		// Email
-		$this->form_validation->set_rules('txt-email', 'E-mail',
-			'required|valid_email');
+		//$this->form_validation->set_rules('txt-email', 'E-mail',
+		//	'required|valid_email');
 		// Preenchimento requerido | Formato de e-mail válido
 
 		// Telefone
 		$this->form_validation->set_rules('txt-telefone', 'Telefone',
-			'required|min_length[11]');
+			'required|min_length[8]');
 		// Preenchimento requerido | Mínimo de 20 caracteres
 		
 		// User
@@ -241,7 +242,7 @@ class Usuarios extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
 			//echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter 
-			redirect(base_url('meu_perfil/'.$id.'/2'));
+			$this->meu_perfil($id,2);
 		} else {
 			// Recebe os dados do formulário
 			$nome= $this->input->post('txt-nome');
@@ -272,7 +273,7 @@ class Usuarios extends CI_Controller {
 		// Configurações antes de fazer o upload da imagem
 		$id= $this->input->post('id'); // Recebe o ID do formulário
 		$config['upload_path']= './assets/frontend/img/usuarios'; // Aponta para a pasta onde salvo as imagens dos usuários
-		$config['allowed_types']= 'jpg'; // Tipos de arquivos suportados
+		$config['allowed_types']= 'jpg|png|jpeg'; // Tipos de arquivos suportados
 		$config['file_name']= $id.'.jpg'; // Configuração relacionada ao nome do arquivo
 		$config['overwrite']= TRUE; // Substitui(Reescreve) a imagem que já existe para este usuário
 		$this->load->library('upload', $config); // Carrega a biblioteca de upload e envia as configurações feitas para ela
@@ -305,6 +306,25 @@ class Usuarios extends CI_Controller {
 			} else {
 				echo $this->image_lib->display_errors();
 			}
+		}
+	}
+
+	public function excluir($id) {
+
+		// Adiciona a proteção da página
+		if(!$this->session->userdata('logado')) { // Se a variável de sessão não existir, redirecionar para o login
+			redirect(base_url('login'));
+		}
+
+		$this->load->model('usuarios_model', 'modelusuarios'); // Carrega o Model de usuários
+
+		if($this->modelusuarios->excluir($id)) { // Se conseguiu acessar o model e adicionar
+			$dadosSessao['userlogado'] = NULL; 
+			$dadosSessao['logado'] = FALSE;	
+			$this->session->set_userdata($dadosSessao); 
+			redirect(base_url('login')); 
+		} else { // Caso não tenha conseguido acessar o model
+			echo "Houve um erro no sistema!";
 		}
 	}
 

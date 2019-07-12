@@ -37,9 +37,13 @@
                     <h2>
                         Comunidades de Prática (CoPs)
                     </h2>
+
                     <p>
                     São grupos de pessoas que compartilham de uma preocupação ou paixão por algo que fazem e aprendem como fazer melhor enquanto interagem regularmente.
-                    </p><p>
+                    </p><br>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/e_KL0YcxBko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    <br><br><p>
                     Existem vários tipos de comunidade, mas para ser denominada uma comunidade de prática, sua constituição depende de três características principais:
                     </p>
                     <ul>
@@ -47,6 +51,9 @@
                         <li><b>A comunidade</b>, onde os membros do grupo se engajam em atividades e discussões conjuntas, criando relações que os permitem aprender uns com os outros e compartilhar informações;</li>
                         <li><b>A prática</b>, já que os membros são também praticantes. Eles desenvolvem em conjunto um repertório compartilhado: “[...] experiências,  histórias,  ferramentas,  maneiras  de  tratar problemas  recorrentes,  em  suma,  uma  prática  compartilhada.”</li>
                     </ul>
+                    <br>
+
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/gVTkpEvT_9k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                     <hr>
                     <h2>

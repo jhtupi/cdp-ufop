@@ -12,12 +12,13 @@
                 </h1>
 
                 <br>
- 
-                <div class="col-md-12 row">
-
+                <div class="row">
                     <?php
                     foreach($usuarios as $usuario) {
                     ?>
+ 
+
+
                     <div class="col-md-4 col-xs-6">
                         <?php 
                             // Verifica se o usuário tem ou não imagem
@@ -27,19 +28,25 @@
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
                         ?>
-                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
-                         <h4 class="text-center">
-                            <a href="<?php echo base_url('usuario/'.$usuario->id) ?>"><?php echo $usuario->nome ?></a>
-                        </h4> 
+                        <figure>
+                        <img class="img-responsive img-circle" style="width: 15vw; height: 15vw;" src="<?php echo base_url($mostraFoto) ?>" alt="">
+                            <figcaption>
+                                <h4 class="text-center"> 
+                                    <a href="<?php echo base_url('usuario/'.$usuario->id) ?>"><?php echo $usuario->nome ?></a>
+                                </h4> 
+                            </figcaption>
+                        </figure>
                     </div>
-
                     <?php
                         }
-                        // Adiciona o paginador
+                        // Fechamento do foreach
+                        ?>
+                </div>
+                    <div class="">
+                      <?php  
                         echo "<div class= 'paginacao'>".$links_paginacao."</div>"
                     ?>
-                    
-                </div>
+                    </div>
 
 
             </div>

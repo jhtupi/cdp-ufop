@@ -12,8 +12,9 @@
 
                 <?php
                     foreach($comunidades as $comunidade) {
+
                 ?>
-                     
+
                     <h2>
                         <?php echo $comunidade->tema ?>
                     </h2>
@@ -32,12 +33,12 @@
                             }
                         }
                          ?></a>
-                     <?php  //foreach($npsCom as $nps) {
-                        if(!($npsCom >= 101)) { ?>
-                    <br>NPS Médio: <a> <?php echo $npsCom ?></a>
+                     <?php  
+                        if($comunidade->nps_medio != 101) { ?>
+                    <br>NPS Médio: <a> <?php echo $comunidade->nps_medio ?></a>
                     <?php 
                         }
-                    //} ?>
+                     ?>
                     </p>
                     <br>
                     <p class="">
@@ -65,10 +66,14 @@
                                 $mostraFoto= "assets/frontend/img/semFoto.png"; 
                             }
                         ?>
-                        <img class="img-responsive img-circle" src="<?php echo base_url($mostraFoto) ?>" alt="">
-                         <h4 class="text-center">
-                            <a href="<?php echo base_url('usuario/'.$membro->id) ?>"><?php echo $membro->nome ?></a>
-                        </h4> 
+                        <img class="img-responsive img-circle" style="width: 7vw; height: 7vw;" src="<?php echo base_url($mostraFoto) ?>" alt="">
+                            <figcaption>
+                                <h4 class="text-center">
+                                    <a href="<?php echo base_url('usuario/'.$membro->id) ?>"><?php echo $membro->nome ?></a>
+                                </h4> 
+                            </figcaption>
+                        </figure>
+                         
                     </div>
 
                     <!-- Foreach usuários -->   
@@ -93,7 +98,7 @@
                         Horário: <a> <?php echo $reuniao->horario ?></a>
                         </p>
                     
-                        <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <a class="btn btn-primary" href="<?php echo base_url('reuniao/'.$reuniao->id)?>">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
 

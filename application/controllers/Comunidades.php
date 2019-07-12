@@ -69,6 +69,7 @@ class Comunidades extends CI_Controller {
 
 
 
+
 		$dados['comunidades'] = $this->modelcomunidades->listar_comunidade($id);
 		$dados['criador'] = $this->modelcomunidades->criador_comunidade($id);
 		$dados['membros'] = $this->modelcomunidades->membros_comunidade($id);
@@ -170,7 +171,7 @@ class Comunidades extends CI_Controller {
 		
 		
 		if ($this->form_validation->run() == FALSE) { 
-			redirect(base_url('criar_comunidade'.'/2'));
+			$this->criar_comunidade(2);
 
 		} else {
 			// Validação correta, resgata as variáveis
@@ -253,7 +254,9 @@ class Comunidades extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) { // Se encontrar um erro, retorna à página
 			//echo validation_errors('<div class="alert alert-danger">', '</div>'); // imprime todos os erros de validação que podem ter 
-			redirect(base_url('comunidade/'.$id.'/2'));
+			//redirect(base_url('comunidade/'.$id.'/2'));
+			$this->editar_comunidade($id);
+			
 		} else {
 			// Recebe os dados do formulário
 			$tema= $this->input->post('txt-tema');

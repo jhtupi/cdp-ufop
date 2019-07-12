@@ -3,10 +3,24 @@
             <div class="col-md-4">
 
 
+                <div class="well">
+                    <h4>Opções de usuário</h4>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled">
+                                <form action="<?php echo base_url("excluir/".$this->session->userdata('userlogado')->id) ?>">
+                                    <input class="btn btn-danger col-md-12"  type="submit" value="Excluir minha conta" />
+                                </form>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Blog Categories Well -->
                 <?php if ($destaques != null) {
                  ?>
-                    <div class="well">
+                    <div class="well col-md-12">
                         <h4>Comunidades destaque</h4>
                         <div class="row">
                             <div class="col-lg-12">
@@ -31,4 +45,5 @@
                         </div>
                     </div>
                 <?php } ?>
+
             </div>

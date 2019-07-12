@@ -132,6 +132,7 @@ class Comunidades_model extends CI_Model {
 		if ($idUser == $idUsuario) {
 			$this->load->model('reunioes_model', 'modelreunioes');
 			$this->modelreunioes->excluir_reunioes($idComunidade);
+			$this->modelcomunidades->excluir_entra($idComunidade);
 			$this->db->where('id', $idComunidade);
 			return $this->db->delete('comunidade'); // deleta a categoria selecionada
 		} else {
@@ -145,14 +146,20 @@ class Comunidades_model extends CI_Model {
 		if ($query = $this->db->get()->result()) {
 			$todos = 0;
 			$nTodos = 0;
+			$houveNPS = 0; // Verifica se já houve alguma reunião avaliada (Previnir o caso de NPS = 0)
 			foreach($query as $q) {
-				if($q->nps != NULL) {
+				if($q->nps != 101) {
 				$todos = $todos + $q->nps;		
+				$houveNPS = 1;
 				}
 				$nTodos++;
 			}
 			$nps = $todos/$nTodos;
-			$dados['nps_medio'] = $nps;
+			if($houveNPS) {
+				$dados['nps_medio'] = $nps;
+			} else {
+				$dados['nps_medio'] = 101;
+			}
 			$this->db->where('id='.$idComunidade);
 			if($this->db->update('comunidade', $dados)) {
 				return $nps;
@@ -183,6 +190,12 @@ $nps_medio - Rolou update NPS Médio
 		$this->db->where('id_comunidade ='.$idComunidade);
 		return $this->db->count_all_results('reuniao');
 	}
+
+	public function excluir_entra($idComunidade) {
+		$this->db->where('id_comunidade',$idComunidade);
+		return $this->db->delete('entra'); // deleta a categoria selecionada 
+	}
+
 
 
 }

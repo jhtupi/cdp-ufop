@@ -29,7 +29,7 @@
                     <hr>
 
 
-                    <a class="btn btn-primary" href="">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a class="btn btn-primary" href="<?php echo base_url('comunidade/'.$comunidade->id)?>">Saiba mais <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     <hr>
                 <?php
